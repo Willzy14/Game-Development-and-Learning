@@ -1976,6 +1976,9 @@ class Game {
             console.log('COLLISION DETECTED - Setting GAME_OVER state');
             currentState = GameState.GAME_OVER;
             
+            // Stop background music
+            audio.stopBackgroundMusic();
+            
             // Enhanced death sequence
             // (head already defined above)
             
@@ -2420,11 +2423,15 @@ document.addEventListener('keydown', (e) => {
             currentState = GameState.PLAYING;
             lastMoveTime = Date.now();
             playGameStart();
+            // Start ambient background music
+            audio.startBackgroundMusic();
         } else if (currentState === GameState.GAME_OVER) {
             game.reset();
             currentState = GameState.PLAYING;
             lastMoveTime = Date.now();
             playGameStart();
+            // Restart background music
+            audio.startBackgroundMusic();
         }
     }
 });

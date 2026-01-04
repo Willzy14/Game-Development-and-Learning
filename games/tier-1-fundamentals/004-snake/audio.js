@@ -10,6 +10,18 @@ class AudioSystem {
         this.enabled = true;
         this.masterVolume = 0.3;
         this.initialized = false;
+        
+        // Background music system
+        this.backgroundMusic = {
+            playing: false,
+            padOscillators: [],
+            bassOscillator: null,
+            bassGain: null,
+            padGain: null,
+            melodyInterval: null,
+            textureInterval: null,
+            currentChordIndex: 0
+        };
     }
     
     init() {
@@ -99,6 +111,263 @@ class AudioSystem {
         gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
         
         noise.start(ctx.currentTime);
+    }
+    
+    // ============================================
+    // BACKGROUND MUSIC - Procedural Ambient Space Atmosphere
+    // ============================================
+    
+    startBackgroundMusic() {
+        if (!this.enabled || !this.initialized || this.backgroundMusic.playing) return;
+        
+        console.log('Starting ambient space music...');
+        this.backgroundMusic.playing = true;
+        
+        const ctx = this.audioContext;
+        
+        // Create master gain for background music (lower than sound effects)
+        const masterMusicGain = ctx.createGain();
+        masterMusicGain.gain.setValueAtTime(this.masterVolume * 0.15, ctx.currentTime); // Very subtle
+        masterMusicGain.connect(ctx.destination);
+        
+        // Layer 1: Deep Bass Drone (rumbling space atmosphere)
+        this.createBassLayer(masterMusicGain);
+        
+        // Layer 2: Ambient Pad (evolving chord progression)
+        this.createPadLayer(masterMusicGain);
+        
+        // Layer 3: Melodic Elements (occasional notes, pentatonic scale)
+        this.createMelodyLayer(masterMusicGain);
+        
+        // Layer 4: Texture (subtle shimmer and atmosphere)
+        this.createTextureLayer(masterMusicGain);
+    }
+    
+    createBassLayer(destination) {
+        const ctx = this.audioContext;
+        
+        // Deep bass oscillator (40-60 Hz range - felt more than heard)
+        const bassOsc = ctx.createOscillator();
+        const bassGain = ctx.createGain();
+        
+        bassOsc.type = 'sine';
+        bassOsc.frequency.setValueAtTime(45, ctx.currentTime); // Very low A
+        
+        bassGain.gain.setValueAtTime(0, ctx.currentTime);
+        bassGain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 5); // Slow fade in
+        
+        bassOsc.connect(bassGain);
+        bassGain.connect(destination);
+        
+        bassOsc.start(ctx.currentTime);
+        
+        // Store for later cleanup
+        this.backgroundMusic.bassOscillator = bassOsc;
+        this.backgroundMusic.bassGain = bassGain;
+        
+        // Slowly modulate bass frequency for movement
+        this.modulateBass();
+    }
+    
+    modulateBass() {
+        if (!this.backgroundMusic.playing) return;
+        
+        const ctx = this.audioContext;
+        const bass = this.backgroundMusic.bassOscillator;
+        const currentTime = ctx.currentTime;
+        
+        // Slowly drift between 40-55 Hz
+        const targetFreq = 40 + Math.random() * 15;
+        bass.frequency.linearRampToValueAtTime(targetFreq, currentTime + 8);
+        
+        // Schedule next modulation
+        setTimeout(() => this.modulateBass(), 8000);
+    }
+    
+    createPadLayer(destination) {
+        const ctx = this.audioContext;
+        
+        // Space-themed chord progression (ambient, no minor/major, just intervals)
+        // Using frequencies that create ethereal atmosphere
+        const chordProgressions = [
+            [220, 330, 440],      // A2, E3, A3 - open fifth + octave
+            [196, 293.66, 392],   // G2, D3, G3
+            [246.94, 369.99, 493.88], // B2, F#3, B3
+            [261.63, 392, 523.25]     // C3, G3, C4
+        ];
+        
+        this.backgroundMusic.padGain = ctx.createGain();
+        this.backgroundMusic.padGain.gain.setValueAtTime(0, ctx.currentTime);
+        this.backgroundMusic.padGain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 3);
+        this.backgroundMusic.padGain.connect(destination);
+        
+        // Start with first chord
+        this.playChord(chordProgressions[0]);
+        
+        // Change chords slowly
+        this.chordChangeInterval = setInterval(() => {
+            if (!this.backgroundMusic.playing) return;
+            
+            this.backgroundMusic.currentChordIndex = 
+                (this.backgroundMusic.currentChordIndex + 1) % chordProgressions.length;
+            
+            const nextChord = chordProgressions[this.backgroundMusic.currentChordIndex];
+            this.transitionChord(nextChord);
+        }, 12000); // Change chord every 12 seconds
+    }
+    
+    playChord(frequencies) {
+        const ctx = this.audioContext;
+        const padGain = this.backgroundMusic.padGain;
+        
+        // Stop existing oscillators
+        this.backgroundMusic.padOscillators.forEach(osc => {
+            try {
+                osc.stop();
+            } catch (e) {}
+        });
+        this.backgroundMusic.padOscillators = [];
+        
+        // Create new chord
+        frequencies.forEach(freq => {
+            const osc = ctx.createOscillator();
+            osc.type = 'sine'; // Pure sine for ethereal quality
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            osc.connect(padGain);
+            osc.start(ctx.currentTime);
+            
+            this.backgroundMusic.padOscillators.push(osc);
+        });
+    }
+    
+    transitionChord(newFrequencies) {
+        const ctx = this.audioContext;
+        const currentTime = ctx.currentTime;
+        
+        // Fade out current chord
+        this.backgroundMusic.padGain.gain.linearRampToValueAtTime(0, currentTime + 1);
+        
+        // After fade out, switch to new chord and fade in
+        setTimeout(() => {
+            if (!this.backgroundMusic.playing) return;
+            this.playChord(newFrequencies);
+            this.backgroundMusic.padGain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 1);
+        }, 1000);
+    }
+    
+    createMelodyLayer(destination) {
+        // Pentatonic scale in A minor (space-like, no dissonance)
+        // A, C, D, E, G - works over any of our chords
+        const pentatonicScale = [
+            440,    // A4
+            523.25, // C5
+            587.33, // D5
+            659.25, // E5
+            783.99  // G5
+        ];
+        
+        // Play occasional melodic notes (not too frequent)
+        this.backgroundMusic.melodyInterval = setInterval(() => {
+            if (!this.backgroundMusic.playing) return;
+            
+            // 60% chance to play a note
+            if (Math.random() > 0.4) {
+                const note = pentatonicScale[Math.floor(Math.random() * pentatonicScale.length)];
+                this.playMelodyNote(note, destination);
+            }
+        }, 4000); // Check every 4 seconds
+    }
+    
+    playMelodyNote(frequency, destination) {
+        const ctx = this.audioContext;
+        
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'triangle'; // Softer than sine, more character
+        osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+        
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 0.3);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 2); // Long decay
+        
+        osc.connect(gain);
+        gain.connect(destination);
+        
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 2);
+    }
+    
+    createTextureLayer(destination) {
+        // Subtle high-frequency shimmer for space atmosphere
+        this.backgroundMusic.textureInterval = setInterval(() => {
+            if (!this.backgroundMusic.playing) return;
+            
+            // Occasional sparkle/shimmer
+            if (Math.random() > 0.7) {
+                this.playShimmer(destination);
+            }
+        }, 3000);
+    }
+    
+    playShimmer(destination) {
+        const ctx = this.audioContext;
+        
+        // High frequency sparkle
+        const freq = 2000 + Math.random() * 2000; // 2-4 kHz
+        
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.5);
+        
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.03, ctx.currentTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
+        
+        osc.connect(gain);
+        gain.connect(destination);
+        
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.5);
+    }
+    
+    stopBackgroundMusic() {
+        if (!this.backgroundMusic.playing) return;
+        
+        console.log('Stopping background music...');
+        this.backgroundMusic.playing = false;
+        
+        // Stop bass
+        if (this.backgroundMusic.bassOscillator) {
+            try {
+                this.backgroundMusic.bassOscillator.stop();
+            } catch (e) {}
+        }
+        
+        // Stop pad oscillators
+        this.backgroundMusic.padOscillators.forEach(osc => {
+            try {
+                osc.stop();
+            } catch (e) {}
+        });
+        
+        // Clear intervals
+        if (this.backgroundMusic.melodyInterval) {
+            clearInterval(this.backgroundMusic.melodyInterval);
+        }
+        if (this.backgroundMusic.textureInterval) {
+            clearInterval(this.backgroundMusic.textureInterval);
+        }
+        if (this.chordChangeInterval) {
+            clearInterval(this.chordChangeInterval);
+        }
+        
+        // Reset
+        this.backgroundMusic.padOscillators = [];
+        this.backgroundMusic.bassOscillator = null;
     }
 }
 
