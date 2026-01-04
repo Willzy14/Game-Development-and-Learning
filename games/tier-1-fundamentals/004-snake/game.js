@@ -1,4 +1,116 @@
 // ============================================
+// HIGH SCORE SYSTEM - localStorage Persistence
+// ============================================
+class HighScoreManager {
+    constructor() {
+        this.storageKey = 'snake_high_scores';
+        this.statsKey = 'snake_stats';
+        this.maxScores = 5;
+    }
+    
+    // Load high scores from localStorage
+    loadScores() {
+        try {
+            const saved = localStorage.getItem(this.storageKey);
+            return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+            console.warn('Failed to load high scores:', e);
+            return [];
+        }
+    }
+    
+    // Save high scores to localStorage
+    saveScores(scores) {
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(scores));
+        } catch (e) {
+            console.warn('Failed to save high scores:', e);
+        }
+    }
+    
+    // Check if a score qualifies for the leaderboard
+    isHighScore(score) {
+        const scores = this.loadScores();
+        return scores.length < this.maxScores || score > scores[scores.length - 1].score;
+    }
+    
+    // Add a new high score
+    addScore(name, score, length, combo) {
+        const scores = this.loadScores();
+        const newEntry = {
+            name: name || 'Anonymous',
+            score: score,
+            length: length,
+            combo: combo,
+            date: new Date().toISOString()
+        };
+        
+        scores.push(newEntry);
+        scores.sort((a, b) => b.score - a.score);
+        
+        // Keep only top 5
+        const trimmed = scores.slice(0, this.maxScores);
+        this.saveScores(trimmed);
+        
+        // Return the rank (1-5)
+        return trimmed.findIndex(s => s === newEntry) + 1;
+    }
+    
+    // Get top scores
+    getTopScores() {
+        return this.loadScores();
+    }
+    
+    // Load stats
+    loadStats() {
+        try {
+            const saved = localStorage.getItem(this.statsKey);
+            return saved ? JSON.parse(saved) : {
+                gamesPlayed: 0,
+                totalFood: 0,
+                bestScore: 0,
+                bestCombo: 0,
+                bestLength: 0
+            };
+        } catch (e) {
+            console.warn('Failed to load stats:', e);
+            return {
+                gamesPlayed: 0,
+                totalFood: 0,
+                bestScore: 0,
+                bestCombo: 0,
+                bestLength: 0
+            };
+        }
+    }
+    
+    // Update stats
+    updateStats(score, foodEaten, combo, length) {
+        const stats = this.loadStats();
+        stats.gamesPlayed++;
+        stats.totalFood += foodEaten;
+        stats.bestScore = Math.max(stats.bestScore, score);
+        stats.bestCombo = Math.max(stats.bestCombo, combo);
+        stats.bestLength = Math.max(stats.bestLength, length);
+        
+        try {
+            localStorage.setItem(this.statsKey, JSON.stringify(stats));
+        } catch (e) {
+            console.warn('Failed to save stats:', e);
+        }
+    }
+    
+    // Clear all data (for debugging/reset)
+    clearAll() {
+        localStorage.removeItem(this.storageKey);
+        localStorage.removeItem(this.statsKey);
+    }
+}
+
+// Create global high score manager
+const highScoreManager = new HighScoreManager();
+
+// ============================================
 // GAME CONSTANTS
 // ============================================
 const canvas = document.getElementById('gameCanvas');
@@ -1874,6 +1986,14 @@ class Game {
         this.achievedMilestones = [];
         this.milestoneText = null;
         this.lastDirection = Direction.RIGHT;
+        
+        // High score system
+        this.isHighScore = false;
+        this.highScoreRank = 0;
+        this.highScoreChecked = false;
+        this.playerName = '';
+        this.enteringName = false;
+        this.maxCombo = 0; // Track best combo this game
     }
     
     update() {
@@ -1979,6 +2099,21 @@ class Game {
             // Stop background music
             audio.stopBackgroundMusic();
             
+            // Update stats and check for high score (only once)
+            if (!this.highScoreChecked) {
+                const foodEaten = this.snake.segments.length - INITIAL_LENGTH;
+                highScoreManager.updateStats(this.score, foodEaten, this.maxCombo, this.snake.segments.length);
+                
+                this.isHighScore = highScoreManager.isHighScore(this.score);
+                this.highScoreChecked = true;
+                
+                if (this.isHighScore) {
+                    console.log('NEW HIGH SCORE!');
+                    this.enteringName = true;
+                    this.playerName = '';
+                }
+            }
+            
             // Enhanced death sequence
             // (head already defined above)
             
@@ -2056,6 +2191,9 @@ class Game {
                 this.comboMultiplier = 1;
             }
             this.lastFoodTime = Date.now();
+            
+            // Track maximum combo achieved
+            this.maxCombo = Math.max(this.maxCombo, this.comboCount);
             
             // Apply points with combo multiplier
             const hasDoublePoints = this.activePowerUps.some(pu => pu.type.effect === 'doublePoints');
@@ -2248,24 +2386,136 @@ class Game {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             
-            // GAME OVER text with glow
             ctx.save();
-            ctx.fillStyle = '#ff4444';
-            ctx.font = 'bold 48px Arial';
             ctx.textAlign = 'center';
-            ctx.shadowBlur = 30;
-            ctx.shadowColor = '#ff0000';
-            ctx.fillText('GAME OVER', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
             
-            // Score text
-            ctx.font = 'bold 24px Arial';
-            ctx.fillStyle = '#ffffff';
-            ctx.shadowBlur = 15;
-            ctx.fillText(`Final Score: ${this.score}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 50);
+            if (this.enteringName) {
+                // NEW HIGH SCORE - Name Entry Screen
+                ctx.fillStyle = '#ffdd00';
+                ctx.font = 'bold 42px Arial';
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#ffdd00';
+                ctx.fillText('🎉 NEW HIGH SCORE! 🎉', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 120);
+                
+                ctx.font = 'bold 28px Arial';
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 15;
+                ctx.fillText(`Score: ${this.score}`, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 70);
+                
+                ctx.font = '20px Arial';
+                ctx.fillText('Enter your name:', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 30);
+                
+                // Name input box
+                ctx.strokeStyle = '#00ff88';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(CANVAS_WIDTH / 2 - 150, CANVAS_HEIGHT / 2 - 10, 300, 50);
+                
+                // Player name with cursor
+                ctx.font = 'bold 24px Arial';
+                ctx.fillStyle = '#00ff88';
+                const displayName = this.playerName || '_';
+                ctx.fillText(displayName + (Math.floor(Date.now() / 500) % 2 ? '|' : ''), 
+                            CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 25);
+                
+                ctx.font = '16px Arial';
+                ctx.fillStyle = '#aaaaaa';
+                ctx.fillText('Press ENTER when done (or ESC to skip)', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 70);
+                
+            } else {
+                // Regular Game Over Screen with Leaderboard
+                ctx.fillStyle = '#ff4444';
+                ctx.font = 'bold 48px Arial';
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#ff0000';
+                ctx.fillText('GAME OVER', CANVAS_WIDTH / 2, 100);
+                
+                // Final stats
+                ctx.font = 'bold 24px Arial';
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 15;
+                ctx.fillText(`Final Score: ${this.score}`, CANVAS_WIDTH / 2, 150);
+                
+                ctx.font = '18px Arial';
+                ctx.fillStyle = '#aaaaaa';
+                const foodEaten = this.snake.segments.length - INITIAL_LENGTH;
+                ctx.fillText(`Length: ${this.snake.segments.length} | Food: ${foodEaten} | Best Combo: x${this.maxCombo}`, 
+                            CANVAS_WIDTH / 2, 180);
+                
+                // High Score indicator
+                if (this.isHighScore && this.highScoreRank > 0) {
+                    ctx.font = 'bold 20px Arial';
+                    ctx.fillStyle = '#ffdd00';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#ffdd00';
+                    ctx.fillText(`⭐ Rank #${this.highScoreRank} on Leaderboard! ⭐`, CANVAS_WIDTH / 2, 215);
+                }
+                
+                // Leaderboard Title
+                ctx.font = 'bold 26px Arial';
+                ctx.fillStyle = '#00ff88';
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#00ff88';
+                ctx.fillText('━━━ TOP 5 HIGH SCORES ━━━', CANVAS_WIDTH / 2, 270);
+                
+                // Leaderboard Entries
+                const highScores = highScoreManager.getTopScores();
+                ctx.font = '18px "Courier New"';
+                ctx.shadowBlur = 5;
+                
+                if (highScores.length === 0) {
+                    ctx.fillStyle = '#888888';
+                    ctx.fillText('No high scores yet. Be the first!', CANVAS_WIDTH / 2, 320);
+                } else {
+                    highScores.forEach((entry, index) => {
+                        const y = 310 + index * 35;
+                        const isCurrentScore = this.isHighScore && index + 1 === this.highScoreRank;
+                        
+                        // Highlight current game's score
+                        if (isCurrentScore) {
+                            ctx.fillStyle = 'rgba(255, 221, 0, 0.2)';
+                            ctx.fillRect(CANVAS_WIDTH / 2 - 280, y - 20, 560, 30);
+                        }
+                        
+                        // Rank
+                        ctx.fillStyle = index < 3 ? '#ffdd00' : '#aaaaaa';
+                        ctx.textAlign = 'left';
+                        ctx.fillText(`${index + 1}.`, CANVAS_WIDTH / 2 - 270, y);
+                        
+                        // Name (truncate if too long)
+                        ctx.fillStyle = isCurrentScore ? '#ffdd00' : '#ffffff';
+                        const displayName = entry.name.length > 12 ? entry.name.substring(0, 12) + '...' : entry.name;
+                        ctx.fillText(displayName, CANVAS_WIDTH / 2 - 240, y);
+                        
+                        // Score
+                        ctx.textAlign = 'right';
+                        ctx.fillText(`${entry.score}`, CANVAS_WIDTH / 2 + 50, y);
+                        
+                        // Length
+                        ctx.fillStyle = isCurrentScore ? '#ffaa00' : '#888888';
+                        ctx.fillText(`L:${entry.length}`, CANVAS_WIDTH / 2 + 150, y);
+                        
+                        // Best Combo
+                        ctx.fillText(`C:x${entry.combo}`, CANVAS_WIDTH / 2 + 250, y);
+                        
+                        ctx.textAlign = 'center';
+                    });
+                }
+                
+                // Stats Summary
+                const stats = highScoreManager.loadStats();
+                ctx.font = '16px Arial';
+                ctx.fillStyle = '#666666';
+                ctx.shadowBlur = 0;
+                ctx.fillText(`Games Played: ${stats.gamesPlayed} | Best: ${stats.bestScore} | Total Food: ${stats.totalFood}`, 
+                            CANVAS_WIDTH / 2, CANVAS_HEIGHT - 60);
+                
+                // Restart instruction
+                ctx.font = '18px Arial';
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 10;
+                ctx.fillText('Press SPACE to Play Again', CANVAS_WIDTH / 2, CANVAS_HEIGHT - 20);
+            }
             
-            // Restart instruction
-            ctx.font = '18px Arial';
-            ctx.fillText('Press SPACE to Restart', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 90);
             ctx.restore();
         }
         
@@ -2382,6 +2632,15 @@ class Game {
         this.achievedMilestones = [];
         this.milestoneText = null;
         this.starfield = new Starfield();
+        
+        // Reset high score tracking
+        this.isHighScore = false;
+        this.highScoreRank = 0;
+        this.highScoreChecked = false;
+        this.playerName = '';
+        this.enteringName = false;
+        this.maxCombo = 0;
+        
         updateScoreDisplay();
     }
 }
@@ -2394,6 +2653,45 @@ const keys = {};
 
 document.addEventListener('keydown', (e) => {
     keys[e.key] = true;
+    
+    // Handle name entry in game over screen
+    if (currentState === GameState.GAME_OVER && game.enteringName) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            // Submit high score
+            if (game.playerName.trim().length === 0) {
+                game.playerName = 'Anonymous';
+            }
+            game.highScoreRank = highScoreManager.addScore(
+                game.playerName, 
+                game.score, 
+                game.snake.segments.length,
+                game.maxCombo
+            );
+            game.enteringName = false;
+            playMilestoneSound();
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            // Skip name entry
+            game.playerName = 'Anonymous';
+            game.highScoreRank = highScoreManager.addScore(
+                game.playerName, 
+                game.score, 
+                game.snake.segments.length,
+                game.maxCombo
+            );
+            game.enteringName = false;
+        } else if (e.key === 'Backspace') {
+            e.preventDefault();
+            game.playerName = game.playerName.slice(0, -1);
+        } else if (e.key.length === 1 && game.playerName.length < 15) {
+            // Add letter/number/space (max 15 characters)
+            if (/^[a-zA-Z0-9 ]$/.test(e.key)) {
+                game.playerName += e.key;
+            }
+        }
+        return; // Don't process other keys while entering name
+    }
     
     // Handle arrow keys
     if (currentState === GameState.PLAYING) {
@@ -2425,7 +2723,7 @@ document.addEventListener('keydown', (e) => {
             playGameStart();
             // Start ambient background music
             audio.startBackgroundMusic();
-        } else if (currentState === GameState.GAME_OVER) {
+        } else if (currentState === GameState.GAME_OVER && !game.enteringName) {
             game.reset();
             currentState = GameState.PLAYING;
             lastMoveTime = Date.now();
