@@ -2380,8 +2380,6 @@ class Game {
             ctx.textAlign = 'center';
             ctx.fillText('Press SPACE to Start', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 40);
         } else if (currentState === GameState.GAME_OVER) {
-            console.log('Rendering GAME_OVER screen');
-            
             // Dark overlay
             ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -2711,7 +2709,7 @@ document.addEventListener('keydown', (e) => {
     }
     
     // Handle spacebar for state changes
-    if (e.key === ' ') {
+    if (e.key === ' ' || e.code === 'Space') {
         e.preventDefault();
         
         // Initialize audio on first interaction
@@ -2739,6 +2737,298 @@ document.addEventListener('keyup', (e) => {
 });
 
 // ============================================
+// TIER-1 FUNDAMENTALS
+// ============================================
+
+// === SETTINGS SYSTEM ===
+class SettingsManager {
+    constructor() {
+        this.settingsKey = 'snake_settings';
+        this.defaultSettings = {
+            masterVolume: 30,
+            musicVolume: 15,
+            showFPS: false,
+            showTouchControls: 'auto' // auto, always, never
+        };
+        this.settings = this.loadSettings();
+        this.applySettings();
+    }
+    
+    loadSettings() {
+        try {
+            const saved = localStorage.getItem(this.settingsKey);
+            return saved ? { ...this.defaultSettings, ...JSON.parse(saved) } : this.defaultSettings;
+        } catch (e) {
+            console.warn('Failed to load settings:', e);
+            return this.defaultSettings;
+        }
+    }
+    
+    saveSettings() {
+        try {
+            localStorage.setItem(this.settingsKey, JSON.stringify(this.settings));
+            this.applySettings();
+        } catch (e) {
+            console.warn('Failed to save settings:', e);
+        }
+    }
+    
+    applySettings() {
+        // Apply volume settings
+        audio.masterVolume = this.settings.masterVolume / 100;
+        audio.musicVolume = this.settings.musicVolume / 100;
+        
+        // Apply FPS counter visibility
+        const fpsCounter = document.getElementById('fpsCounter');
+        fpsCounter.style.display = this.settings.showFPS ? 'block' : 'none';
+        
+        // Apply touch controls visibility
+        this.updateTouchControlsVisibility();
+    }
+    
+    updateTouchControlsVisibility() {
+        const touchControls = document.getElementById('touchControls');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (this.settings.showTouchControls === 'always') {
+            touchControls.style.display = 'flex';
+        } else if (this.settings.showTouchControls === 'never') {
+            touchControls.style.display = 'none';
+        } else { // auto
+            touchControls.style.display = isTouchDevice ? 'flex' : 'none';
+        }
+    }
+}
+
+const settingsManager = new SettingsManager();
+
+// === SETTINGS MODAL ===
+const settingsModal = document.getElementById('settingsModal');
+const settingsBtn = document.getElementById('settingsBtn');
+const closeModalBtn = document.querySelector('.close-btn');
+const masterVolumeSlider = document.getElementById('masterVolume');
+const musicVolumeSlider = document.getElementById('musicVolume');
+const masterVolumeValue = document.getElementById('masterVolumeValue');
+const musicVolumeValue = document.getElementById('musicVolumeValue');
+const showFPSCheckbox = document.getElementById('showFPS');
+const showTouchControlsCheckbox = document.getElementById('showTouchControls');
+const resetScoresBtn = document.getElementById('resetScores');
+
+// Open settings modal
+settingsBtn.addEventListener('click', () => {
+    // Load current settings into UI
+    masterVolumeSlider.value = settingsManager.settings.masterVolume;
+    musicVolumeSlider.value = settingsManager.settings.musicVolume;
+    masterVolumeValue.textContent = settingsManager.settings.masterVolume + '%';
+    musicVolumeValue.textContent = settingsManager.settings.musicVolume + '%';
+    showFPSCheckbox.checked = settingsManager.settings.showFPS;
+    showTouchControlsCheckbox.checked = settingsManager.settings.showTouchControls === 'always';
+    
+    settingsModal.style.display = 'block';
+});
+
+// Close settings modal
+closeModalBtn.addEventListener('click', () => {
+    settingsModal.style.display = 'none';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === settingsModal) {
+        settingsModal.style.display = 'none';
+    }
+});
+
+// Volume sliders
+masterVolumeSlider.addEventListener('input', (e) => {
+    const value = e.target.value;
+    masterVolumeValue.textContent = value + '%';
+    settingsManager.settings.masterVolume = parseInt(value);
+    settingsManager.saveSettings();
+    audio.updateMusicVolume(); // Update music volume in real-time
+});
+
+musicVolumeSlider.addEventListener('input', (e) => {
+    const value = e.target.value;
+    musicVolumeValue.textContent = value + '%';
+    settingsManager.settings.musicVolume = parseInt(value);
+    settingsManager.saveSettings();
+    audio.updateMusicVolume(); // Update music volume in real-time
+});
+
+// FPS checkbox
+showFPSCheckbox.addEventListener('change', (e) => {
+    settingsManager.settings.showFPS = e.target.checked;
+    settingsManager.saveSettings();
+});
+
+// Touch controls checkbox
+showTouchControlsCheckbox.addEventListener('change', (e) => {
+    settingsManager.settings.showTouchControls = e.target.checked ? 'always' : 'auto';
+    settingsManager.saveSettings();
+});
+
+// Reset scores button
+resetScoresBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset all high scores? This cannot be undone!')) {
+        localStorage.removeItem(highScoreManager.storageKey);
+        localStorage.removeItem(highScoreManager.statsKey);
+        alert('All scores have been reset!');
+        settingsModal.style.display = 'none';
+    }
+});
+
+// === PAUSE SYSTEM ===
+let isPaused = false;
+const pauseBtn = document.getElementById('pauseBtn');
+
+function togglePause() {
+    if (currentState !== GameState.PLAYING) return;
+    
+    isPaused = !isPaused;
+    pauseBtn.textContent = isPaused ? '▶️' : '⏸️';
+    
+    if (isPaused) {
+        audio.stopBackgroundMusic();
+    } else {
+        audio.startBackgroundMusic();
+        lastMoveTime = Date.now(); // Reset move timer to prevent instant move after unpause
+    }
+}
+
+pauseBtn.addEventListener('click', togglePause);
+
+// P key to pause
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        togglePause();
+    }
+});
+
+// === FULLSCREEN SYSTEM ===
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const gameContainer = document.querySelector('.game-container');
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        gameContainer.requestFullscreen().catch(err => {
+            console.warn('Fullscreen request failed:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+// Update button icon on fullscreen change
+document.addEventListener('fullscreenchange', () => {
+    fullscreenBtn.textContent = document.fullscreenElement ? '⛉' : '⛶';
+});
+
+// === FPS COUNTER ===
+let lastFrameTime = performance.now();
+let frameCount = 0;
+let fps = 60;
+
+function updateFPS() {
+    const now = performance.now();
+    frameCount++;
+    
+    if (now >= lastFrameTime + 1000) {
+        fps = Math.round((frameCount * 1000) / (now - lastFrameTime));
+        frameCount = 0;
+        lastFrameTime = now;
+        
+        const fpsCounter = document.getElementById('fpsCounter');
+        fpsCounter.textContent = `FPS: ${fps}`;
+    }
+}
+
+// === MOBILE TOUCH CONTROLS ===
+const dpadUp = document.getElementById('dpadUp');
+const dpadDown = document.getElementById('dpadDown');
+const dpadLeft = document.getElementById('dpadLeft');
+const dpadRight = document.getElementById('dpadRight');
+const actionBtn = document.getElementById('actionBtn');
+
+// D-pad touch handlers
+dpadUp.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (currentState === GameState.PLAYING && !isPaused) {
+        game.snake.setDirection(Direction.UP);
+    }
+});
+
+dpadDown.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (currentState === GameState.PLAYING && !isPaused) {
+        game.snake.setDirection(Direction.DOWN);
+    }
+});
+
+dpadLeft.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (currentState === GameState.PLAYING && !isPaused) {
+        game.snake.setDirection(Direction.LEFT);
+    }
+});
+
+dpadRight.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (currentState === GameState.PLAYING && !isPaused) {
+        game.snake.setDirection(Direction.RIGHT);
+    }
+});
+
+// Action button (start/pause/restart)
+function handleActionButton(e) {
+    e.preventDefault();
+    
+    // Initialize audio on first interaction
+    audio.init();
+    
+    if (currentState === GameState.MENU) {
+        currentState = GameState.PLAYING;
+        lastMoveTime = Date.now();
+        playGameStart();
+        audio.startBackgroundMusic();
+    } else if (currentState === GameState.PLAYING) {
+        togglePause();
+    } else if (currentState === GameState.GAME_OVER && !game.enteringName) {
+        game.reset();
+        currentState = GameState.PLAYING;
+        lastMoveTime = Date.now();
+        playGameStart();
+        audio.startBackgroundMusic();
+    }
+}
+
+actionBtn.addEventListener('touchstart', handleActionButton);
+actionBtn.addEventListener('click', handleActionButton);
+
+// Prevent default touch behaviors on game elements
+canvas.addEventListener('touchstart', (e) => e.preventDefault());
+canvas.addEventListener('touchmove', (e) => e.preventDefault());
+canvas.addEventListener('touchend', (e) => e.preventDefault());
+
+// === RESPONSIVE CANVAS ===
+function resizeCanvas() {
+    // Canvas size is already set in HTML, but we could add dynamic resizing here
+    // For now, CSS handles the responsive scaling
+    
+    // Update touch controls visibility when resizing (orientation change)
+    settingsManager.updateTouchControlsVisibility();
+}
+
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('orientationchange', resizeCanvas);
+
+// Initial resize
+resizeCanvas();
+
+// ============================================
 // UI UPDATES
 // ============================================
 
@@ -2747,20 +3037,48 @@ function updateScoreDisplay() {
 }
 
 // ============================================
-// GAME LOOP
+// GAME LOOP (with pause support)
 // ============================================
 
 const game = new Game();
 updateScoreDisplay();
 
 function gameLoop() {
-    game.update();
+    updateFPS(); // Update FPS counter
+    
+    if (!isPaused) {
+        game.update();
+    }
+    
     game.render(ctx);
+    
+    // Draw pause overlay if paused
+    if (isPaused) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = 'bold 72px Arial';
+        ctx.fillStyle = '#00ff88';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0, 255, 136, 0.8)';
+        ctx.shadowBlur = 20;
+        ctx.fillText('PAUSED', canvas.width / 2, canvas.height / 2 - 40);
+        
+        ctx.font = '24px Arial';
+        ctx.fillStyle = '#00ffff';
+        ctx.shadowBlur = 10;
+        ctx.fillText('Press P or ⏸️ to Resume', canvas.width / 2, canvas.height / 2 + 40);
+        ctx.restore();
+    }
+    
     requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
 
-console.log('Snake game initialized');
+console.log('Snake game initialized with tier-1 fundamentals');
 console.log(`Grid: ${GRID_WIDTH}x${GRID_HEIGHT} cells`);
 console.log(`Cell size: ${GRID_SIZE}px`);
+console.log('Features: Touch Controls, Pause, Fullscreen, FPS Counter, Settings');

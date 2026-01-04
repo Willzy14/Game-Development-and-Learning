@@ -9,6 +9,7 @@ class AudioSystem {
         this.audioContext = null;
         this.enabled = true;
         this.masterVolume = 0.3;
+        this.musicVolume = 0.15; // Separate volume for background music
         this.initialized = false;
         
         // Background music system
@@ -20,7 +21,8 @@ class AudioSystem {
             padGain: null,
             melodyInterval: null,
             textureInterval: null,
-            currentChordIndex: 0
+            currentChordIndex: 0,
+            masterMusicGain: null // Store reference to update volume
         };
     }
     
@@ -125,10 +127,13 @@ class AudioSystem {
         
         const ctx = this.audioContext;
         
-        // Create master gain for background music (lower than sound effects)
+        // Create master gain for background music (controlled by musicVolume setting)
         const masterMusicGain = ctx.createGain();
-        masterMusicGain.gain.setValueAtTime(this.masterVolume * 0.15, ctx.currentTime); // Very subtle
+        masterMusicGain.gain.setValueAtTime(this.masterVolume * this.musicVolume, ctx.currentTime);
         masterMusicGain.connect(ctx.destination);
+        
+        // Store reference to update volume later
+        this.backgroundMusic.masterMusicGain = masterMusicGain;
         
         // Layer 1: Deep Bass Drone (rumbling space atmosphere)
         this.createBassLayer(masterMusicGain);
@@ -472,3 +477,11 @@ function playSpeedRamp() {
     oscillator.start(ctx.currentTime);
     oscillator.stop(ctx.currentTime + 0.25);
 }
+
+// Add method to AudioSystem to update music volume in real-time
+AudioSystem.prototype.updateMusicVolume = function() {
+    if (this.backgroundMusic.masterMusicGain) {
+        const newVolume = this.masterVolume * this.musicVolume;
+        this.backgroundMusic.masterMusicGain.gain.setValueAtTime(newVolume, this.audioContext.currentTime);
+    }
+};
