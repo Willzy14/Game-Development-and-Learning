@@ -137,49 +137,16 @@ class Starfield {
             }
         });
         
-        // ENHANCED: Multi-layer nebula clouds with depth
+        // Nebula clouds
         this.nebulae = [];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 8; i++) {
             this.nebulae.push({
                 x: Math.random() * CANVAS_WIDTH,
                 y: Math.random() * CANVAS_HEIGHT,
-                radius: 60 + Math.random() * 160,
-                // More color variety: purple, blue, teal, orange, magenta
-                color: ['rgba(100, 50, 150', 'rgba(50, 100, 150', 'rgba(50, 150, 150', 
-                        'rgba(150, 100, 50', 'rgba(150, 50, 100'][Math.floor(Math.random() * 5)],
-                alpha: 0.015 + Math.random() * 0.03,
-                drift: (Math.random() - 0.5) * 0.15,
-                layer: Math.floor(Math.random() * 3), // 0 = far, 1 = mid, 2 = near
-                pulsePhase: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.002 + Math.random() * 0.003
-            });
-        }
-        
-        // NEW: Distant spiral galaxies using logarithmic spiral formula
-        this.galaxies = [];
-        for (let i = 0; i < 3; i++) {
-            this.galaxies.push({
-                x: Math.random() * CANVAS_WIDTH,
-                y: Math.random() * CANVAS_HEIGHT,
-                coreRadius: 8 + Math.random() * 12,
-                rotation: Math.random() * Math.PI * 2,
-                rotationSpeed: (Math.random() - 0.5) * 0.0005,
-                spiralTightness: 0.15 + Math.random() * 0.1,
-                arms: 2 + Math.floor(Math.random() * 2), // 2-3 spiral arms
-                color: ['#8888ff', '#ff88ff', '#88ffff'][Math.floor(Math.random() * 3)]
-            });
-        }
-        
-        // NEW: Cosmic dust particles with parallax
-        this.dustParticles = [];
-        for (let i = 0; i < 200; i++) {
-            this.dustParticles.push({
-                x: Math.random() * CANVAS_WIDTH,
-                y: Math.random() * CANVAS_HEIGHT,
-                size: 0.5 + Math.random() * 1,
-                speed: 0.05 + Math.random() * 0.15,
-                opacity: 0.1 + Math.random() * 0.2,
-                drift: (Math.random() - 0.5) * 0.3
+                radius: 80 + Math.random() * 120,
+                color: Math.random() > 0.5 ? 'rgba(100, 50, 150' : 'rgba(50, 100, 150',
+                alpha: 0.02 + Math.random() * 0.03,
+                drift: (Math.random() - 0.5) * 0.2
             });
         }
         
@@ -200,41 +167,17 @@ class Starfield {
             star.twinkle += 0.02 * this.intensity; // Animate twinkle faster with intensity
         });
         
-        // Drift nebulae slowly with pulsing effect
+        // Drift nebulae slowly
         this.nebulae.forEach(nebula => {
             nebula.x += nebula.drift;
-            nebula.pulsePhase += nebula.pulseSpeed;
             if (nebula.x < -nebula.radius) nebula.x = CANVAS_WIDTH + nebula.radius;
             if (nebula.x > CANVAS_WIDTH + nebula.radius) nebula.x = -nebula.radius;
-        });
-        
-        // Rotate galaxies slowly
-        this.galaxies.forEach(galaxy => {
-            galaxy.rotation += galaxy.rotationSpeed;
-        });
-        
-        // Drift dust particles with parallax
-        this.dustParticles.forEach(particle => {
-            particle.y += particle.speed * 0.1 * this.intensity;
-            particle.x += particle.drift * 0.1;
-            if (particle.y > CANVAS_HEIGHT) {
-                particle.y = 0;
-                particle.x = Math.random() * CANVAS_WIDTH;
-            }
-            if (particle.x < 0) particle.x = CANVAS_WIDTH;
-            if (particle.x > CANVAS_WIDTH) particle.x = 0;
         });
     }
     
     render(ctx, activePowerUps = []) {
-        // Layer 1: Distant galaxies (furthest back)
-        this.renderGalaxies(ctx);
-        
-        // Layer 2: Multi-layer nebulae with additive blending
-        // Sort by layer for proper depth ordering
-        const sortedNebulae = [...this.nebulae].sort((a, b) => a.layer - b.layer);
-        
-        sortedNebulae.forEach(nebula => {
+        // Draw nebulae first (behind stars)
+        this.nebulae.forEach(nebula => {
             const gradient = ctx.createRadialGradient(
                 nebula.x, nebula.y, 0,
                 nebula.x, nebula.y, nebula.radius
@@ -248,32 +191,15 @@ class Starfield {
                 color = 'rgba(255, 170, 0';
             }
             
-            // Pulsing alpha for dynamic effect
-            const pulseAlpha = nebula.alpha * (0.8 + Math.sin(nebula.pulsePhase) * 0.2);
-            
-            gradient.addColorStop(0, color + `, ${pulseAlpha})`);
-            gradient.addColorStop(0.4, color + `, ${pulseAlpha * 0.7})`);
-            gradient.addColorStop(0.7, color + `, ${pulseAlpha * 0.3})`);
+            gradient.addColorStop(0, color + `, ${nebula.alpha})`);
+            gradient.addColorStop(0.5, color + `, ${nebula.alpha * 0.5})`);
             gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
             
-            // Use lighter composite operation for additive blending
-            ctx.save();
-            ctx.globalCompositeOperation = 'lighter';
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            ctx.restore();
         });
         
-        // Layer 3: Cosmic dust particles
-        ctx.save();
-        ctx.globalAlpha = 0.3;
-        this.dustParticles.forEach(particle => {
-            ctx.fillStyle = `rgba(200, 200, 220, ${particle.opacity})`;
-            ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
-        });
-        ctx.restore();
-        
-        // Layer 4: Stars with intensity-based brightness (foreground)
+        // Draw stars with intensity-based brightness
         this.stars.forEach(star => {
             const twinkleAlpha = star.opacity * (0.7 + Math.sin(star.twinkle) * 0.3) * this.intensity;
             ctx.fillStyle = star.color.replace(')', `, ${Math.min(twinkleAlpha, 1.0)})`);
@@ -281,67 +207,6 @@ class Starfield {
                 ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(twinkleAlpha, 1.0)})`;
             }
             ctx.fillRect(star.x, star.y, star.size, star.size);
-        });
-    }
-    
-    renderGalaxies(ctx) {
-        this.galaxies.forEach(galaxy => {
-            ctx.save();
-            ctx.translate(galaxy.x, galaxy.y);
-            ctx.rotate(galaxy.rotation);
-            
-            // Render using logarithmic spiral formula: r = a * e^(b*θ)
-            // Create multiple spiral arms
-            for (let arm = 0; arm < galaxy.arms; arm++) {
-                const armAngle = (Math.PI * 2 / galaxy.arms) * arm;
-                
-                ctx.beginPath();
-                
-                // Draw spiral arm with many points
-                for (let i = 0; i < 100; i++) {
-                    const theta = (i / 100) * Math.PI * 4; // 2 full rotations
-                    const r = galaxy.coreRadius * Math.exp(galaxy.spiralTightness * theta);
-                    
-                    if (r > galaxy.coreRadius * 15) break; // Don't spiral too far
-                    
-                    const x = r * Math.cos(theta + armAngle);
-                    const y = r * Math.sin(theta + armAngle);
-                    
-                    // Vary opacity based on distance from core
-                    const opacity = Math.max(0, 0.4 - (r / (galaxy.coreRadius * 15)) * 0.4);
-                    
-                    if (i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        // Draw stars along spiral
-                        const size = 1 + (Math.random() * 0.5);
-                        ctx.fillStyle = galaxy.color.replace(')', `, ${opacity})`);
-                        if (!ctx.fillStyle.includes('rgba')) {
-                            ctx.fillStyle = `rgba(136, 136, 255, ${opacity})`;
-                        }
-                        ctx.fillRect(x - size/2, y - size/2, size, size);
-                    }
-                }
-            }
-            
-            // Draw bright galactic core
-            const coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, galaxy.coreRadius);
-            coreGradient.addColorStop(0, galaxy.color.replace(')', ', 0.8)'));
-            coreGradient.addColorStop(0.5, galaxy.color.replace(')', ', 0.4)'));
-            coreGradient.addColorStop(1, galaxy.color.replace(')', ', 0)'));
-            if (!coreGradient) {
-                coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, galaxy.coreRadius);
-                coreGradient.addColorStop(0, 'rgba(200, 200, 255, 0.8)');
-                coreGradient.addColorStop(0.5, 'rgba(200, 200, 255, 0.4)');
-                coreGradient.addColorStop(1, 'rgba(200, 200, 255, 0)');
-            }
-            
-            ctx.fillStyle = coreGradient;
-            ctx.beginPath();
-            ctx.arc(0, 0, galaxy.coreRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.restore();
         });
     }
 }

@@ -137,49 +137,16 @@ class Starfield {
             }
         });
         
-        // ENHANCED: Multi-layer nebula clouds with depth
+        // Nebula clouds
         this.nebulae = [];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 8; i++) {
             this.nebulae.push({
                 x: Math.random() * CANVAS_WIDTH,
                 y: Math.random() * CANVAS_HEIGHT,
-                radius: 60 + Math.random() * 160,
-                // More color variety: purple, blue, teal, orange, magenta
-                color: ['rgba(100, 50, 150', 'rgba(50, 100, 150', 'rgba(50, 150, 150', 
-                        'rgba(150, 100, 50', 'rgba(150, 50, 100'][Math.floor(Math.random() * 5)],
-                alpha: 0.015 + Math.random() * 0.03,
-                drift: (Math.random() - 0.5) * 0.15,
-                layer: Math.floor(Math.random() * 3), // 0 = far, 1 = mid, 2 = near
-                pulsePhase: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.002 + Math.random() * 0.003
-            });
-        }
-        
-        // NEW: Distant spiral galaxies using logarithmic spiral formula
-        this.galaxies = [];
-        for (let i = 0; i < 3; i++) {
-            this.galaxies.push({
-                x: Math.random() * CANVAS_WIDTH,
-                y: Math.random() * CANVAS_HEIGHT,
-                coreRadius: 8 + Math.random() * 12,
-                rotation: Math.random() * Math.PI * 2,
-                rotationSpeed: (Math.random() - 0.5) * 0.0005,
-                spiralTightness: 0.15 + Math.random() * 0.1,
-                arms: 2 + Math.floor(Math.random() * 2), // 2-3 spiral arms
-                color: ['#8888ff', '#ff88ff', '#88ffff'][Math.floor(Math.random() * 3)]
-            });
-        }
-        
-        // NEW: Cosmic dust particles with parallax
-        this.dustParticles = [];
-        for (let i = 0; i < 200; i++) {
-            this.dustParticles.push({
-                x: Math.random() * CANVAS_WIDTH,
-                y: Math.random() * CANVAS_HEIGHT,
-                size: 0.5 + Math.random() * 1,
-                speed: 0.05 + Math.random() * 0.15,
-                opacity: 0.1 + Math.random() * 0.2,
-                drift: (Math.random() - 0.5) * 0.3
+                radius: 80 + Math.random() * 120,
+                color: Math.random() > 0.5 ? 'rgba(100, 50, 150' : 'rgba(50, 100, 150',
+                alpha: 0.02 + Math.random() * 0.03,
+                drift: (Math.random() - 0.5) * 0.2
             });
         }
         
@@ -200,41 +167,17 @@ class Starfield {
             star.twinkle += 0.02 * this.intensity; // Animate twinkle faster with intensity
         });
         
-        // Drift nebulae slowly with pulsing effect
+        // Drift nebulae slowly
         this.nebulae.forEach(nebula => {
             nebula.x += nebula.drift;
-            nebula.pulsePhase += nebula.pulseSpeed;
             if (nebula.x < -nebula.radius) nebula.x = CANVAS_WIDTH + nebula.radius;
             if (nebula.x > CANVAS_WIDTH + nebula.radius) nebula.x = -nebula.radius;
-        });
-        
-        // Rotate galaxies slowly
-        this.galaxies.forEach(galaxy => {
-            galaxy.rotation += galaxy.rotationSpeed;
-        });
-        
-        // Drift dust particles with parallax
-        this.dustParticles.forEach(particle => {
-            particle.y += particle.speed * 0.1 * this.intensity;
-            particle.x += particle.drift * 0.1;
-            if (particle.y > CANVAS_HEIGHT) {
-                particle.y = 0;
-                particle.x = Math.random() * CANVAS_WIDTH;
-            }
-            if (particle.x < 0) particle.x = CANVAS_WIDTH;
-            if (particle.x > CANVAS_WIDTH) particle.x = 0;
         });
     }
     
     render(ctx, activePowerUps = []) {
-        // Layer 1: Distant galaxies (furthest back)
-        this.renderGalaxies(ctx);
-        
-        // Layer 2: Multi-layer nebulae with additive blending
-        // Sort by layer for proper depth ordering
-        const sortedNebulae = [...this.nebulae].sort((a, b) => a.layer - b.layer);
-        
-        sortedNebulae.forEach(nebula => {
+        // Draw nebulae first (behind stars)
+        this.nebulae.forEach(nebula => {
             const gradient = ctx.createRadialGradient(
                 nebula.x, nebula.y, 0,
                 nebula.x, nebula.y, nebula.radius
@@ -248,32 +191,15 @@ class Starfield {
                 color = 'rgba(255, 170, 0';
             }
             
-            // Pulsing alpha for dynamic effect
-            const pulseAlpha = nebula.alpha * (0.8 + Math.sin(nebula.pulsePhase) * 0.2);
-            
-            gradient.addColorStop(0, color + `, ${pulseAlpha})`);
-            gradient.addColorStop(0.4, color + `, ${pulseAlpha * 0.7})`);
-            gradient.addColorStop(0.7, color + `, ${pulseAlpha * 0.3})`);
+            gradient.addColorStop(0, color + `, ${nebula.alpha})`);
+            gradient.addColorStop(0.5, color + `, ${nebula.alpha * 0.5})`);
             gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
             
-            // Use lighter composite operation for additive blending
-            ctx.save();
-            ctx.globalCompositeOperation = 'lighter';
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-            ctx.restore();
         });
         
-        // Layer 3: Cosmic dust particles
-        ctx.save();
-        ctx.globalAlpha = 0.3;
-        this.dustParticles.forEach(particle => {
-            ctx.fillStyle = `rgba(200, 200, 220, ${particle.opacity})`;
-            ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
-        });
-        ctx.restore();
-        
-        // Layer 4: Stars with intensity-based brightness (foreground)
+        // Draw stars with intensity-based brightness
         this.stars.forEach(star => {
             const twinkleAlpha = star.opacity * (0.7 + Math.sin(star.twinkle) * 0.3) * this.intensity;
             ctx.fillStyle = star.color.replace(')', `, ${Math.min(twinkleAlpha, 1.0)})`);
@@ -281,67 +207,6 @@ class Starfield {
                 ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(twinkleAlpha, 1.0)})`;
             }
             ctx.fillRect(star.x, star.y, star.size, star.size);
-        });
-    }
-    
-    renderGalaxies(ctx) {
-        this.galaxies.forEach(galaxy => {
-            ctx.save();
-            ctx.translate(galaxy.x, galaxy.y);
-            ctx.rotate(galaxy.rotation);
-            
-            // Render using logarithmic spiral formula: r = a * e^(b*θ)
-            // Create multiple spiral arms
-            for (let arm = 0; arm < galaxy.arms; arm++) {
-                const armAngle = (Math.PI * 2 / galaxy.arms) * arm;
-                
-                ctx.beginPath();
-                
-                // Draw spiral arm with many points
-                for (let i = 0; i < 100; i++) {
-                    const theta = (i / 100) * Math.PI * 4; // 2 full rotations
-                    const r = galaxy.coreRadius * Math.exp(galaxy.spiralTightness * theta);
-                    
-                    if (r > galaxy.coreRadius * 15) break; // Don't spiral too far
-                    
-                    const x = r * Math.cos(theta + armAngle);
-                    const y = r * Math.sin(theta + armAngle);
-                    
-                    // Vary opacity based on distance from core
-                    const opacity = Math.max(0, 0.4 - (r / (galaxy.coreRadius * 15)) * 0.4);
-                    
-                    if (i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        // Draw stars along spiral
-                        const size = 1 + (Math.random() * 0.5);
-                        ctx.fillStyle = galaxy.color.replace(')', `, ${opacity})`);
-                        if (!ctx.fillStyle.includes('rgba')) {
-                            ctx.fillStyle = `rgba(136, 136, 255, ${opacity})`;
-                        }
-                        ctx.fillRect(x - size/2, y - size/2, size, size);
-                    }
-                }
-            }
-            
-            // Draw bright galactic core
-            const coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, galaxy.coreRadius);
-            coreGradient.addColorStop(0, galaxy.color.replace(')', ', 0.8)'));
-            coreGradient.addColorStop(0.5, galaxy.color.replace(')', ', 0.4)'));
-            coreGradient.addColorStop(1, galaxy.color.replace(')', ', 0)'));
-            if (!coreGradient) {
-                coreGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, galaxy.coreRadius);
-                coreGradient.addColorStop(0, 'rgba(200, 200, 255, 0.8)');
-                coreGradient.addColorStop(0.5, 'rgba(200, 200, 255, 0.4)');
-                coreGradient.addColorStop(1, 'rgba(200, 200, 255, 0)');
-            }
-            
-            ctx.fillStyle = coreGradient;
-            ctx.beginPath();
-            ctx.arc(0, 0, galaxy.coreRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.restore();
         });
     }
 }
@@ -574,169 +439,62 @@ class SpaceEnvironment {
         ctx.translate(planet.x, planet.y);
         ctx.rotate(planet.rotation);
         
-        // Draw rings (if present) - ENHANCED with multiple bands
+        // Draw rings (if present) - behind planet
         if (planet.hasRings) {
             ctx.save();
             ctx.rotate(planet.ringAngle);
             ctx.scale(1, 0.3);
             
-            // Multiple ring bands for depth
-            const ringBands = [
-                { inner: 0.8, outer: 1.0, alpha: 'cc' },
-                { inner: 1.0, outer: 1.2, alpha: '99' },
-                { inner: 1.2, outer: 1.4, alpha: '66' },
-                { inner: 1.4, outer: 1.6, alpha: '33' }
-            ];
+            const ringGradient = ctx.createRadialGradient(0, 0, planet.radius * 0.8, 0, 0, planet.radius * 1.6);
+            ringGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            ringGradient.addColorStop(0.3, planet.ringColor + '80');
+            ringGradient.addColorStop(0.6, planet.ringColor + 'cc');
+            ringGradient.addColorStop(0.8, planet.ringColor + '80');
+            ringGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
             
-            ringBands.forEach(band => {
-                const ringGradient = ctx.createRadialGradient(0, 0, planet.radius * band.inner, 0, 0, planet.radius * band.outer);
-                ringGradient.addColorStop(0, planet.ringColor + band.alpha);
-                ringGradient.addColorStop(0.5, planet.ringColor + band.alpha);
-                ringGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                
-                ctx.fillStyle = ringGradient;
-                ctx.beginPath();
-                ctx.arc(0, 0, planet.radius * band.outer, 0, Math.PI * 2);
-                ctx.arc(0, 0, planet.radius * band.inner, 0, Math.PI * 2, true);
-                ctx.fill();
-            });
-            
-            // Ring shadows on planet (partial arc)
-            ctx.globalAlpha = 0.3;
-            ctx.fillStyle = '#000000';
+            ctx.fillStyle = ringGradient;
             ctx.beginPath();
-            ctx.ellipse(0, 0, planet.radius * 0.9, planet.radius * 0.3, 0, 0, Math.PI * 2);
+            ctx.arc(0, 0, planet.radius * 1.6, 0, Math.PI * 2);
+            ctx.arc(0, 0, planet.radius * 0.8, 0, Math.PI * 2, true);
             ctx.fill();
-            ctx.globalAlpha = 1.0;
             
             ctx.restore();
         }
         
-        // ADVANCED planet surface with 3D lighting
+        // Draw planet surface with gradient
         const gradient = ctx.createRadialGradient(
-            -planet.radius * 0.35, -planet.radius * 0.35, planet.radius * 0.1,
-            0, 0, planet.radius * 1.1
+            -planet.radius * 0.3, -planet.radius * 0.3, 0,
+            0, 0, planet.radius
         );
-        gradient.addColorStop(0, this.lightenColor(planet.color, 60));
-        gradient.addColorStop(0.3, this.lightenColor(planet.color, 30));
+        gradient.addColorStop(0, this.lightenColor(planet.color, 40));
         gradient.addColorStop(0.6, planet.color);
-        gradient.addColorStop(0.85, this.darkenColor(planet.color, 30));
-        gradient.addColorStop(1, this.darkenColor(planet.color, 50));
+        gradient.addColorStop(1, this.darkenColor(planet.color, 40));
         
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(0, 0, planet.radius, 0, Math.PI * 2);
         ctx.fill();
         
-        // ADVANCED craters with 3D bowl effect
+        // Draw craters
         planet.craters.forEach(crater => {
-            // Crater shadow (outer rim)
-            const craterShadow = ctx.createRadialGradient(
-                crater.x, crater.y, 0,
-                crater.x, crater.y, crater.radius
-            );
-            craterShadow.addColorStop(0, this.darkenColor(planet.color, 50));
-            craterShadow.addColorStop(0.4, this.darkenColor(planet.color, 30));
-            craterShadow.addColorStop(0.7, planet.color);
-            craterShadow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            
-            ctx.fillStyle = craterShadow;
-            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = this.darkenColor(planet.color, 30);
+            ctx.globalAlpha = 0.3;
             ctx.beginPath();
-            ctx.arc(crater.x, crater.y, crater.radius * 1.2, 0, Math.PI * 2);
+            ctx.arc(crater.x, crater.y, crater.radius, 0, Math.PI * 2);
             ctx.fill();
-            
-            // Crater center (darker)
-            ctx.fillStyle = this.darkenColor(planet.color, 60);
-            ctx.globalAlpha = 0.7;
-            ctx.beginPath();
-            ctx.arc(crater.x, crater.y, crater.radius * 0.7, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Crater highlight (rim catch light)
-            ctx.fillStyle = this.lightenColor(planet.color, 20);
-            ctx.globalAlpha = 0.4;
-            ctx.beginPath();
-            ctx.arc(crater.x - crater.radius * 0.3, crater.y - crater.radius * 0.3, crater.radius * 0.4, 0, Math.PI * 2);
-            ctx.fill();
-            
             ctx.globalAlpha = 1.0;
         });
         
-        // CLOUD PATTERNS - Pseudo-noise using overlapping circles
-        const cloudCount = Math.floor(planet.radius / 10);
-        ctx.globalAlpha = 0.15;
-        for (let i = 0; i < cloudCount; i++) {
-            // Pseudo-random cloud positions based on planet properties
-            const angle = ((i * 137.5) % 360) * (Math.PI / 180); // Golden angle distribution
-            const distance = (Math.sin(i * 2.3) * 0.5 + 0.5) * planet.radius * 0.7;
-            const cloudX = Math.cos(angle) * distance;
-            const cloudY = Math.sin(angle) * distance;
-            const cloudSize = 8 + (Math.sin(i * 1.7) * 0.5 + 0.5) * 8;
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(cloudX, cloudY, cloudSize, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Additional small cloud wisps
-            ctx.beginPath();
-            ctx.arc(cloudX + cloudSize * 0.6, cloudY + cloudSize * 0.3, cloudSize * 0.5, 0, Math.PI * 2);
-            ctx.fill();
-        }
-        ctx.globalAlpha = 1.0;
+        // Draw atmosphere glow
+        const atmosphereGradient = ctx.createRadialGradient(0, 0, planet.radius, 0, 0, planet.radius * 1.3);
+        atmosphereGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        atmosphereGradient.addColorStop(0.8, planet.atmosphereColor + '40');
+        atmosphereGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         
-        // SURFACE DETAIL - Small mountains/rocks
-        const detailCount = Math.floor(planet.radius / 15);
-        ctx.globalAlpha = 0.2;
-        for (let i = 0; i < detailCount; i++) {
-            const angle = ((i * 222.5) % 360) * (Math.PI / 180);
-            const distance = (Math.sin(i * 3.1) * 0.5 + 0.5) * planet.radius * 0.8;
-            const detailX = Math.cos(angle) * distance;
-            const detailY = Math.sin(angle) * distance;
-            const detailSize = 2 + Math.sin(i * 2.1) * 2;
-            
-            // Tiny mountain/rock shape (triangle)
-            ctx.fillStyle = this.darkenColor(planet.color, 40);
-            ctx.beginPath();
-            ctx.moveTo(detailX, detailY - detailSize);
-            ctx.lineTo(detailX - detailSize * 0.8, detailY + detailSize * 0.5);
-            ctx.lineTo(detailX + detailSize * 0.8, detailY + detailSize * 0.5);
-            ctx.closePath();
-            ctx.fill();
-        }
-        ctx.globalAlpha = 1.0;
-        
-        // Terminator line (day/night boundary) for extra realism
-        const terminatorGradient = ctx.createLinearGradient(-planet.radius, 0, planet.radius * 0.5, 0);
-        terminatorGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        terminatorGradient.addColorStop(0.4, 'rgba(0, 0, 0, 0)');
-        terminatorGradient.addColorStop(0.7, 'rgba(0, 0, 0, 0.3)');
-        terminatorGradient.addColorStop(1, 'rgba(0, 0, 0, 0.5)');
-        
-        ctx.fillStyle = terminatorGradient;
+        ctx.fillStyle = atmosphereGradient;
         ctx.beginPath();
-        ctx.arc(0, 0, planet.radius, 0, Math.PI * 2);
+        ctx.arc(0, 0, planet.radius * 1.3, 0, Math.PI * 2);
         ctx.fill();
-        
-        // ENHANCED atmosphere glow (multiple layers)
-        const atmoLayers = [
-            { mult: 1.15, alpha: '30', color: planet.atmosphereColor },
-            { mult: 1.25, alpha: '20', color: planet.atmosphereColor },
-            { mult: 1.35, alpha: '10', color: planet.atmosphereColor }
-        ];
-        
-        atmoLayers.forEach(layer => {
-            const atmosphereGradient = ctx.createRadialGradient(0, 0, planet.radius, 0, 0, planet.radius * layer.mult);
-            atmosphereGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-            atmosphereGradient.addColorStop(0.6, layer.color + layer.alpha);
-            atmosphereGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            
-            ctx.fillStyle = atmosphereGradient;
-            ctx.beginPath();
-            ctx.arc(0, 0, planet.radius * layer.mult, 0, Math.PI * 2);
-            ctx.fill();
-        });
         
         ctx.restore();
     }
@@ -782,7 +540,10 @@ class SpaceEnvironment {
         ctx.translate(asteroid.x, asteroid.y);
         ctx.rotate(asteroid.rotation);
         
-        // Create clipping path from asteroid shape
+        ctx.fillStyle = '#666666';
+        ctx.strokeStyle = '#888888';
+        ctx.lineWidth = 1;
+        
         ctx.beginPath();
         asteroid.points.forEach((point, i) => {
             const x = Math.cos(point.angle) * point.distance * asteroid.radius;
@@ -791,159 +552,7 @@ class SpaceEnvironment {
             else ctx.lineTo(x, y);
         });
         ctx.closePath();
-        ctx.clip();
-        
-        // Layer 1: Base gradient with directional lighting
-        // Light source from top-left creates gradient across surface
-        const lightAngle = asteroid.rotation + Math.PI * 0.25; // Light from top-left
-        const lightX = Math.cos(lightAngle) * asteroid.radius * 0.7;
-        const lightY = Math.sin(lightAngle) * asteroid.radius * 0.7;
-        
-        const baseGradient = ctx.createRadialGradient(
-            lightX, lightY, asteroid.radius * 0.2,
-            0, 0, asteroid.radius * 1.4
-        );
-        baseGradient.addColorStop(0, '#8a8a8a');    // Lit side
-        baseGradient.addColorStop(0.5, '#5a5a5a');  // Mid-tone
-        baseGradient.addColorStop(1, '#2a2a2a');    // Shadow side
-        
-        ctx.fillStyle = baseGradient;
-        ctx.beginPath();
-        ctx.arc(0, 0, asteroid.radius, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Layer 2: Surface texture using pseudo-noise pattern
-        // Create rough surface appearance with overlapping circles
-        ctx.globalAlpha = 0.15;
-        for (let i = 0; i < 25; i++) {
-            // Pseudo-random positioning based on asteroid ID and iteration
-            const seed = asteroid.x * 7.123 + asteroid.y * 3.456 + i * 12.789;
-            const angle = (seed % 1) * Math.PI * 2;
-            const dist = ((seed * 1.234) % 1) * asteroid.radius * 0.8;
-            const x = Math.cos(angle) * dist;
-            const y = Math.sin(angle) * dist;
-            const size = asteroid.radius * (0.15 + ((seed * 2.345) % 1) * 0.2);
-            
-            ctx.fillStyle = ((seed * 3.456) % 1) > 0.5 ? '#444' : '#666';
-            ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-        
-        // Layer 3: Pockmarks and small craters
-        for (let i = 0; i < 8; i++) {
-            const seed = asteroid.x * 3.789 + asteroid.y * 8.234 + i * 15.678;
-            const angle = (seed % 1) * Math.PI * 2;
-            const dist = ((seed * 2.123) % 1) * asteroid.radius * 0.7;
-            const x = Math.cos(angle) * dist;
-            const y = Math.sin(angle) * dist;
-            const size = asteroid.radius * (0.08 + ((seed * 1.789) % 1) * 0.12);
-            
-            // Crater with 3D bowl effect (dark center, light rim)
-            const craterGradient = ctx.createRadialGradient(
-                x - size * 0.2, y - size * 0.2, 0,
-                x, y, size
-            );
-            craterGradient.addColorStop(0, '#1a1a1a');
-            craterGradient.addColorStop(0.6, '#3a3a3a');
-            craterGradient.addColorStop(0.85, '#6a6a6a');
-            craterGradient.addColorStop(1, '#4a4a4a');
-            
-            ctx.fillStyle = craterGradient;
-            ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-        
-        // Layer 4: Surface cracks using random walk algorithm
-        ctx.strokeStyle = '#1a1a1a';
-        ctx.lineWidth = 1.5;
-        ctx.lineCap = 'round';
-        ctx.globalAlpha = 0.5;
-        
-        // Create 3-5 major crack systems
-        const numCracks = 3 + Math.floor(((asteroid.x + asteroid.y) % 1) * 3);
-        for (let i = 0; i < numCracks; i++) {
-            const seed = asteroid.x * 5.432 + asteroid.y * 2.876 + i * 8.234;
-            
-            // Start position near center
-            let x = (((seed * 1.234) % 1) - 0.5) * asteroid.radius * 0.3;
-            let y = (((seed * 2.345) % 1) - 0.5) * asteroid.radius * 0.3;
-            
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            
-            // Random walk to edge
-            let angle = (seed % 1) * Math.PI * 2;
-            for (let step = 0; step < 15; step++) {
-                // Walk in mostly consistent direction with slight wobble
-                angle += (((seed * (step + 1) * 3.456) % 1) - 0.5) * 0.4;
-                const stepSize = asteroid.radius * 0.12;
-                x += Math.cos(angle) * stepSize;
-                y += Math.sin(angle) * stepSize;
-                
-                ctx.lineTo(x, y);
-                
-                // Stop if we've reached the edge
-                if (Math.sqrt(x * x + y * y) > asteroid.radius * 0.85) break;
-                
-                // Occasionally branch
-                if (((seed * (step + 1) * 7.789) % 1) > 0.85) {
-                    const branchAngle = angle + (((seed * step * 4.567) % 1) - 0.5) * Math.PI * 0.5;
-                    const branchLength = asteroid.radius * 0.2;
-                    const branchX = x + Math.cos(branchAngle) * branchLength;
-                    const branchY = y + Math.sin(branchAngle) * branchLength;
-                    
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(branchX, branchY);
-                    ctx.moveTo(x, y);
-                }
-            }
-            ctx.stroke();
-        }
-        ctx.globalAlpha = 1;
-        
-        // Layer 5: Edge highlight for 3D effect
-        ctx.strokeStyle = 'rgba(140, 140, 140, 0.3)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        asteroid.points.forEach((point, i) => {
-            const x = Math.cos(point.angle) * point.distance * asteroid.radius;
-            const y = Math.sin(point.angle) * point.distance * asteroid.radius;
-            
-            // Only draw highlight on lit side
-            const pointAngle = Math.atan2(y, x);
-            const angleDiff = Math.abs(((pointAngle - lightAngle + Math.PI) % (Math.PI * 2)) - Math.PI);
-            
-            if (angleDiff < Math.PI * 0.6) {
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            } else {
-                ctx.moveTo(x, y);
-            }
-        });
-        ctx.stroke();
-        
-        // Layer 6: Dark edge for shadow side depth
-        ctx.strokeStyle = 'rgba(20, 20, 20, 0.4)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        asteroid.points.forEach((point, i) => {
-            const x = Math.cos(point.angle) * point.distance * asteroid.radius;
-            const y = Math.sin(point.angle) * point.distance * asteroid.radius;
-            
-            // Only draw shadow on dark side
-            const pointAngle = Math.atan2(y, x);
-            const angleDiff = Math.abs(((pointAngle - lightAngle + Math.PI) % (Math.PI * 2)) - Math.PI);
-            
-            if (angleDiff > Math.PI * 0.4) {
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            } else {
-                ctx.moveTo(x, y);
-            }
-        });
         ctx.stroke();
         
         ctx.restore();
