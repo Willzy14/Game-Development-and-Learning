@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(180deg, #000000 0%, #0a0a2e 50%, #16213e 100%);
+    color: #00ff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+    color: #00ff00;
+}
+
+#game-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 10px 20px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+}
+
+.stat {
+    display: flex;
+    gap: 8px;
+}
+
+.label {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.value {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+canvas {
+    border: 3px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    background: #000000;
+    display: block;
+    margin: 0 auto;
+}
+
+#controls {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #aaffaa;
+}
+
+#controls p {
+    margin: 5px 0;
+}
+
+#controls strong {
+    color: #00ff00;
+}
