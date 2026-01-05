@@ -54,6 +54,102 @@ At the end of each session:
 
 ---
 
+## January 5, 2026 (Part 4 - Evening) - Art Study Session: Landscape V4 + Character Portrait ⭐
+
+### Accomplished
+- ✅ Completed Landscape Study V4 (fixed all remaining hard edge issues)
+- ✅ Completed Character Portrait Study V3 (cute JRPG style)
+- ✅ Updated ART_STUDY_PROGRESS.md with comprehensive lessons
+- ✅ Updated START_HERE.md for next session
+
+### The Journey Tonight
+
+**Landscape V3 → V4:**
+Started with V3 that still had problems: hard sun reflection lines on water, triangular mountain shadows in water, hard snow cap edges, hard grass-to-lake transition.
+
+User said "V1 was actually best" - V3 created NEW problems while fixing others. This was a key moment.
+
+After research (many 404s on water reflection tutorials!), created V4 with:
+- Broken water reflections (horizontal ripple bands instead of solid shapes)
+- Scattered sun sparkles (120 small points vs one trapezoid)
+- Gradient snow with scattered patches below main cap
+- Soft shoreline blend with bridging vegetation
+
+**Character Portrait V1 → V2 → V3:**
+- V1: DISASTER - realistic shaded eyes on cartoon body. User called it "weird"
+- Researched character design (CreativeBloq 33 tips article)
+- Key lesson learned: **PICK ONE STYLE AND COMMIT**
+- V2: Bold outline style (Hades/Darkest Dungeon), cohesive but not what user wanted
+- User provided reference image: cute JRPG chibi character
+- V3: Matched reference - chibi proportions, dot eyes, patchwork outfit, colorful palette
+
+User approved V3 as "pretty good, South Park vibe but good representation"
+
+### What I Learned
+
+**1. Style Consistency is Everything**
+The V1 character failure taught me more than any success. Mixing realistic rendering (shaded 3D eyes) with flat cartoon body creates uncanny valley. Every element must follow the same style rules.
+
+**2. Chibi Proportions Are a Cheat Code**
+Large head (~1:3 ratio) instantly reads as "cute" and hides anatomy problems. The simpler the features, the more forgiving the style.
+
+**3. Patchwork Clothing = Smart Shortcut**
+Instead of trying to render fabric folds and textures, use colorful geometric patches. Each patch is trivial to draw, but together they look designed and intentional.
+
+**4. Layer Order for Characters is Critical**
+Hair back → body → accessories → head → hair front → eyes → mouth. Getting this wrong ruins everything.
+
+**5. Limited Palette Creates Cohesion**
+Using 4-5 colors repeated across different elements (teal scarf + teal patch + teal cuff) makes the character feel "designed" rather than random.
+
+**6. Research Before Building**
+The character study benefited hugely from reading that CreativeBloq article first. "33 tips for designing characters" - key takeaway was the style consistency rule.
+
+**7. Reference Images Are Essential**
+V3 only succeeded because user provided a clear reference image. Without it, I was guessing at what "cute JRPG" meant.
+
+### What Was Hard
+
+**Water Reflections (Landscape):**
+Spent multiple iterations trying to get reflections right. The instinct is to draw a mirrored shape, but real water breaks reflections into horizontal bands with distortion. Had to unlearn the "mirror" mental model.
+
+**Style Matching (Character):**
+Hardest part was understanding WHY V1 looked wrong. The eyes were well-rendered! But they didn't match the body style. Learning to diagnose style mismatches was valuable.
+
+**Finding Good Research:**
+Many water reflection tutorials returned 404 or redirected. Had to synthesize from multiple partial sources.
+
+### Biggest Win
+
+**The V1 Character Failure → Learning Moment**
+
+When user said V1 was "weird," I had to really think about WHY. The diagnosis - style mismatch between realistic eyes and cartoon body - became the foundation for V2 and V3. 
+
+The failure taught me more than the successes:
+- Style must be consistent across ALL elements
+- "Better rendering" isn't always better if it clashes
+- Simple and cohesive beats detailed and inconsistent
+
+### Session Meta-Learning
+
+> "The biggest learning comes from understanding failures, not celebrating successes."
+
+V1 character was technically more complex than V3 (realistic eye shading vs dot eyes), but V3 is objectively better because it's cohesive. This applies everywhere - consistency > complexity.
+
+### Ratings Summary
+| Study | Rating | Key Win |
+|-------|--------|---------|
+| #2 Landscape V4 | 8/10 | Soft edge transitions |
+| #3 Character V3 | 7/10 | Style consistency |
+
+### Next Session
+- Start Study #4: Space Scene
+- Apply scattered element technique to star fields
+- Apply soft gradients to nebulae
+- Consider returning to character with more expressive eyes
+
+---
+
 ## January 5, 2026 (Part 3) - Flappy Bird V4 Egypt Theme ⭐ BREAKTHROUGH
 
 ### Accomplished

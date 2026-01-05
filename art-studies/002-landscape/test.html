@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+<canvas id="artCanvas" width="1200" height="800"></canvas>
+<script>
+window.onerror = function(msg, url, line, col, error) {
+    document.body.innerHTML = '<pre style="color:red">Error at line ' + line + ': ' + msg + '</pre>';
+    return true;
+};
+</script>
+<script src="art.js"></script>
+</body>
+</html>

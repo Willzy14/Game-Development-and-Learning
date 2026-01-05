@@ -14,6 +14,34 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-05] - Chunking Quality Rule Added
+
+### ⚠️ Source: Art Study #2 Regression Failure
+Study #2 Landscape was only ~600 lines vs Study #1's 1600 lines. Quality dropped significantly because "chunking to avoid limits" was confused with "write less code."
+
+### 🆕 Added
+
+**04-PATTERNS_REFERENCE.md:**
+- **Chunking Quality Rule** (CRITICAL addition to Large Task Breakdown Pattern)
+  - "Chunking is about ORGANIZATION, not REDUCTION"
+  - Must define target line count FIRST (>= previous similar work)
+  - Calculate chunks: target ÷ 200
+  - Each chunk must be DENSE, not sparse
+  - "The limit is a delivery constraint, NOT a quality constraint"
+
+**FAILURE_ARCHIVE.md:**
+- New entry: "Chunking Strategy Caused Quality Regression"
+- Prevention rule documented with correct vs wrong thinking
+- Severity: CRITICAL
+
+### 💡 Key Lesson
+```
+❌ WRONG: "I'll make 5 small chunks" → 600 lines total
+✅ RIGHT: "I need 1800 lines, so 9 chunks of ~200" → full detail
+```
+
+---
+
 ## [2026-01-05] - Texture Mastery & Art Study Series
 
 ### 🎨 Source: Egypt Texture Upgrades + Art Study #1

@@ -156,6 +156,43 @@
 - **Time Lost**: ~1 hour of back-and-forth before real improvements
 - **Lesson**: If you can't immediately tell V2 from V1, you haven't tried hard enough. NEVER BE LAZY.
 
+### [2026-01-05] - Chunking Strategy Caused Quality Regression ⚠️ **CRITICAL**
+- **Project**: Art Study #2 (Landscape)
+- **What Went Wrong**: Study #2 had ~600 lines vs Study #1's 1600 lines. Massive quality drop:
+  - Mountains: flat patches instead of detailed rock faces
+  - Pine trees: simple triangles instead of branch detail
+  - Lake reflections: basic triangles instead of mirrored shapes
+  - Forest: sparse and see-through instead of dense
+  - Overall: looked like placeholder graphics, not art study
+- **Impact**: 
+  - Violated "each picture pushes detail higher" goal
+  - Wasted a study slot with substandard work
+  - Had to rebuild from scratch
+- **Root Cause**: 
+  - **Conflated "chunking" with "less detail"**
+  - Read Bible's Large Task Breakdown pattern
+  - Focused on "avoid hitting limit" instead of "maintain quality"
+  - Thought "small chunks" = "less code total"
+  - Chunking is about ORGANIZATION, not REDUCTION
+- **What Should Have Happened**:
+  - Plan 1600+ lines (MORE than Study #1)
+  - Break into 8-10 chunks of ~200 lines each
+  - Each chunk delivers DENSE, quality code
+  - Same chunking, but FULL detail
+- **Prevention Rule** (Add to Bible):
+  ```
+  CHUNKING QUALITY RULE:
+  1. FIRST: Define target line count (must be >= previous work)
+  2. THEN: Divide into chunks
+  3. Each chunk must be DENSE with detail, not sparse
+  4. Chunk count = target lines ÷ 200 (approximate)
+  
+  ❌ WRONG: "I'll make 5 small chunks" → 600 lines total
+  ✅ RIGHT: "I need 1800 lines, so 9 chunks of ~200" → full detail
+  ```
+- **Time Lost**: Full rebuild required
+- **Severity**: CRITICAL - Process rule caused quality failure
+
 ### [2026-01-05] - Folder Structure Ignored Despite Documentation
 - **Game**: All V2 Mastery Editions
 - **What Went Wrong**: Placed V2 folders at same level as parent games instead of nested inside

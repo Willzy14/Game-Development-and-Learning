@@ -1039,6 +1039,31 @@ drawPillar() { /* stone texture, hieroglyphs, capital */ }
 
 **Solution:** Break into logical chunks, build incrementally
 
+### ⚠️ CRITICAL: Chunking Quality Rule
+
+**Chunking is about ORGANIZATION, not REDUCTION.**
+
+```
+❌ WRONG THINKING: "I'll make 5 small chunks" → 600 lines total (LAZY)
+✅ RIGHT THINKING: "I need 1800 lines, so 9 chunks of ~200 each" → full detail
+```
+
+**BEFORE starting any chunked task:**
+1. **Define target line count FIRST** (must be >= previous similar work)
+2. **Calculate chunk count:** target ÷ 200 = number of chunks
+3. **Each chunk must be DENSE** - full detail, not sparse placeholders
+4. **Quality check after each chunk** - does this look complete?
+
+**Example - Art Study:**
+- Study #1 was 1600 lines
+- Study #2 must be 1600+ lines (more detail, not less)
+- 1600 ÷ 200 = 8 chunks minimum
+- Each chunk: ~200 lines of DENSE, detailed code
+
+**The limit is a delivery constraint, NOT a quality constraint.**
+
+---
+
 ### File Size Planning
 
 | File Size | Strategy |
