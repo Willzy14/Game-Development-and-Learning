@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Study #1: Egyptian Scene</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            color: #c9a87c;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        canvas {
+            border: 8px solid #8b4513;
+            border-image: linear-gradient(45deg, #8b4513, #d4a84b, #8b4513) 1;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .info {
+            color: #a0a0a0;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Art Study #1: Egyptian Sunset</h1>
+    <p class="subtitle">The Great Sphinx gazes upon the Pyramids of Giza at golden hour</p>
+    <canvas id="artCanvas" width="800" height="600"></canvas>
+    <p class="info">Canvas 2D • No external assets • Pure procedural art</p>
+    <script src="art.js"></script>
+</body>
+</html>

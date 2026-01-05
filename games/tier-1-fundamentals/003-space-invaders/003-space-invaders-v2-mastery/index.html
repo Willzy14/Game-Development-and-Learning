@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders V2 - Mastery Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <div class="stat-group">
+                <span class="stat-label">SCORE</span>
+                <span class="stat-value" id="score">0</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-label">HI-SCORE</span>
+                <span class="stat-value" id="highScore">0</span>
+            </div>
+            <div class="stat-group">
+                <span class="stat-label">WAVE</span>
+                <span class="stat-value" id="wave">1</span>
+            </div>
+            <div class="stat-group lives-display">
+                <span class="stat-label">LIVES</span>
+                <span class="stat-value" id="lives">♥♥♥</span>
+            </div>
+        </header>
+        
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <footer class="game-footer">
+            <span class="control-hint">← A/D → Move | SPACE Fire | M Mute | P Pause</span>
+        </footer>
+    </div>
+
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

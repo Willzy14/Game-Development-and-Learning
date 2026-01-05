@@ -1,0 +1,192 @@
+/* ============================================
+   BREAKOUT V2 MASTERY EDITION - STYLES
+   ============================================
+   Enhanced with:
+   - CSS animations for UI
+   - Glow effects and gradients
+   - Neon aesthetic theme
+   - Smooth transitions
+============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0015 0%, #1a0030 50%, #0a0020 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+/* Animated background grid */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 0, 100, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 100, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+    position: relative;
+}
+
+.game-header {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 0, 100, 0.3);
+    box-shadow: 0 0 20px rgba(255, 0, 100, 0.2);
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff0066;
+    text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+    transition: transform 0.2s ease-out, color 0.2s;
+}
+
+.stat-value.pulse {
+    animation: statPulse 0.3s ease-out;
+}
+
+@keyframes statPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); color: #fff; }
+    100% { transform: scale(1); }
+}
+
+/* Canvas styling */
+#gameCanvas {
+    border-radius: 8px;
+    box-shadow: 
+        0 0 30px rgba(255, 0, 100, 0.3),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+
+#gameCanvas.brick-break {
+    box-shadow: 
+        0 0 50px rgba(255, 200, 0, 0.5),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+#gameCanvas.combo-effect {
+    box-shadow: 
+        0 0 60px rgba(255, 100, 0, 0.6),
+        0 0 100px rgba(255, 50, 0, 0.3),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+#gameCanvas.level-complete {
+    box-shadow: 
+        0 0 80px rgba(0, 255, 100, 0.6),
+        0 0 120px rgba(0, 255, 100, 0.3),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+#gameCanvas.life-lost {
+    box-shadow: 
+        0 0 60px rgba(255, 0, 0, 0.6),
+        inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.game-footer {
+    padding: 10px;
+}
+
+.control-hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+/* Color classes for dynamic stats */
+.stat-group:nth-child(1) .stat-value { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+.stat-group:nth-child(2) .stat-value { color: #ff00ff; text-shadow: 0 0 10px rgba(255, 0, 255, 0.5); }
+.stat-group:nth-child(3) .stat-value { color: #00ff66; text-shadow: 0 0 10px rgba(0, 255, 102, 0.5); }
+.stat-group:nth-child(4) .stat-value { color: #ff6600; text-shadow: 0 0 10px rgba(255, 102, 0, 0.5); }
+
+/* Combo multiplier glow effect */
+.stat-group:nth-child(4).active .stat-value {
+    animation: comboGlow 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes comboGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 102, 0, 0.8), 0 0 30px rgba(255, 50, 0, 0.4);
+    }
+}
+
+/* Screen flash effects */
+@keyframes screenFlash {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+    100% { filter: brightness(1); }
+}
+
+.flash {
+    animation: screenFlash 0.1s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .game-header {
+        gap: 20px;
+        padding: 10px 15px;
+    }
+    
+    .stat-value {
+        font-size: 22px;
+    }
+}

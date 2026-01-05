@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snake V2 Mastery Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>SNAKE <span class="v2-badge">V2</span></h1>
+            <div class="stats">
+                <span>Score: <span id="score">0</span></span>
+            </div>
+            <div class="header-controls">
+                <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+                <button id="fullscreenBtn" class="icon-btn" title="Fullscreen">⛶</button>
+                <button id="pauseBtn" class="icon-btn" title="Pause (P)">⏸️</button>
+            </div>
+        </div>
+        
+        <div class="canvas-wrapper">
+            <canvas id="gameCanvas" width="800" height="800"></canvas>
+            <div id="fpsCounter" class="fps-counter" style="display: none;">FPS: <span id="fpsValue">60</span></div>
+        </div>
+        
+        <!-- Mobile Touch Controls -->
+        <div id="touchControls" class="touch-controls">
+            <div class="dpad">
+                <button id="dpadUp" class="dpad-btn dpad-up" data-direction="up">▲</button>
+                <button id="dpadLeft" class="dpad-btn dpad-left" data-direction="left">◄</button>
+                <button class="dpad-btn dpad-center">⊙</button>
+                <button id="dpadRight" class="dpad-btn dpad-right" data-direction="right">►</button>
+                <button id="dpadDown" class="dpad-btn dpad-down" data-direction="down">▼</button>
+            </div>
+            <button class="action-btn" id="actionBtn">START</button>
+        </div>
+        
+        <div class="controls">
+            <p id="controlsText">Arrow Keys or Touch D-Pad to Move • SPACE to Start • P to Pause</p>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Settings</h2>
+                <button class="close-btn" id="closeModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>Master Volume</label>
+                    <input type="range" id="masterVolume" min="0" max="100" value="30">
+                    <span id="masterVolumeValue">30%</span>
+                </div>
+                <div class="setting-group">
+                    <label>Music Volume</label>
+                    <input type="range" id="musicVolume" min="0" max="100" value="15">
+                    <span id="musicVolumeValue">15%</span>
+                </div>
+                <div class="setting-group">
+                    <label>Show FPS Counter</label>
+                    <input type="checkbox" id="showFPS">
+                </div>
+                <div class="setting-group">
+                    <label>Show Touch Controls</label>
+                    <input type="checkbox" id="showTouchControls" checked>
+                </div>
+                <div class="setting-group">
+                    <button id="resetScores" class="danger-btn">Reset High Scores</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

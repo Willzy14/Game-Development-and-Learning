@@ -199,15 +199,15 @@
 
 ## Procedural Generation
 
-- [x] Random number generation *(Learned in: Pong - ball direction)*
-- [ ] Seeded random *(Learned in: [Game])*
+- [x] Random number generation *(Learned in: Pong - ball direction)* - Confidence: 5/5
+- [x] Seeded random (position-based) *(Learned in: Flappy Bird V4 - pyramids, palms)* - Confidence: 4/5
 - [ ] Perlin noise *(Learned in: [Game])*
 - [ ] Weighted random selection *(Learned in: [Game])*
-- [ ] Procedural level layout *(Learned in: [Game])*
+- [x] Procedural level layout *(Learned in: Flappy Bird - infinite obstacles)* - Confidence: 4/5
 - [ ] Wave function collapse *(Learned in: [Game])*
 - [ ] BSP (Binary Space Partitioning) *(Learned in: [Game])*
 - [ ] Cellular automata *(Learned in: [Game])*
-- [ ] Procedural content (enemies, items) *(Learned in: [Game])*
+- [x] Procedural content (backgrounds, terrain) *(Learned in: Flappy Bird V4 Egypt - pyramids, dunes, palms)* - Confidence: 4/5
 
 ---
 
@@ -233,13 +233,40 @@
 - [ ] Screen transitions *(Learned in: [Game])*
 
 ### Game Feel/Polish
-- [ ] Screen shake *(Learned in: [Game])*
+- [x] Screen shake *(Learned in: Space Invaders V2)* - Confidence: 4/5
 - [ ] Hit pause/freeze frames *(Learned in: [Game])*
-- [ ] Particle effects *(Learned in: [Game])*
-- [x] Sound effects *(Learned in: Pong, Breakout)* - Confidence: 4/5
-- [x] Visual feedback (color changes, flashes) *(Learned in: Breakout - brick colors)* - Confidence: 3/5
+- [x] Particle effects *(Learned in: Space Invaders, Snake, Flappy Bird)* - Confidence: 5/5
+- [x] Sound effects *(Learned in: Pong, Breakout)* - Confidence: 5/5
+- [x] Visual feedback (color changes, flashes) *(Learned in: Breakout - brick colors)* - Confidence: 4/5
 - [ ] Animation juicing *(Learned in: [Game])*
 - [ ] Camera effects *(Learned in: [Game])*
+- [x] Parallax scrolling *(Learned in: Flappy Bird V2-V4)* - Confidence: 5/5
+- [x] Infinite scrolling (no seam) *(Learned in: Flappy Bird V3)* - Confidence: 5/5
+
+---
+
+## Theme & Art Design (NEW SECTION)
+
+### Visual Theming
+- [x] Color palette abstraction *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 5/5
+- [x] Theme swap architecture *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 5/5
+- [x] Character design through shape language *(Learned in: Flappy Bird V4 - scarab beetle)* - Confidence: 4/5
+- [x] 80% Rule (strong theme signals) *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 4/5
+- [x] Multi-layer background composition *(Learned in: Flappy Bird V2-V4)* - Confidence: 5/5
+
+### Audio Theming
+- [x] Musical scales for cultural theming *(Learned in: Flappy Bird V4 Egypt - Phrygian Dominant)* - Confidence: 4/5
+- [x] Instrument selection for theme (oud, ney) *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 3/5
+- [x] Ambient sound theming *(Learned in: Flappy Bird V4 Egypt - desert wind)* - Confidence: 3/5
+
+---
+
+## Development Process (NEW SECTION)
+
+### Large Task Management
+- [x] Chunked file creation (8-part pattern) *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 5/5
+- [x] Logical boundary planning *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 4/5
+- [x] Sequential dependency ordering *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 4/5
 
 ---
 
@@ -301,17 +328,35 @@
 ## Skill Heatmap (Updated Monthly)
 
 ### Confident Skills (Can implement without reference)
-- 
+- Game loop architecture, state machines, AABB collision
+- Canvas 2D rendering, gradients, particles
+- Web Audio synthesis, procedural music
+- localStorage persistence, settings systems
+- Parallax scrolling, infinite scrolling
+- Theme swap architecture, color abstraction
+- Large task breakdown (chunked creation)
 
 ### Comfortable Skills (Can implement with minor reference)
-- 
+- Procedural generation (position-based seeding)
+- Musical scales for theming (Phrygian Dominant, etc.)
+- Character design through shape language
+- Touch controls, responsive design
+- Object pooling, projectile systems
 
 ### Learning Skills (Need significant reference/tutorial)
-- 
+- Screen shake timing/feel
+- Advanced physics (gravity curves, momentum)
+- Shield/damage systems
+- Progressive difficulty scaling
 
 ### Gap Skills (Not yet attempted)
-- 
+- 3D anything (Unity-specific)
+- Pathfinding, NavMesh
+- Behavior trees for AI
+- Networking/multiplayer
+- Save file serialization (beyond localStorage)
 
 ---
 
-*Last Updated: [Date]*
+*Last Updated: January 6, 2026*
+*Latest Addition: Theme Reskinning & Large Task Management (Flappy Bird V4 Egypt)*

@@ -1,0 +1,132 @@
+/* ============================================
+   PONG V2 - MASTERY EDITION STYLES
+   Enhanced visual design with modern CSS
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2a 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', 'Consolas', monospace;
+    overflow: hidden;
+}
+
+/* Animated background stars */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 50px 160px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+        radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 200px 50px, #fff, transparent);
+    background-size: 200px 200px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#gameCanvas {
+    border: 3px solid #333;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 40px rgba(255, 0, 255, 0.2),
+        inset 0 0 60px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.info-bar .title {
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    letter-spacing: 2px;
+}
+
+.info-bar .controls {
+    color: #888;
+    font-size: 12px;
+}
+
+/* Glow animations for canvas border on game events */
+#gameCanvas.score-flash {
+    animation: scoreGlow 0.3s ease-out;
+}
+
+@keyframes scoreGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(255, 0, 255, 0.2); }
+}
+
+#gameCanvas.player-score {
+    animation: playerGlow 0.4s ease-out;
+}
+
+@keyframes playerGlow {
+    0% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(255, 0, 255, 0.2); }
+}
+
+#gameCanvas.ai-score {
+    animation: aiGlow 0.4s ease-out;
+}
+
+@keyframes aiGlow {
+    0% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(255, 0, 255, 0.2); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 850px) {
+    #gameCanvas {
+        width: 95vw;
+        height: auto;
+        aspect-ratio: 4/3;
+    }
+    
+    .info-bar {
+        width: 95vw;
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+}

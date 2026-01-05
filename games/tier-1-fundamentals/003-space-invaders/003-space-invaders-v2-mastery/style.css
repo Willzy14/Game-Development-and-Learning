@@ -1,0 +1,225 @@
+/* ============================================
+   SPACE INVADERS V2 MASTERY EDITION - STYLES
+   ============================================
+   Deep space theme with plasma/laser effects
+============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(ellipse at center, #0a0a20 0%, #000010 50%, #000005 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+/* Star field animation */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(1px 1px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 40px 70px, white, transparent),
+        radial-gradient(1px 1px at 50px 160px, white, transparent),
+        radial-gradient(1px 1px at 90px 40px, white, transparent),
+        radial-gradient(1px 1px at 130px 80px, white, transparent),
+        radial-gradient(1px 1px at 160px 120px, white, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+    position: relative;
+}
+
+.game-header {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 15px 40px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.1),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: all 0.2s ease-out;
+}
+
+.stat-value.pulse {
+    animation: statPulse 0.3s ease-out;
+}
+
+@keyframes statPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Different colors for each stat */
+.stat-group:nth-child(1) .stat-value { 
+    color: #00ff88; 
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); 
+}
+.stat-group:nth-child(2) .stat-value { 
+    color: #ffcc00; 
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); 
+}
+.stat-group:nth-child(3) .stat-value { 
+    color: #ff00ff; 
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5); 
+}
+.lives-display .stat-value { 
+    color: #ff4444; 
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+    letter-spacing: 2px;
+}
+
+/* Canvas styling */
+#gameCanvas {
+    border-radius: 4px;
+    box-shadow: 
+        0 0 40px rgba(0, 100, 255, 0.2),
+        0 0 80px rgba(0, 50, 150, 0.1),
+        inset 0 0 60px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s ease;
+}
+
+#gameCanvas.enemy-hit {
+    box-shadow: 
+        0 0 50px rgba(255, 100, 0, 0.4),
+        0 0 80px rgba(255, 50, 0, 0.2),
+        inset 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+#gameCanvas.player-hit {
+    box-shadow: 
+        0 0 60px rgba(255, 0, 0, 0.5),
+        0 0 100px rgba(255, 0, 0, 0.3),
+        inset 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+#gameCanvas.wave-complete {
+    box-shadow: 
+        0 0 80px rgba(0, 255, 100, 0.5),
+        0 0 120px rgba(0, 255, 100, 0.2),
+        inset 0 0 60px rgba(0, 0, 0, 0.8);
+    animation: waveComplete 1s ease-out;
+}
+
+@keyframes waveComplete {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+}
+
+#gameCanvas.boss-warning {
+    animation: bossWarning 0.5s ease-in-out infinite;
+}
+
+@keyframes bossWarning {
+    0%, 100% { 
+        box-shadow: 
+            0 0 40px rgba(255, 0, 0, 0.3),
+            inset 0 0 60px rgba(0, 0, 0, 0.8);
+    }
+    50% { 
+        box-shadow: 
+            0 0 80px rgba(255, 0, 0, 0.6),
+            inset 0 0 60px rgba(0, 0, 0, 0.8);
+    }
+}
+
+.game-footer {
+    padding: 10px;
+}
+
+.control-hint {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+/* CRT scanline effect (optional) */
+#gameCanvas::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .game-header {
+        gap: 25px;
+        padding: 10px 20px;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+}
