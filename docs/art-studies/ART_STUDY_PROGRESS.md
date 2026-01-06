@@ -8,6 +8,27 @@ Each picture should demonstrate MORE detail than the previous.
 
 ---
 
+## 📖 REQUIRED READING BEFORE EACH STUDY
+
+**Every art study MUST begin by reviewing these sections from [10-ART_FUNDAMENTALS.md](../bible/10-ART_FUNDAMENTALS.md):**
+
+| Section | What to Review | Why |
+|---------|----------------|-----|
+| **Section 2: 5-Value System** | Highlight, Light, Halftone, Core Shadow, Reflected Light | Every 3D form needs all 5 values |
+| **Section 3: Light & Shadow** | Form shadow vs cast shadow rules | Different edge rules for each |
+| **Section 4: Composition** | Focal point, value grouping, rule of thirds | Guides eye through scene |
+| **Section 8: Quick Tests** | Squint test, silhouette test, 25% scale test | Validation checkpoints |
+
+### Pre-Study Checklist (Complete Before Starting)
+
+- [ ] Read the relevant sections above
+- [ ] Identify light source direction for the scene
+- [ ] Plan focal point location (use rule of thirds)
+- [ ] Sketch value thumbnail (3 values: dark/mid/light masses)
+- [ ] Choose color palette (max 5-6 main colors)
+
+---
+
 ## Progress Tracker
 
 | # | Subject | Status | Rating | Key Techniques Practiced |
@@ -61,6 +82,19 @@ Each picture should demonstrate MORE detail than the previous.
 - [ ] More vegetation variety
 - [ ] Human figures for scale
 - [ ] More dramatic lighting/shadows
+
+### Art Principles Applied (Post-Study Validation)
+
+| Principle | Applied? | Notes |
+|-----------|----------|-------|
+| **Value hierarchy** - 3+ distinct value zones? | ✅ | Sky dark → mid ground → lit sand |
+| **Light source consistency** - Single direction? | ✅ | Sunset from right/behind |
+| **Form vs cast shadows** - Both present? | ⚠️ Partial | Form shadows on pyramids, but cast shadows could be stronger |
+| **Silhouette test** - Recognizable as black? | ✅ | Sphinx and pyramids read clearly |
+| **Atmospheric perspective** - Far=desaturated? | ✅ | Distant pyramids have haze |
+| **Focal point** - Highest contrast at focus? | ✅ | Sun/pyramids junction |
+| **Soft edges in nature** - Gradients at transitions? | ⚠️ Partial | Sand ripples good, some hard edges remain |
+| **Squint test** - Major masses readable? | ✅ | Clear sky/ground/monument separation |
 
 ---
 
@@ -376,6 +410,46 @@ To push more JRPG: Add eyebrows, curved eye shapes, more shine layers
 - [ ] Small nose hint (triangle or line)
 - [ ] More detailed hair strands
 
+### Art Principles Applied (Post-Study Validation)
+
+| Principle | Applied? | Notes |
+|-----------|----------|-------|
+| **Value hierarchy** - 3+ distinct value zones? | ✅ | Background→outfit→face layers |
+| **Light source consistency** - Single direction? | ⚠️ Partial | Ambient lighting, shine position inconsistent |
+| **Form vs cast shadows** - Both present? | ❌ N/A | Chibi style is intentionally flat |
+| **Silhouette test** - Recognizable as black? | ✅ | Character reads as clear human figure |
+| **Atmospheric perspective** - Far=desaturated? | ❌ N/A | Single-plane character art |
+| **Focal point** - Highest contrast at focus? | ✅ | Face is brightest/highest contrast area |
+| **Soft edges in nature** - Gradients at transitions? | ⚠️ Partial | Background soft, character intentionally crisp |
+| **Squint test** - Major masses readable? | ✅ | Head, body, scarf all distinct |
+
+**Character-Specific Principles:**
+| Principle | Applied? | Notes |
+|-----------|----------|-------|
+| **Style consistency** - All elements same style? | ✅ V3 only | V1 failed badly at this |
+| **Limited palette** - 4-5 colors max? | ✅ | Teal, purple, pink, yellow, cream |
+| **Layer order** - Correct overlap? | ✅ | Hair back→scarf→body→head→eyes |
+| **Eye highlights** - White shine present? | ✅ | Top-left position |
+
 ---
 
-*Last Updated: January 5, 2026*
+## Study #2: Landscape (Mountain Lake Scene) - Art Principles Validation
+
+### Art Principles Applied (Post-Study Validation)
+
+| Principle | Applied? | Notes |
+|-----------|----------|-------|
+| **Value hierarchy** - 3+ distinct value zones? | ✅ | Sky→far mountains→mid mountains→lake→shore |
+| **Light source consistency** - Single direction? | ✅ | Sun position drives all lighting |
+| **Form vs cast shadows** - Both present? | ⚠️ Partial | Form shadows on mountains, cast shadows limited |
+| **Silhouette test** - Recognizable as black? | ✅ | Mountain shapes read clearly |
+| **Atmospheric perspective** - Far=desaturated? | ✅ V3+ | Fixed in V3 - color shift not alpha |
+| **Focal point** - Highest contrast at focus? | ✅ | Sun reflection on water |
+| **Soft edges in nature** - Gradients at transitions? | ✅ V4 | Major breakthrough lesson |
+| **Squint test** - Major masses readable? | ✅ | Clear layer separation |
+
+**Key Failure→Success Note:** V1→V2 transition FAILED atmospheric perspective (used alpha instead of color). V3/V4 corrected this.
+
+---
+
+*Last Updated: January 6, 2026*

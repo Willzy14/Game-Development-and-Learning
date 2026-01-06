@@ -113,7 +113,9 @@ Game-Development-and-Learning/
 │   │   ├── 06-UI_CONTROLS.md     # Modals, touch controls, responsive
 │   │   ├── 07-DEBUG_QUALITY.md   # Bugs, testing, code standards
 │   │   ├── 08-QUICK_REFERENCE.md # Cheat sheets for quick lookup
-│   │   └── 09-SESSION_LOG.md     # Session reflections + what was learned
+│   │   ├── 09-SESSION_LOG.md     # Session reflections + what was learned
+│   │   ├── 10-ART_FUNDAMENTALS.md # ⭐ Classical art theory for game art
+│   │   └── 11-CANVAS_PATTERNS.md  # Reusable Canvas code library
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -161,6 +163,9 @@ Game-Development-and-Learning/
 | **🆕 Creating theme reskin** | [01-CORE_RULES.md](./01-CORE_RULES.md) → Task Strategies |
 | **🆕 Breaking large tasks** | [04-PATTERNS_REFERENCE.md](./04-PATTERNS_REFERENCE.md) → Large Task Breakdown |
 | **🆕 Choosing audio scale** | [02-AUDIO_MASTERY.md](./02-AUDIO_MASTERY.md) → Musical Scales |
+| **🆕 Art looks "off"** | [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) → Check 5-value system |
+| **🆕 Before any art study** | [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) → Read principles first |
+| **🆕 Need Canvas code** | [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) → Copy-paste patterns |
 
 ### Staleness Tracking
 
@@ -197,6 +202,7 @@ See [MAINTENANCE.md](./MAINTENANCE.md) for staleness detection procedures.
 - **Game Patterns:** Expert (state machine, collision, particles)
 - **Theme Reskinning:** Advanced (color abstraction, procedural themes)
 - **Large Task Management:** Expert (chunked creation pattern)
+- **🆕 Art Fundamentals:** Intermediate (5-value system, light/shadow, composition)
 
 ---
 
@@ -247,7 +253,7 @@ See [MAINTENANCE.md](./MAINTENANCE.md) for detailed instructions on:
 
 ---
 
-*Bible System Version: 5.1*  
+*Bible System Version: 5.2*  
 *Architecture: Modular Documentation*  
 *Last Restructured: January 6, 2026*  
-*Latest Addition: Theme Reskin & Large Task Patterns*
+*Latest Addition: Art Fundamentals & Canvas Patterns*

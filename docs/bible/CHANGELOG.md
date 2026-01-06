@@ -14,6 +14,74 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - Classical Art Fundamentals Integration
+
+### 📚 Source: Deep Research Session Before Art Study #4 (Space Scene)
+Before starting Study #4, conducted comprehensive research into classical art principles that had been applied intuitively. Goal: Make implicit knowledge explicit with checkable rules.
+
+### 🆕 Added
+
+**10-ART_FUNDAMENTALS.md (NEW FILE - ~500 lines):**
+- **5-Value System**: Highlight → Light → Halftone → Core Shadow → Reflected Light
+- **Form vs Cast Shadows**: Core shadows (gradients) vs cast shadows (defined edges)
+- **Composition Principles**: Rule of thirds, focal point hierarchy, visual flow
+- **Perspective Systems**: 1-point, 2-point, atmospheric (COLOR shift not alpha)
+- **Color Theory**: Warm/cool, limited palette, simultaneous contrast
+- Shadow type comparison table with code patterns
+- Composition checklist for every scene
+
+**11-CANVAS_PATTERNS.md (NEW FILE - ~800 lines):**
+- **Complete Code Library**: Copy-paste ready patterns
+- **Gradient Types**: Linear, radial, conic with code examples
+- **Compositing Operations**: multiply, screen, lighter, destination-out
+- **Transform Patterns**: Rotation around point, combined transforms
+- **Color Utilities**: ColorUtils object with hex↔rgb, lerp, lighten/darken
+- **Procedural Algorithms**: Landscape layers, sphere rendering, ParallaxLayer class
+- **Lighting Simulation**: Day/night system, time-based color
+
+**BIBLE_INDEX.md:**
+- Added 10-ART_FUNDAMENTALS.md and 11-CANVAS_PATTERNS.md to repository map
+- Updated "When to Read" table with art study scenarios
+- New entries: "Before starting any art study", "Need gradient/compositing code"
+
+**03-VISUAL_TECHNIQUES.md:**
+- Added "⚠️ ART THEORY PREREQUISITES" section at top
+- Links to new fundamentals documents
+- Establishes required reading order
+
+**ART_STUDY_PROGRESS.md:**
+- Added "📚 MANDATORY READING" section with pre-study checklist
+- Added pre-study checklists for Studies #4-#8
+- Added post-art validation checklists for Studies #1-#3 (retrospective)
+- Added "🎯 POST-ART VALIDATION CHECKLIST" template (8 principles to verify)
+
+### 💡 Key Insights from Research
+
+**Genuinely New Knowledge (~30-40% of research):**
+- 5-value system as explicit framework
+- Form shadows = gradients, Cast shadows = defined edges
+- Atmospheric perspective = COLOR shift (not alpha!)
+- Canvas compositing: multiply, screen, lighter
+- Silhouette test and squint test as validation
+
+**Formalized Existing Knowledge (~60-70%):**
+- Rule of thirds (was doing intuitively)
+- Warm foreground/cool shadows (already using)
+- Layer organization (already structured)
+
+### 🎯 Why This Matters
+Art was being done intuitively, which meant:
+1. No way to verify if principles were applied
+2. New agents couldn't learn the reasoning
+3. Quality was inconsistent
+
+Now every art study has:
+1. Pre-study checklist (what to read first)
+2. Post-study validation (8 principles to verify)
+3. Explicit rules to follow and check
+
+---
+
 ## [2026-01-05] - Chunking Quality Rule Added
 
 ### ⚠️ Source: Art Study #2 Regression Failure

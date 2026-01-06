@@ -6,13 +6,35 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-05   | 2026-01-05     | Snake V2 visual mastery complete |
+| 2026-01-06   | 2026-01-06     | Art fundamentals research integration |
 <!-- END METADATA -->
 
 **Related Documents:**
+- [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) - ⭐ Art theory (READ FIRST if art looks wrong)
+- [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) - Reusable Canvas code library
 - [08-QUICK_REFERENCE.md](./08-QUICK_REFERENCE.md) - Canvas cheat sheets
 - [04-PATTERNS_REFERENCE.md](./04-PATTERNS_REFERENCE.md) - Particle system patterns
 - [05-TECHNOLOGIES.md](./05-TECHNOLOGIES.md) - Canvas 2D API reference
+
+---
+
+## ⚠️ ART THEORY PREREQUISITES
+
+**Before implementing ANY visual technique, ensure you understand:**
+
+| Principle | Document Section | Why It Matters |
+|-----------|------------------|----------------|
+| 5-Value System | [10-ART_FUNDAMENTALS.md → Section 2](./10-ART_FUNDAMENTALS.md#2-the-5-value-system-⭐-critical) | 3D forms require highlight, light, halftone, core shadow, reflected light |
+| Light Consistency | [10-ART_FUNDAMENTALS.md → Section 3](./10-ART_FUNDAMENTALS.md#3-light--shadow-rules) | All shadows must agree on light direction |
+| Form vs Cast Shadow | [10-ART_FUNDAMENTALS.md → Section 3](./10-ART_FUNDAMENTALS.md#3-light--shadow-rules) | Different rules for each shadow type |
+| Atmospheric Perspective | [10-ART_FUNDAMENTALS.md → Section 5](./10-ART_FUNDAMENTALS.md#5-perspective-fundamentals) | Distance = color shift + desaturate, NOT just alpha |
+
+**Quick Tests After Any Art:**
+- ☐ Squint test - do 2-3 value masses emerge?
+- ☐ Silhouette test - recognizable as black shape?
+- ☐ 25% scale test - readable when tiny?
+
+See full checklist: [10-ART_FUNDAMENTALS.md → Section 8](./10-ART_FUNDAMENTALS.md#8-quick-tests--validation)
 
 ---
 
