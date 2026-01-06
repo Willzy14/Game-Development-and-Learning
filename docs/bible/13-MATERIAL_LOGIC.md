@@ -14,6 +14,8 @@
 - [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) - Edge theory foundation (read first)
 - [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) - Value and composition
 - [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) - Implementation patterns
+- **[14-CANVAS_IMPLEMENTATION_PATTERNS.md](./14-CANVAS_IMPLEMENTATION_PATTERNS.md) - Production code (read next)**
+- **[15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md) - Automated testing (use to validate)**
 
 ---
 
@@ -810,6 +812,16 @@ Result:
 
 ## 10. CANVAS IMPLEMENTATION
 
+**⭐ For complete, production-ready code, see [14-CANVAS_IMPLEMENTATION_PATTERNS.md](./14-CANVAS_IMPLEMENTATION_PATTERNS.md)**
+
+This section provides conceptual implementation guidance. For drop-in code with:
+- Complete noise library (Perlin, Value, FBM)
+- Full MATERIALS object
+- Big Form Pass implementation
+- All rendering patterns
+
+...refer to the Canvas Implementation Patterns document.
+
 Putting it all together.
 
 ### Material System Class
@@ -1049,6 +1061,17 @@ function drawTreeCluster(ctx, x, y, height, depth = 0.2) {
 ---
 
 ## 12. VALIDATION CHECKLIST
+
+**⭐ For automated validation with code, see [15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md)**
+
+This checklist provides manual validation. For programmatic detection of abstract drift:
+- Value histogram analysis
+- Edge uniformity detection
+- Noise coherence tests
+- Material differentiation checks
+- Automated realism scoring
+
+...refer to the Realism Validation document.
 
 Run after completing any scene.
 

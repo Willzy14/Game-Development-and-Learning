@@ -14,6 +14,131 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - Canvas Implementation + Realism Validation ⭐ NEW SYSTEMS
+
+### 🔴 Source: V6 Implementation Research + Automated Testing Requirements
+
+After establishing Material Logic theory (13-MATERIAL_LOGIC.md), new research provided production-ready code patterns and automated validation to prevent V6-style "abstract drift".
+
+### 🆕 Added - 14-CANVAS_IMPLEMENTATION_PATTERNS.md (NEW FILE - ~900 lines)
+
+**Purpose:** Production-ready Canvas code implementing Material Logic principles.
+
+**Core Content:**
+
+**Section 1: Complete Noise Library**
+- Perlin Noise (gradient-based, high quality for hero elements)
+- Value Noise (hash-based, faster for secondary elements)
+- FBM (Fractional Brownian Motion) - multi-octave upgrade
+- Unified NoiseEngine interface for all types
+- When to use each noise type
+
+**Section 2: Material Profile System**
+- Complete MATERIALS object (rock/foliage/snow/cloud/water/ground)
+- Properties: base color (HSL), contrast, edge behavior, noise config, detail density
+- `getMaterialNoise()` helper function
+- Drop-in profiles ready to use
+
+**Section 3: Big Form Pass Implementation** ⭐ CRITICAL
+- Prevents "soft blob syndrome" by forcing structure first
+- Rules: No noise, no scatter, no feather - just 3-6 large shapes
+- Sky gradient + mountain mass + water + ground bands
+- `validateBigFormPass()` checkpoint function
+
+**Section 4: Material Rendering Patterns**
+- `shadeSilhouette()` - Apply material shading inside clipped region
+- `drawTreeCluster()` - Coherent foliage masses (not uniform scatter)
+- `noisyEdge()` - Material-specific edge variation
+- Canvas API sequences for each pattern
+
+**Section 5: Scene Composition Pipeline**
+- Complete rendering order: Form → Material → Atmosphere → Refinement
+- `SceneRenderer` class with four-phase rendering
+- Checkpoint validation after each phase
+
+**Section 6: Color Utilities**
+- HSL to RGB conversion
+- RGB to HSL conversion
+- Clamp helpers
+
+**Section 7: Complete Working Examples**
+- Simple mountain scene renderer
+- Material comparison demo (same shape, different materials)
+- Noise comparison visualization
+
+### 🆕 Added - 15-REALISM_VALIDATION.md (NEW FILE - ~700 lines)
+
+**Purpose:** Programmatic detection of "abstract drift" and material logic violations.
+
+**Core Content:**
+
+**Section 1: Value Distribution Check**
+- `valueHistogramCheck()` - Detects mushy vs natural value grouping
+- Natural scenes have 3-5 dominant groups (not 9-10 equal bins)
+- Catches V6 "too many mid-tones" problem
+
+**Section 2: Edge Uniformity Detection**
+- `edgeUniformityCheck()` - Samples edge sharpness across image
+- Detects when all edges have similar softness (abstract)
+- Calculates coefficient of variation (need >0.4 for natural)
+
+**Section 3: Noise Coherence Test**
+- `noiseCoherenceCheck()` - Detects "TV static" vs smooth gradients
+- Calculates autocorrelation (neighbor similarity)
+- Flags Math.random() sparkle patterns
+
+**Section 4: Material Differentiation Check**
+- `materialDifferentiationCheck()` - Verifies materials are distinct
+- Analyzes regions for value, saturation, edge density, sharp edge ratio
+- Calculates profile distance between materials
+- Catches "same substance" problem
+
+**Section 5: Histogram Analysis**
+- ASCII histogram display for quick visualization
+- Shows percentage distribution across value bins
+
+**Section 6: Complete Validation Pipeline**
+- `RealismValidator` class - runs all checks
+- Comprehensive report with pass/fail per test
+- Overall score (must be >70% to proceed)
+- Suggestions for failed tests
+
+**Section 7: Validation Dashboard**
+- Visual overlay on canvas showing test results
+- Real-time monitoring during development
+
+**Section 8: Integration with Scene Renderer**
+- Validation checkpoints after each phase
+- Abort rendering if validation fails
+- Prevents wasted effort on wrong direction
+
+### 📝 Updated
+
+**BIBLE_INDEX.md:**
+- Added 14-CANVAS_IMPLEMENTATION_PATTERNS.md to folder map and When to Read table
+- Added 15-REALISM_VALIDATION.md to folder map and When to Read table
+- Added "Need production Canvas code" → Canvas Implementation Patterns
+- Added "Implementing material logic" → Canvas Implementation Patterns
+- Added "Testing if art is realistic" → Realism Validation
+- Added "Catching abstract drift" → Realism Validation
+- Added new skills to tracker: Canvas Implementation, Realism Validation
+
+**ART_STUDY_PROGRESS.md:**
+- (Pending) Add validation requirements to workflow
+- (Pending) Add noise library to critical tools
+
+**Validation Benefits:**
+- Objective metrics (not subjective "looks good")
+- Catches drift during rendering (not after)
+- Prevents V6-style failures automatically
+- Forces material logic compliance
+
+**Key Integrations:**
+- 13-MATERIAL_LOGIC.md (theory) → 14-CANVAS_IMPLEMENTATION_PATTERNS.md (code) → 15-REALISM_VALIDATION.md (testing)
+- Complete workflow: Understand → Implement → Validate
+
+---
+
 ## [2026-01-06] - Material Logic System ⭐ CRITICAL NEW DOCUMENT
 
 ### 🔴 Source: V6 Abstract/Dreamlike Diagnosis + Material Behavior Research

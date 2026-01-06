@@ -69,7 +69,16 @@ Each picture should demonstrate MORE detail than the previous.
 | **13-MATERIAL_LOGIC.md** | Section 4 | Material-specific edge behavior |
 | **13-MATERIAL_LOGIC.md** | Section 7 | Coherent noise vs random |
 
-### Priority 2: Art Fundamentals
+### Priority 2: Implementation & Validation (NEW)
+| Document | Section | What to Review |
+|----------|---------|----------------|
+| **14-CANVAS_IMPLEMENTATION_PATTERNS.md** | Section 1 | Complete noise library (Perlin, Value, FBM) |
+| **14-CANVAS_IMPLEMENTATION_PATTERNS.md** | Section 2 | MATERIALS object profiles |
+| **14-CANVAS_IMPLEMENTATION_PATTERNS.md** | Section 3 | Big Form Pass workflow |
+| **15-REALISM_VALIDATION.md** | Section 1-4 | Automated validation tests |
+| **15-REALISM_VALIDATION.md** | Section 6 | Complete validation pipeline |
+
+### Priority 3: Art Fundamentals
 | Document | Section | What to Review |
 |----------|---------|----------------|
 | **10-ART_FUNDAMENTALS.md** | Section 2 | 5-Value System |
@@ -103,6 +112,12 @@ Each picture should demonstrate MORE detail than the previous.
 - [ ] Plan focal point location (use rule of thirds)
 - [ ] Sketch value thumbnail (3 values: dark/mid/light masses)
 - [ ] Choose color palette (max 5-6 main colors)
+
+**Validation Workflow (NEW - From Realism Validation):**
+- [ ] Review 15-REALISM_VALIDATION.md validation tests
+- [ ] Plan validation checkpoints (after Big Form, after Material, final)
+- [ ] Set acceptance threshold (>70% realism score to proceed)
+- [ ] Prepare to abort if validation fails early
 
 ---
 

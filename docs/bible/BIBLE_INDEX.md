@@ -116,7 +116,10 @@ Game-Development-and-Learning/
 │   │   ├── 09-SESSION_LOG.md     # Session reflections + what was learned
 │   │   ├── 10-ART_FUNDAMENTALS.md # ⭐ Classical art theory for game art
 │   │   ├── 11-CANVAS_PATTERNS.md  # Reusable Canvas code library
-│   │   └── 12-EDGE_MASTERY.md     # 🚨 CRITICAL: Edge theory paradigm shift
+│   │   ├── 12-EDGE_MASTERY.md     # 🚨 CRITICAL: Edge theory paradigm shift
+│   │   ├── 13-MATERIAL_LOGIC.md   # 🚨 Form → Material → Atmosphere system
+│   │   ├── 14-CANVAS_IMPLEMENTATION_PATTERNS.md # Production Canvas code
+│   │   └── 15-REALISM_VALIDATION.md # Automated testing for natural rendering
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -172,6 +175,10 @@ Game-Development-and-Learning/
 | **🚨 Art looks abstract/dreamlike** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Material behavior |
 | **🚨 Everything same substance** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Form → Material → Atmosphere |
 | **🚨 BEFORE realistic scenes** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Read after Edge Mastery |
+| **🛠️ Need production Canvas code** | [14-CANVAS_IMPLEMENTATION_PATTERNS.md](./14-CANVAS_IMPLEMENTATION_PATTERNS.md) → Drop-in functions |
+| **🛠️ Implementing material logic** | [14-CANVAS_IMPLEMENTATION_PATTERNS.md](./14-CANVAS_IMPLEMENTATION_PATTERNS.md) → Noise library + patterns |
+| **🔬 Testing if art is realistic** | [15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md) → Automated checks |
+| **🔬 Catching abstract drift** | [15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md) → Histogram + edge tests |
 
 ### Staleness Tracking
 
@@ -211,6 +218,8 @@ See [MAINTENANCE.md](./MAINTENANCE.md) for staleness detection procedures.
 - **🆕 Art Fundamentals:** Intermediate (5-value system, light/shadow, composition)
 - **🆕 Edge Mastery:** Learning (probability fields, value bridging, soft edges)
 - **🆕 Material Logic:** Learning (form hierarchy, material behavior, coherent noise)
+- **🆕 Canvas Implementation:** Learning (Perlin/Value noise, FBM, material profiles, Big Form Pass)
+- **🆕 Realism Validation:** Learning (histogram analysis, edge detection, automated testing)
 
 ---
 
