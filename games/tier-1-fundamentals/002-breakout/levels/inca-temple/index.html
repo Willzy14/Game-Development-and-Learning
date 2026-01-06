@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakout - Inca Temple Level</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a0a00 0%, #2d1810 50%, #1a0a00 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #d4a574;
+        }
+        
+        h1 {
+            margin-bottom: 15px;
+            font-size: 2em;
+            text-shadow: 0 0 20px #f4a460, 0 0 40px #8b4513;
+            letter-spacing: 4px;
+        }
+        
+        .subtitle {
+            color: #b8860b;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        
+        #gameCanvas {
+            border: 4px solid #8b4513;
+            border-radius: 4px;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.6),
+                inset 0 0 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .controls {
+            margin-top: 20px;
+            color: #cd853f;
+            font-size: 0.85em;
+        }
+        
+        .sound-toggle {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(180deg, #8b4513, #5d2906);
+            border: 2px solid #d4a574;
+            color: #ffd700;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+        
+        .sound-toggle:hover {
+            background: linear-gradient(180deg, #a0522d, #8b4513);
+        }
+    </style>
+</head>
+<body>
+    <h1>🏛️ INCA TEMPLE 🏛️</h1>
+    <div class="subtitle">Break the sacred stone blocks of Machu Picchu</div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div class="controls">
+        ← → Arrow Keys to Move | SPACE to Start | M to Toggle Sound
+    </div>
+    <button class="sound-toggle" id="soundToggle">🔊 Sound: ON</button>
+    
+    <script src="inca-audio.js"></script>
+    <script src="inca-background.js"></script>
+    <script src="inca-game.js"></script>
+</body>
+</html>
