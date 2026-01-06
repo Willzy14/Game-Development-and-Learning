@@ -8,20 +8,56 @@ Each picture should demonstrate MORE detail than the previous.
 
 ---
 
+## 🚨 CRITICAL: EDGE MASTERY (Read This First!)
+
+**Before ANY art work, you MUST read [12-EDGE_MASTERY.md](../bible/12-EDGE_MASTERY.md)**
+
+This document contains a paradigm shift that changes everything:
+
+> **Nature is built from probability fields, not boundaries.**
+> **Hard edges are a human abstraction.**
+
+### The Checkable Rule
+```
+IF AN EDGE CAN BE TRACED WITH A RULER, IT IS WRONG.
+```
+
+### Key Concepts to Internalize:
+1. **Edge Classification**: Hard / Soft / Lost / Found edges
+2. **Value Bridging**: Never let Color A touch Color B directly
+3. **Accumulate Form**: Build up from chaos, don't draw geometry
+4. **Edge Sharpness = f(depth)**: Far = soft edges, Near = sharp edges
+5. **Light is Distribution**: No bright object ends abruptly
+
+---
+
 ## 📖 REQUIRED READING BEFORE EACH STUDY
 
-**Every art study MUST begin by reviewing these sections from [10-ART_FUNDAMENTALS.md](../bible/10-ART_FUNDAMENTALS.md):**
+**Every art study MUST begin by reviewing these documents:**
 
-| Section | What to Review | Why |
-|---------|----------------|-----|
-| **Section 2: 5-Value System** | Highlight, Light, Halftone, Core Shadow, Reflected Light | Every 3D form needs all 5 values |
-| **Section 3: Light & Shadow** | Form shadow vs cast shadow rules | Different edge rules for each |
-| **Section 4: Composition** | Focal point, value grouping, rule of thirds | Guides eye through scene |
-| **Section 8: Quick Tests** | Squint test, silhouette test, 25% scale test | Validation checkpoints |
+### Priority 1: Edge Theory (CRITICAL)
+| Document | Section | What to Review |
+|----------|---------|----------------|
+| **12-EDGE_MASTERY.md** | Section 1-2 | Mental model shift, edge classification |
+| **12-EDGE_MASTERY.md** | Section 4 | Value bridging - "never touch directly" |
+| **12-EDGE_MASTERY.md** | Section 10 | Validation checklist |
+
+### Priority 2: Art Fundamentals
+| Document | Section | What to Review |
+|----------|---------|----------------|
+| **10-ART_FUNDAMENTALS.md** | Section 2 | 5-Value System |
+| **10-ART_FUNDAMENTALS.md** | Section 3 | Form shadow vs cast shadow |
+| **10-ART_FUNDAMENTALS.md** | Section 4 | Composition and focal point |
 
 ### Pre-Study Checklist (Complete Before Starting)
 
-- [ ] Read the relevant sections above
+**Edge Planning:**
+- [ ] Read 12-EDGE_MASTERY.md (or re-read validation checklist)
+- [ ] Plan which edges will be LOST (dissolving into background)
+- [ ] Plan which edges will be FOUND (focal point sharpening)
+- [ ] Plan value bridges between all major color zones
+
+**Composition Planning:**
 - [ ] Identify light source direction for the scene
 - [ ] Plan focal point location (use rule of thirds)
 - [ ] Sketch value thumbnail (3 values: dark/mid/light masses)
@@ -34,7 +70,8 @@ Each picture should demonstrate MORE detail than the previous.
 | # | Subject | Status | Rating | Key Techniques Practiced |
 |---|---------|--------|--------|--------------------------||
 | 1 | Egyptian Scene | ✅ Complete | 8.5/10 | Brick texture, sand ripples, palm fronds, weathering |
-| 2 | Mountain Landscape | ✅ Complete (V4) | 8/10 | Broken water reflections, soft snow edges, gradient transitions, scattered elements |
+| 2 | Mountain Landscape | ✅ V5 Complete | 7/10 | ColorUtils, 5-value gradients, compositing ops - BUT still hard edges |
+| 2b | Mountain V6 | 🔄 In Progress | - | Edge mastery: probability fields, value bridging, soft edges |
 | 3 | Character Portrait | ✅ Complete (V3) | 7/10 | Chibi proportions, patchwork clothing, layered rendering, style consistency |
 | 4 | Space Scene | ⏳ Not Started | - | Nebula gradients, star fields, planet surfaces |
 | 5 | Underwater Scene | ⏳ Not Started | - | Caustic light, coral detail, water particles |
@@ -310,13 +347,85 @@ function generateOrganicCurve(startX, startY, endX, endY, segments, variance, se
 
 ---
 
+## Study #2 V5: What Improved vs What Still Failed
+
+**File**: `/art-studies/002-landscape-v5/`  
+**Resolution**: 1400x900  
+**Lines of Code**: 1258
+**Date Completed**: January 6, 2026
+
+### What V5 Did Right ✅
+- **Sky gradient**: Smooth, atmospheric, no hard stops
+- **Sun glow**: `lighter` compositing for bloom effect
+- **Color consistency**: PALETTE object, ColorUtils for programmatic colors
+- **Atmospheric perspective**: ColorUtils.applyAtmosphere() for distant mountains
+- **Cloud clusters**: Actually look good, soft puffs
+- **Code organization**: Well-structured, reusable utilities
+
+### What V5 Still Got Wrong ❌
+- **Mountain edges**: Still hard diagonal lines (lineTo)
+- **Snow caps**: Hard line where snow meets rock
+- **Tree silhouettes**: Perfect triangle stacks
+- **Shoreline**: Hard line between water and land
+- **Grass edge**: Sharp cutoff
+- **Sun reflection sparkles**: Hard circles, not soft distributions
+- **Tree line against sky**: Clean edge, not broken
+
+### The Core Problem Identified
+
+> **We were drawing SHAPES with gradients instead of ACCUMULATING FORM through variation.**
+
+The sky works because it's graduated bands. Everything else fails because we're doing:
+```javascript
+// WRONG APPROACH
+ctx.beginPath();
+ctx.moveTo(x, y);
+for (p of points) ctx.lineTo(p.x, p.y);
+ctx.fill();  // This creates a SHAPE with hard boundaries
+```
+
+### V6 Requirements (Edge Mastery)
+
+V6 must apply the paradigm shift from [12-EDGE_MASTERY.md](../bible/12-EDGE_MASTERY.md):
+
+1. **NO ruler-traceable edges** - Every edge must vary in angle, thickness, opacity
+2. **Value bridging everywhere** - Snow patches invade rock, not hard line
+3. **Accumulate form** - Build mountains from scattered blobs, not filled shapes
+4. **Edge sharpness = f(depth)** - Far mountains = soft edges, near = sharper
+5. **Light as distribution** - Sun sparkles are glowing blobs, not circles
+
+---
+
+## Study #2 V6: Edge Mastery Pre-Study Checklist
+
+### Required Reading (Complete Before Starting)
+- [ ] **12-EDGE_MASTERY.md Section 1**: Mental model shift
+- [ ] **12-EDGE_MASTERY.md Section 2**: Edge classification (Hard/Soft/Lost/Found)
+- [ ] **12-EDGE_MASTERY.md Section 4**: Value bridging rules
+- [ ] **12-EDGE_MASTERY.md Section 8**: Canvas implementation patterns
+
+### Edge Planning (Complete Before Coding)
+- [ ] **Lost edges**: Where will forms dissolve? (distant mountains into sky, shadows into background)
+- [ ] **Found edges**: Where is focal point sharpening? (center mountain peak, sun)
+- [ ] **Value bridges needed**: Snow↔rock, water↔shore, grass↔lake, forest↔sky
+
+### Implementation Approach
+- [ ] Replace `lineTo()` with uncertainty bands
+- [ ] Replace fill shapes with accumulated blobs
+- [ ] Add edge sharpness parameter to all drawing functions
+- [ ] Use probability-based drawing for natural boundaries
+
+---
+
 ## Next Session Plan
 
-1. **Study #4: Space Scene** - Apply lessons to cosmic subjects:
-   - Nebula gradients (soft transitions, no hard edges)
-   - Star fields (scattered sparkles technique from water)
-   - Planet surfaces (texture + atmospheric glow)
-2. Consider returning to character study with more expressive eyes
+1. **Study #2 V6: Mountain Landscape** - Apply edge mastery paradigm shift
+   - Accumulate mountain forms from scattered blobs
+   - Value bridge all transitions (snow, shore, tree line)
+   - Edge sharpness decreases with distance
+   - Light sources are distributions, not shapes
+
+2. Then continue to **Study #4: Space Scene** with edge principles already in place
 
 ---
 

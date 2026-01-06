@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Study #2 - Mountain Landscape V5 (Art Fundamentals Applied)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #c0d0e0;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+        .subtitle {
+            color: #8090a0;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            text-align: center;
+            max-width: 800px;
+        }
+        canvas {
+            border: 3px solid #3a4a5a;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .info {
+            color: #6080a0;
+            margin-top: 20px;
+            font-size: 0.85em;
+            text-align: center;
+            max-width: 900px;
+            line-height: 1.6;
+        }
+        .techniques {
+            color: #80a0c0;
+            margin-top: 15px;
+            font-size: 0.8em;
+            text-align: left;
+            max-width: 900px;
+            background: rgba(40, 60, 80, 0.3);
+            padding: 15px 20px;
+            border-radius: 8px;
+        }
+        .techniques h3 { color: #a0c0e0; margin-bottom: 10px; }
+        .techniques ul { padding-left: 20px; }
+        .techniques li { margin: 4px 0; }
+    </style>
+</head>
+<body>
+    <h1>🏔️ Mountain Landscape V5</h1>
+    <div class="subtitle">
+        Art Fundamentals Applied: 5-Value System, Form vs Cast Shadows, 
+        Atmospheric Perspective (Color Shift), Compositing Operations
+    </div>
+    <canvas id="artCanvas" width="1400" height="900"></canvas>
+    <div class="info">
+        <strong>V5 Improvements over V4:</strong> Explicit 5-value system on mountains, 
+        proper form shadows with core shadow + reflected light, cast shadows on ground,
+        'multiply' compositing for shadow overlays, 'lighter' compositing for glows,
+        enhanced atmospheric perspective with desaturation, halftone transitions.
+    </div>
+    <div class="techniques">
+        <h3>🎨 New Techniques Applied:</h3>
+        <ul>
+            <li><strong>5-Value System:</strong> Highlight → Light → Halftone → Core Shadow → Reflected Light on all 3D forms</li>
+            <li><strong>Form Shadows:</strong> Soft gradients with visible halftone transition zones</li>
+            <li><strong>Cast Shadows:</strong> Hard at contact point, soft at distance, darker than form shadows</li>
+            <li><strong>Compositing:</strong> globalCompositeOperation 'multiply' for shadows, 'lighter' for glows</li>
+            <li><strong>Atmospheric Perspective:</strong> Color desaturation + blue shift (not just alpha!)</li>
+            <li><strong>ColorUtils:</strong> Programmatic lighten/darken/blend for consistent values</li>
+        </ul>
+    </div>
+    <script src="art.js"></script>
+</body>
+</html>

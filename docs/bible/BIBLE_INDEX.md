@@ -115,7 +115,8 @@ Game-Development-and-Learning/
 │   │   ├── 08-QUICK_REFERENCE.md # Cheat sheets for quick lookup
 │   │   ├── 09-SESSION_LOG.md     # Session reflections + what was learned
 │   │   ├── 10-ART_FUNDAMENTALS.md # ⭐ Classical art theory for game art
-│   │   └── 11-CANVAS_PATTERNS.md  # Reusable Canvas code library
+│   │   ├── 11-CANVAS_PATTERNS.md  # Reusable Canvas code library
+│   │   └── 12-EDGE_MASTERY.md     # 🚨 CRITICAL: Edge theory paradigm shift
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -166,6 +167,8 @@ Game-Development-and-Learning/
 | **🆕 Art looks "off"** | [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) → Check 5-value system |
 | **🆕 Before any art study** | [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) → Read principles first |
 | **🆕 Need Canvas code** | [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) → Copy-paste patterns |
+| **🚨 Edges look hard/artificial** | [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) → The paradigm shift |
+| **🚨 BEFORE any visual art** | [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) → This changes everything |
 
 ### Staleness Tracking
 
@@ -203,6 +206,7 @@ See [MAINTENANCE.md](./MAINTENANCE.md) for staleness detection procedures.
 - **Theme Reskinning:** Advanced (color abstraction, procedural themes)
 - **Large Task Management:** Expert (chunked creation pattern)
 - **🆕 Art Fundamentals:** Intermediate (5-value system, light/shadow, composition)
+- **🆕 Edge Mastery:** Learning (probability fields, value bridging, soft edges)
 
 ---
 

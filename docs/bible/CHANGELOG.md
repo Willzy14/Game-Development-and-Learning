@@ -14,6 +14,82 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - Edge Mastery Paradigm Shift ⭐ CRITICAL
+
+### 🔴 Source: V5 Mountain Landscape Analysis + Edge Theory Research
+V5 improved color/value handling but STILL had hard edges everywhere. Deep research revealed we were using the wrong mental model entirely.
+
+### 🆕 Added
+
+**12-EDGE_MASTERY.md (NEW FILE - ~600 lines - CRITICAL):**
+
+This document represents a **paradigm shift** in how we approach visual art:
+
+> **"Nature is built from probability fields, not boundaries. Hard edges are a human abstraction."**
+
+Key concepts documented:
+- **Edge Classification System**: Hard / Soft / Lost / Found edges
+- **The Checkable Rule**: "If an edge can be traced with a ruler, it is WRONG"
+- **Value Bridging**: "Never allow Color A to touch Color B directly"
+- **Mental Model Shift**: From "draw shape → fill" to "accumulate form through variation"
+- **Edge Sharpness = f(depth)**: Distance means softer edges, not just color shift
+- **Light as Distribution**: No bright object ends abruptly
+- **Silhouette Building**: "Carve chaos into order" not "draw geometry"
+- Canvas implementation patterns for all concepts
+- Before/After code examples
+- Validation checklist
+
+**BIBLE_INDEX.md:**
+- Added 12-EDGE_MASTERY.md to repository map
+- Added 🚨 priority entries: "Edges look hard/artificial", "BEFORE any visual art"
+- Added Edge Mastery to skills tracker
+
+**ART_STUDY_PROGRESS.md:**
+- Added 🚨 CRITICAL: EDGE MASTERY section at top
+- Updated pre-study checklist with edge planning requirements
+- Added V5 analysis: what worked vs what still failed
+- Added V6 requirements based on edge mastery principles
+- Added V6 pre-study checklist
+
+### 💡 Key Insight
+
+**Why V5 failed despite better color/value:**
+```
+We were decorating SHAPES when we should have been ACCUMULATING UNCERTAINTY.
+```
+
+The sky worked because it's graduated bands (accumulation).
+Mountains failed because we did: lineTo() → fill() (shape with hard boundary).
+
+**The fix isn't "softer lines" - it's a completely different approach:**
+- Don't draw mountain outline → Accumulate mountain form from scattered elements
+- Don't draw snow line → Let snow patches invade rock with decreasing probability
+- Don't draw shore → Gradient zone of wet→dry with scattered pebbles
+
+### 📊 V5 vs V6 Approach Comparison
+
+| Element | V5 (Wrong) | V6 (Correct) |
+|---------|------------|--------------|
+| Mountain | `lineTo()` + gradient fill | Accumulated blobs with soft edges |
+| Snow | Shape with hard boundary | Probability field, scattered patches |
+| Shore | Hard line | Value bridge zone with scatter |
+| Sparkles | Hard circles | Soft radial distributions |
+| Edges | All equally sharp | Sharpness decreases with distance |
+
+### 🎯 Why This Matters
+
+This is the missing piece that explains why our art looked "artificial":
+1. We had good color theory
+2. We had good value structure
+3. We had good composition
+4. **But we had 80% hard edges instead of 80% soft edges**
+
+Edge control is what separates "student work" from "natural looking":
+- Natural scenes: ~5% hard, ~30% found, ~40% soft, ~25% lost
+- Our V5: ~80% hard, ~20% soft, ~0% lost
+
+---
+
 ## [2026-01-06] - Classical Art Fundamentals Integration
 
 ### 📚 Source: Deep Research Session Before Art Study #4 (Space Scene)
