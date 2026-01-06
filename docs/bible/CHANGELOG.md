@@ -14,11 +14,16 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
-## [2026-01-06] - V7 Failure Analysis + Technique Selection Framework ⚠️ CRITICAL LESSON
+## [2026-01-06] - V7 Failure Analysis + V8 Incremental Approach ⚠️ CRITICAL LESSON
 
-### 🔴 Source: Landscape V7 Implementation Disaster
+### 🔴 Source: Landscape V7/V8 Intensive Debugging Session
 
-V7 applied everything from docs 13-15 (noise library, material system, validation pipeline) and produced **worse results than V5** which used none of them.
+V7 applied everything from docs 13-15 (noise library, material system, validation pipeline) and produced **worse results than V5** which used none of them. V8 corrected course with problem-first incremental improvements.
+
+### The Mixing/Mastering Insight
+
+User (professional mix engineer) provided key analogy:
+> "Small incremental changes add up to big improvements. Start with the most obvious problem, fix it, reassess. May take 100 small changes to get the best result."
 
 ### 🆕 Added - 16-TECHNIQUE_SELECTION.md (NEW FILE - ~350 lines)
 

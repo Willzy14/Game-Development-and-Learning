@@ -54,6 +54,134 @@ At the end of each session:
 
 ---
 
+## January 6, 2026 - V7/V8 Landscape: The "More ≠ Better" Lesson ⭐⭐⭐
+
+### Accomplished
+- ✅ Created docs 14-CANVAS_IMPLEMENTATION_PATTERNS.md (1046 lines)
+- ✅ Created docs 15-REALISM_VALIDATION.md (801 lines)
+- ✅ Created docs 16-TECHNIQUE_SELECTION.md (354 lines)
+- ✅ Created Landscape V7 (complete material system implementation)
+- ✅ Debugged V7 rendering failure (clouds covering mountains)
+- ✅ Created Landscape V8 (problem-first incremental approach)
+- ✅ Started V8 improvements (mountain ridge curves)
+
+### The Critical Lesson: V7 Failure
+
+**What Happened:**
+V7 implemented EVERYTHING from docs 13-15:
+- Complete noise library (Perlin, Value, FBM with unified NoiseEngine)
+- 6 material profiles (rock, snow, foliage, cloud, water, ground)
+- Big Form → Material → Atmosphere → Refinement pipeline
+- Validation suite with histogram/edge checks
+
+**Result: WORSE than V5** which used simple hand-crafted approaches.
+
+V7 scored 100% on validation metrics while looking objectively muddy and over-processed.
+
+### Why V7 Failed
+
+1. **Systems Fighting Each Other:**
+   - Big Form Pass: Good values established
+   - Material Pass: Recolored/reprocessed pixels, degrading structure
+   - Atmosphere Pass: Added haze on already-degraded output
+   - Each pass compounded error instead of improving
+
+2. **Clouds Covering Mountains:**
+   - Material pass for clouds applied too aggressively
+   - Mountains became indistinct, lost to atmospheric blur
+   - Fix: Disabled `materialPass_Clouds()` entirely
+
+3. **No Identified Problem:**
+   - Started with "implement the system" not "fix specific issue X"
+   - Solution-first thinking = over-engineering
+
+4. **Processing Cascade Degradation:**
+   - 50,000+ pixels × 4 passes = cumulative color drift
+   - Multiple full-canvas operations destroyed coherence
+
+### The Mixing/Mastering Analogy (User Insight)
+
+User is a professional mix/mastering engineer. Key insight:
+
+> "This is what I excel at - taking a big picture and making small incremental changes that add up to a big change. Start with the most obvious first, then move forward. When one thing changes it may make something more apparent that needs changing. It may take 100 small changes, but eventually you get the best big picture."
+
+**Art rendering = Audio mastering:**
+- Don't add every plugin because they exist
+- Identify specific problem → Apply specific fix → Test → Repeat
+- "Good enough" beats "over-processed"
+- Stop before you think you're done
+
+### V8 Approach (Correct)
+
+1. Start from V5 (proven foundation that worked)
+2. Identify ONE visible problem
+3. Apply ONE targeted technique
+4. Test: Is it CLEARLY better? Keep. Unclear? Revert.
+5. Repeat
+
+**First V8 fix:** Mountain ridge edges (lineTo → quadraticCurveTo)
+- Problem: Faceted polygon silhouettes
+- Solution: Smooth curves for organic ridgelines
+- Result: Clearly better, kept it
+
+### What I Learned
+
+**1. Problem-First Selection (Golden Rule)**
+```
+Every technique must solve a SPECIFIC, IDENTIFIED problem.
+If you can't name the problem, don't add the technique.
+```
+
+**2. More Techniques ≠ Better Results**
+1000+ lines of "systematic" code lost to simpler artistic decisions. Complexity compounds error, not quality.
+
+**3. Trust Your Eyes Over Metrics**
+V7 passed 100% validation while looking objectively worse. Metrics are supplements to judgment, not replacements.
+
+**4. One Change at a Time**
+Multiple simultaneous changes = can't identify what helped vs hurt. The incremental test pattern is the ONLY safe way to add complexity.
+
+**5. Blending > Replacing**
+Additive compositing (multiply, lighter) preserves structure. Destructive operations (pixel replacement) risk destroying good work.
+
+**6. Documentation = Reference Library, Not Curriculum**
+Bible docs are a spice cabinet. You don't add every spice to every dish. Reach for specific technique when specific problem identified.
+
+**7. The Stopping Rule**
+Can't identify a specific, visible problem? STOP WORKING. Projects peak before they feel "done."
+
+### Technical Discoveries
+
+1. **Pixel Selection is Hard:**
+   - Can't just process rectangular regions
+   - Mountains extend into "sky" region
+   - Need hue/saturation targeting or draw-it-right-the-first-time
+
+2. **Organic Curves:**
+   - `lineTo()` = artificial faceted edges
+   - `quadraticCurveTo()` = natural organic silhouettes
+   - Nature doesn't do straight lines
+
+3. **Radial Gradients for 3D Form:**
+   - Linear gradients = flat shading
+   - Radial gradients from highlight point = follows 3D form
+
+### Unsolved Problems (Next Session)
+- V8 tree edge variation (code exists, needs testing)
+- Water ripple patterns still mathematically regular
+- Far mountain atmospheric edge softening
+- Continue incremental V8 improvements
+
+### Bible Updates Made
+- Created 14-CANVAS_IMPLEMENTATION_PATTERNS.md
+- Created 15-REALISM_VALIDATION.md  
+- Created 16-TECHNIQUE_SELECTION.md
+- Updated BIBLE_INDEX.md with new documents
+- Updated CHANGELOG.md
+- Added warning blocks to docs about V7 failure
+
+---
+
 ## January 5, 2026 (Part 4 - Evening) - Art Study Session: Landscape V4 + Character Portrait ⭐
 
 ### Accomplished

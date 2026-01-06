@@ -4,39 +4,47 @@ Copy this entire message into your AI chat to begin:
 
 ---
 
-## ⚠️ CURRENT ACTIVE TASK (January 5, 2026 - Evening Session Complete)
+## ⚠️ CURRENT ACTIVE TASK (January 6, 2026 - V8 Landscape Incremental Improvements)
 
-**Art Study Series - Mastering Texture & Detail**
+**Art Study Series - Landscape V8 (Problem-First Approach)**
 
-We are working through 8 standalone art pieces to build texture skills.
+We discovered that **more techniques ≠ better results**. V7 implemented everything and was WORSE than V5. Now using incremental approach.
 
-| Status | Study | Rating | Notes |
-|--------|-------|--------|-------|
-| ✅ Complete | #1 Egyptian Scene | 8.5/10 | Brick texture, sand ripples, weathering |
-| ✅ Complete | #2 Landscape | 8/10 | V4 - Broken reflections, soft edges, scattered elements |
-| ✅ Complete | #3 Character Portrait | 7/10 | V3 - Cute JRPG chibi style |
-| ⏳ Next | #4 Space Scene | - | **DO THIS NEXT** |
-| ⏳ Pending | #5-8 | - | Underwater, Castle, Still Life, Animal |
+| Status | Version | Notes |
+|--------|---------|-------|
+| ✅ Base | V5 | Proven foundation - 5-value system, form shadows, compositing |
+| ❌ Failed | V7 | Over-engineered - noise library, material system, validation → muddy output |
+| 🔄 Active | V8 | Problem-first incremental improvements on V5 base |
+
+**Current V8 State:**
+- ✅ Change #1: Mountain ridge edges (lineTo → quadraticCurveTo) - organic curves
+- ⏳ Next: Test tree edge variation (code exists), water ripples, far mountain softening
+
+**Key Lesson Learned Today:**
+> "Small incremental changes add up to big improvements. Start with the most obvious problem, fix it, reassess. May take 100 small changes to get the best result." (Mixing/mastering analogy)
 
 **Key Files:**
-- Progress Tracker: `docs/art-studies/ART_STUDY_PROGRESS.md`
-- Study #1: `art-studies/001-egyptian-scene/`
-- Study #2: `art-studies/002-landscape-v4/`
-- Study #3: `art-studies/003-character-portrait/`
+- V8 Code: `art-studies/002-landscape-v8/art.js`
+- V5 Reference: `art-studies/002-landscape-v5/art.js`
+- Technique Selection: `docs/bible/16-TECHNIQUE_SELECTION.md` ⭐ READ THIS
+- Session Log: `docs/bible/09-SESSION_LOG.md`
 
-**Session Summary (Jan 5 Evening):**
-- Completed Landscape V4 (fixed water reflections, snow edges, shoreline)
-- Completed Character Portrait V3 (cute JRPG style)
-- Key lesson: "Pick one style and commit" - don't mix realistic + cartoon
-- Ready to start Space Scene next session
+**To Continue:**
+1. Start server: `cd art-studies/002-landscape-v8 && python3 -m http.server 8080`
+2. Open browser to http://localhost:8080
+3. Identify ONE visible problem
+4. Apply ONE targeted fix
+5. Test: Is it CLEARLY better? Keep. Unclear? Revert.
+6. Repeat
 
 ---
 
 **READ BEFORE DOING ANYTHING:**
 
-1. Read `docs/bible/BIBLE_INDEX.md` - Contains hard rules and repository map
-2. Check `docs/FAILURE_ARCHIVE.md` - Past mistakes to avoid
-3. Check `docs/bible/09-SESSION_LOG.md` - Recent session history
+1. Read `docs/bible/16-TECHNIQUE_SELECTION.md` - ⚠️ NEW! Prevents V7-style over-engineering
+2. Read `docs/bible/BIBLE_INDEX.md` - Contains hard rules and repository map
+3. Check `docs/FAILURE_ARCHIVE.md` - Past mistakes to avoid (V7 is now here!)
+4. Check `docs/bible/09-SESSION_LOG.md` - Recent session history
 
 These documents contain non-negotiable rules learned through painful debugging. Breaking them wastes hours.
 

@@ -1,8 +1,14 @@
 // ============================================================================
-// V8 MOUNTAIN LANDSCAPE - INCREMENTAL IMPROVEMENT (V7 LESSON APPLIED)
+// V8.3 MOUNTAIN LANDSCAPE - INCREMENTAL IMPROVEMENT (V7 LESSON APPLIED)
 // ============================================================================
 // 
 // PHILOSOPHY: Start from what works, fix ONE thing at a time
+// 
+// V8.4 CHANGES:
+// - Fixed water ripples (valueNoise2D not Math.sin)
+// - Fixed snow cap edges (curves not lines)
+// - Fixed snow gradient (radial from peak, follows 3D form)
+// - Soft circular patches (not jagged shapes)
 // 
 // BASE: V5 (which worked well)
 // - 5-Value System on all forms
@@ -110,6 +116,34 @@ const ColorUtils = {
 // Basic utilities
 function lerp(a, b, t) { return a + (b - a) * t; }
 function seededRandom(s) { const x = Math.sin(s * 9999) * 10000; return x - Math.floor(x); }
+
+// Value Noise for organic textures (from Doc 14)
+function hash2(x, y, seed = 1337) {
+    let n = x * 374761393 + y * 668265263 + seed * 1442695041;
+    n = (n ^ (n >> 13)) * 1274126177;
+    n = n ^ (n >> 16);
+    return (n >>> 0) / 4294967295;
+}
+
+function valueNoise2D(x, y, seed = 1337) {
+    const xi = Math.floor(x);
+    const yi = Math.floor(y);
+    const xf = x - xi;
+    const yf = y - yi;
+    
+    const v00 = hash2(xi, yi, seed);
+    const v10 = hash2(xi + 1, yi, seed);
+    const v01 = hash2(xi, yi + 1, seed);
+    const v11 = hash2(xi + 1, yi + 1, seed);
+    
+    const smoothX = xf * xf * (3 - 2 * xf);
+    const smoothY = yf * yf * (3 - 2 * yf);
+    
+    const i1 = v00 * (1 - smoothX) + v10 * smoothX;
+    const i2 = v01 * (1 - smoothX) + v11 * smoothX;
+    
+    return i1 * (1 - smoothY) + i2 * smoothY;
+}
 
 // Organic curve generator (no straight lines in nature)
 function organicCurve(x1, y1, x2, y2, segments, variance, seed) {
@@ -415,7 +449,20 @@ function drawDistantMountainRange({ baseY, maxHeight, baseColor, distance, peakC
     ctx.fillStyle = atmosphereColor;
     ctx.beginPath();
     ctx.moveTo(ridge[0].x, ridge[0].y);
-    for (let i = 1; i < ridge.length; i++) {
+    
+    // Use quadratic curves for organic silhouette (not straight lineTo)
+    // Only curve the ridge portion (skip the bottom rectangle points)
+    const ridgeEndIndex = ridge.length - 3; // Last 3 points are bottom rectangle
+    for (let i = 1; i < ridgeEndIndex; i++) {
+        // Control point is midway between current and next point
+        const nextI = Math.min(i + 1, ridgeEndIndex - 1);
+        const cpX = (ridge[i].x + ridge[nextI].x) / 2;
+        const cpY = (ridge[i].y + ridge[nextI].y) / 2;
+        ctx.quadraticCurveTo(ridge[i].x, ridge[i].y, cpX, cpY);
+    }
+    // Connect last ridge point to corner, then complete bottom
+    ctx.lineTo(ridge[ridgeEndIndex].x, ridge[ridgeEndIndex].y);
+    for (let i = ridgeEndIndex + 1; i < ridge.length; i++) {
         ctx.lineTo(ridge[i].x, ridge[i].y);
     }
     ctx.closePath();
@@ -544,11 +591,16 @@ function drawMountainFace({ ridge, peakX, peakY, baseY, facingSun, seed }) {
         ctx.fillStyle = grad;
     }
     
-    // Draw face shape
+    // Draw face shape with organic curves
     ctx.beginPath();
     ctx.moveTo(ridge[0].x, ridge[0].y);
+    
+    // Use quadratic curves for ridge portion
     for (let i = 1; i < ridge.length; i++) {
-        ctx.lineTo(ridge[i].x, ridge[i].y);
+        const nextI = Math.min(i + 1, ridge.length - 1);
+        const cpX = (ridge[i].x + ridge[nextI].x) / 2;
+        const cpY = (ridge[i].y + ridge[nextI].y) / 2;
+        ctx.quadraticCurveTo(ridge[i].x, ridge[i].y, cpX, cpY);
     }
     ctx.lineTo(peakX, baseY);
     ctx.closePath();
@@ -658,50 +710,52 @@ function drawSnowCap(leftRidge, rightRidge, peakX, peakY, width, height, seed) {
         snowPts.push(pt);
     }
     
-    // SNOW 5-VALUE GRADIENT
-    // Light side (right) = bright, Shadow side (left) = cool shadow
-    const snowGrad = ctx.createLinearGradient(
-        peakX - width * 0.3, peakY,
-        peakX + width * 0.3, peakY + snowLine
+    // SNOW 5-VALUE GRADIENT - Radial from peak (follows 3D form)
+    // Peak = brightest (highlight), slopes = darker (form shadow)
+    const snowGrad = ctx.createRadialGradient(
+        peakX, peakY, 0,
+        peakX, peakY + snowLine * 0.6, width * 0.6
     );
-    snowGrad.addColorStop(0, PALETTE.snowShadow);     // Shadow side
-    snowGrad.addColorStop(0.3, PALETTE.snowMid);      // Halftone
-    snowGrad.addColorStop(0.5, PALETTE.snowLight);    // Light
-    snowGrad.addColorStop(0.7, PALETTE.snowPure);     // Highlight (facing sun)
-    snowGrad.addColorStop(1, PALETTE.snowMid);        // Back to mid at edge
+    snowGrad.addColorStop(0, PALETTE.snowPure);       // 1. Highlight at peak
+    snowGrad.addColorStop(0.25, PALETTE.snowLight);   // 2. Light
+    snowGrad.addColorStop(0.5, PALETTE.snowMid);      // 3. Halftone
+    snowGrad.addColorStop(0.75, PALETTE.snowShadow);  // 4. Shadow
+    snowGrad.addColorStop(1, ColorUtils.darken(PALETTE.snowShadow, 8)); // Darker at edges
     
-    // Soft alpha fade at bottom
+    // Draw with smooth curves (not straight lines)
     ctx.globalAlpha = 0.95;
     ctx.fillStyle = snowGrad;
     ctx.beginPath();
     ctx.moveTo(snowPts[0].x, snowPts[0].y);
+    
+    // Use quadratic curves for smooth organic edge
     for (let i = 1; i < snowPts.length; i++) {
-        ctx.lineTo(snowPts[i].x, snowPts[i].y);
+        const nextI = (i + 1) % snowPts.length;
+        const cpX = (snowPts[i].x + snowPts[nextI].x) / 2;
+        const cpY = (snowPts[i].y + snowPts[nextI].y) / 2;
+        ctx.quadraticCurveTo(snowPts[i].x, snowPts[i].y, cpX, cpY);
     }
     ctx.closePath();
     ctx.fill();
     
-    // Scattered snow patches below main cap (soft edge)
+    // Scattered snow patches below main cap (100% soft edges)
     for (let i = 0; i < 30; i++) {
         const ps = seed + 450 + i * 13;
         const px = peakX + (seededRandom(ps) - 0.5) * width * 0.5;
         const py = peakY + snowLine * 0.75 + seededRandom(ps + 1) * snowLine * 0.9;
         const pSize = 3 + seededRandom(ps + 2) * 12;
-        const pAlpha = 0.15 + seededRandom(ps + 3) * 0.4;
+        const pAlpha = 0.12 + seededRandom(ps + 3) * 0.3;
         
-        // Patches facing sun are brighter
-        const pColor = px > peakX ? PALETTE.snowLight : PALETTE.snowMid;
+        // Soft radial gradient for each patch (no hard edges)
+        const pGrad = ctx.createRadialGradient(px, py, 0, px, py, pSize);
+        pGrad.addColorStop(0, PALETTE.snowLight);
+        pGrad.addColorStop(0.5, PALETTE.snowMid);
+        pGrad.addColorStop(1, 'rgba(216, 224, 232, 0)'); // Fade to transparent
         
         ctx.globalAlpha = pAlpha;
-        ctx.fillStyle = pColor;
+        ctx.fillStyle = pGrad;
         ctx.beginPath();
-        for (let a = 0; a <= 8; a++) {
-            const ang = (a / 8) * Math.PI * 2;
-            const v = 0.55 + seededRandom(ps + 10 + a) * 0.6;
-            const ppx = px + Math.cos(ang) * pSize * v;
-            const ppy = py + Math.sin(ang) * pSize * v * 0.5;
-            a === 0 ? ctx.moveTo(ppx, ppy) : ctx.lineTo(ppx, ppy);
-        }
+        ctx.arc(px, py, pSize, 0, Math.PI * 2);
         ctx.fill();
     }
     
@@ -770,13 +824,19 @@ function drawForest() {
             const treeHeight = (25 + seededRandom(seed + 1) * 45) * layer.scale;
             const treeWidth = treeHeight * 0.25;
             
-            drawTree(x, layer.y, treeWidth, treeHeight, atmColor, seed);
+            // Pass haze/distance to control edge variation
+            drawTree(x, layer.y, treeWidth, treeHeight, atmColor, seed, layer.haze);
         }
     }
 }
 
-function drawTree(x, y, w, h, color, seed) {
-    // Simple triangular conifer layers
+function drawTree(x, y, w, h, color, seed, distance = 0) {
+    // Conifer with organic edges
+    // Edge variation scales with distance: far trees = more lost edges, near trees = more defined
+    // Close trees (distance < 0.1) get smooth clean edges, distant trees get irregular variation
+    const useCleanEdges = distance < 0.15;
+    const edgeVariation = distance * 0.4;  // 0 (near) to 0.24 (far=0.6)
+    
     for (let L = 0; L < 5; L++) {
         const t = L / 5;
         const layerY = y - h * 0.1 - h * t * 0.8;
@@ -786,9 +846,37 @@ function drawTree(x, y, w, h, color, seed) {
         
         ctx.fillStyle = color;
         ctx.beginPath();
-        ctx.moveTo(x + skew, layerY - layerH);
-        ctx.lineTo(x - layerW, layerY);
-        ctx.lineTo(x + layerW * 0.85, layerY);
+        
+        // Top point with slight variation
+        const topX = x + skew;
+        ctx.moveTo(topX, layerY - layerH);
+        
+        if (useCleanEdges) {
+            // CLOSE TREES: Clean smooth triangular silhouette
+            ctx.lineTo(x - layerW, layerY);
+            ctx.lineTo(x + layerW * 0.85, layerY);
+        } else {
+            // DISTANT TREES: Irregular edge variation
+            const leftPoints = 3;
+            for (let p = 1; p <= leftPoints; p++) {
+                const pt = p / (leftPoints + 1);
+                const px = lerp(topX, x - layerW, pt);
+                const py = lerp(layerY - layerH, layerY, pt);
+                const vary = (seededRandom(seed + L * 30 + p) - 0.5) * layerW * edgeVariation;
+                ctx.lineTo(px + vary, py + (seededRandom(seed + L * 31 + p) - 0.5) * 3 * edgeVariation);
+            }
+            ctx.lineTo(x - layerW + (seededRandom(seed + L * 40) - 0.5) * 4 * edgeVariation, layerY);
+            
+            // Right edge with irregular points
+            for (let p = leftPoints; p >= 1; p--) {
+                const pt = p / (leftPoints + 1);
+                const px = lerp(x + layerW * 0.85, topX, pt);
+                const py = lerp(layerY, layerY - layerH, pt);
+                const vary = (seededRandom(seed + L * 50 + p) - 0.5) * layerW * edgeVariation;
+                ctx.lineTo(px + vary, py + (seededRandom(seed + L * 51 + p) - 0.5) * 3 * edgeVariation);
+            }
+        }
+        
         ctx.closePath();
         ctx.fill();
     }
@@ -941,8 +1029,10 @@ function drawWaterTexture(lakeTop, lakeBot) {
         
         ctx.beginPath();
         ctx.moveTo(0, y);
+        // Use value noise for organic, non-repeating ripple pattern
         for (let x = 0; x <= W; x += 10) {
-            ctx.lineTo(x, y + Math.sin(x * 0.012 + i * 0.5) * amplitude);
+            const noiseY = valueNoise2D(x * 0.008, i * 0.3, 42) * amplitude;
+            ctx.lineTo(x, y + noiseY);
         }
         ctx.stroke();
     }
