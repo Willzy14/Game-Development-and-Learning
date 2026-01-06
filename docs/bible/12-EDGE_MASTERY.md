@@ -53,7 +53,11 @@ What we've been doing wrong isn't "bad drawing" — it's **wrong edge logic**.
 7. [Light as Distribution](#7-light-as-distribution)
 8. [Canvas Implementation Patterns](#8-canvas-implementation-patterns)
 9. [Before/After Examples](#9-beforeafter-examples)
-10. [Quick Validation Checklist](#10-quick-validation-checklist)
+10. [Canvas Edge Toolkit](#10-canvas-edge-toolkit) ⭐ NEW
+11. [Nature Primitives Library](#11-nature-primitives-library) ⭐ NEW
+12. [Self-Audit System](#12-self-audit-system) ⭐ NEW
+13. [V6 Lessons Learned](#13-v6-lessons-learned-cautionary-tale) ⭐ NEW
+14. [Quick Validation Checklist](#14-quick-validation-checklist)
 
 ---
 
@@ -709,7 +713,440 @@ function accumulateSnow(ctx, mountainShape, snowLine) {
 
 ---
 
-## 10. QUICK VALIDATION CHECKLIST
+## 10. CANVAS EDGE TOOLKIT
+
+**Three core functions that replace traditional drawing. These are hostile to straight lines by default.**
+
+### 10.1 Noisy Path Generator (Replace lineTo Forever)
+
+Every "edge" becomes a band of variation, not a line.
+
+```javascript
+function noisyLine(ctx, points, {
+    jitter = 8,
+    steps = 12,
+    smooth = true
+} = {}) {
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    
+    for (let i = 1; i < points.length; i++) {
+        const a = points[i - 1];
+        const b = points[i];
+        
+        for (let s = 1; s <= steps; s++) {
+            const t = s / steps;
+            const x = a.x + (b.x - a.x) * t + (Math.random() - 0.5) * jitter;
+            const y = a.y + (b.y - a.y) * t + (Math.random() - 0.5) * jitter;
+            ctx.lineTo(x, y);
+        }
+    }
+    
+    if (smooth) ctx.closePath();
+}
+
+// Usage - Drawing a mountain ridge
+noisyLine(ctx, [
+    { x: 0, y: 400 },
+    { x: 300, y: 150 },  // Peak
+    { x: 600, y: 400 }
+], { jitter: 12, steps: 20 });
+ctx.fill();
+```
+
+**Rule:** Straight edges are illegal. Every path must include jitter.
+
+### 10.2 Feathered Fill (Soft Edge Replacement)
+
+No fill should end abruptly. Multiple offset passes create natural fade.
+
+```javascript
+function featheredFill(ctx, drawShape, {
+    layers = 6,
+    spread = 10,
+    alpha = 0.15
+} = {}) {
+    for (let i = layers; i >= 1; i--) {
+        ctx.save();
+        ctx.globalAlpha = alpha / i;
+        ctx.translate(
+            (Math.random() - 0.5) * spread,
+            (Math.random() - 0.5) * spread
+        );
+        drawShape(ctx);
+        ctx.restore();
+    }
+}
+
+// Usage - Soft snow edge
+featheredFill(ctx, (ctx) => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, snowLine, width, 50);
+}, { layers: 8, spread: 15 });
+```
+
+**Use for:** Snow edges, shorelines, grass borders, tree silhouettes, clouds, reflections.
+
+### 10.3 Scatter Brush (Nature's Secret Weapon)
+
+Replace borders with probability zones.
+
+```javascript
+function scatter(ctx, {
+    x, y, width, height,
+    count = 100,
+    radius = [1, 4],
+    color,
+    seed = Math.random() * 10000
+} = {}) {
+    ctx.fillStyle = color;
+    
+    for (let i = 0; i < count; i++) {
+        const r = radius[0] + seededRandom(seed + i) * (radius[1] - radius[0]);
+        ctx.beginPath();
+        ctx.arc(
+            x + seededRandom(seed + i * 2) * width,
+            y + seededRandom(seed + i * 2 + 1) * height,
+            r,
+            0,
+            Math.PI * 2
+        );
+        ctx.fill();
+    }
+}
+
+// Usage - Transition zone
+scatter(ctx, {
+    x: 0, y: snowLine - 20,
+    width: canvasWidth, height: 40,
+    count: 300,
+    radius: [2, 6],
+    color: 'rgba(255, 255, 255, 0.7)'
+});
+```
+
+**Rule:** Every transition zone must include scatter. No exceptions.
+
+---
+
+## 11. NATURE PRIMITIVES LIBRARY
+
+Drop-in systems for common natural elements. These are building blocks, not illustrations.
+
+### 11.1 Mountain Ridge Generator
+
+```javascript
+function drawMountain(ctx, baseY, peaks, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(0, baseY);
+    
+    peaks.forEach(p => {
+        noisyLine(ctx, [
+            { x: p.x - p.width, y: baseY },
+            { x: p.x, y: p.y },
+            { x: p.x + p.width, y: baseY }
+        ], { jitter: 12 });
+    });
+    
+    ctx.lineTo(canvasWidth, baseY);
+    ctx.closePath();
+    ctx.fill();
+}
+
+// Usage
+drawMountain(ctx, HORIZON, [
+    { x: 200, y: 150, width: 180 },
+    { x: 450, y: 120, width: 220 },
+    { x: 650, y: 180, width: 150 }
+], '#4a5a6a');
+```
+
+**Rules:**
+- Peaks vary in width
+- Ridge never moves in a straight diagonal
+- Overlap mountains for depth
+
+### 11.2 Snow Cap (No Horizontal Lines)
+
+```javascript
+function snowCap(ctx, ridgeY, width, mountainShape) {
+    // Snow INVADES rock - never "meets" it
+    featheredFill(ctx, (ctx) => {
+        scatter(ctx, {
+            x: 0,
+            y: ridgeY - 30,
+            width: width,
+            height: 50,
+            count: 200,
+            radius: [2, 6],
+            color: 'rgba(255, 255, 255, 0.9)'
+        });
+    }, { layers: 4, spread: 8 });
+    
+    // Scattered patches below main snow
+    scatter(ctx, {
+        x: 0, y: ridgeY + 20,
+        width: width, height: 60,
+        count: 50,
+        radius: [1, 3],
+        color: 'rgba(255, 255, 255, 0.5)'
+    });
+}
+```
+
+### 11.3 Tree Silhouette Generator (No Triangles)
+
+```javascript
+function drawTree(ctx, x, y, height, color = '#2e4f2f') {
+    const layers = Math.floor(height / 15);
+    
+    // Trees are stacks of chaos, not geometry
+    for (let i = 0; i < layers; i++) {
+        const layerWidth = height * 0.6 * (1 - i * 0.05);
+        scatter(ctx, {
+            x: x - layerWidth / 2,
+            y: y - i * 12,
+            width: layerWidth,
+            height: 12,
+            count: 20,
+            radius: [2, 5],
+            color: color
+        });
+    }
+}
+
+// Forest as accumulated trees
+function drawForest(ctx, baseY, count) {
+    for (let i = 0; i < count; i++) {
+        const x = Math.random() * canvasWidth;
+        const height = 40 + Math.random() * 60;
+        const depth = (baseY - (baseY - 100)) / 100;  // 0 = back, 1 = front
+        const color = lerpColor('#5a6a5a', '#1a2a1a', depth);
+        drawTree(ctx, x, baseY, height, color);
+    }
+}
+```
+
+### 11.4 Shoreline Transition (No Edge)
+
+```javascript
+function shoreline(ctx, y, width) {
+    // Water → wet sand → dry sand
+    // Never water → land directly
+    
+    // Wet zone
+    scatter(ctx, {
+        x: 0, y: y - 15,
+        width: width, height: 30,
+        count: 200,
+        radius: [1, 3],
+        color: 'rgba(60, 80, 100, 0.4)'  // Water-tinted
+    });
+    
+    // Transition zone
+    scatter(ctx, {
+        x: 0, y: y - 5,
+        width: width, height: 20,
+        count: 300,
+        radius: [1, 3],
+        color: 'rgba(200, 180, 140, 0.6)'  // Wet sand
+    });
+    
+    // Dry zone bleed
+    scatter(ctx, {
+        x: 0, y: y + 10,
+        width: width, height: 25,
+        count: 150,
+        radius: [1, 2],
+        color: 'rgba(220, 200, 160, 0.4)'  // Dry sand
+    });
+}
+```
+
+### 11.5 Sun & Reflection (Energy, Not Shape)
+
+```javascript
+function glow(ctx, x, y, radius, color) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    g.addColorStop(0, color);
+    g.addColorStop(0.3, color.replace('1)', '0.5)'));
+    g.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function sunWithGlow(ctx, x, y) {
+    // Outer glow layers (additive)
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    glow(ctx, x, y, 200, 'rgba(255, 200, 100, 0.1)');
+    glow(ctx, x, y, 120, 'rgba(255, 180, 80, 0.15)');
+    glow(ctx, x, y, 60, 'rgba(255, 160, 60, 0.2)');
+    ctx.restore();
+    
+    // Core
+    glow(ctx, x, y, 40, 'rgba(255, 255, 240, 1)');
+}
+```
+
+---
+
+## 12. SELF-AUDIT SYSTEM
+
+**The agent must police itself. Run these checks after every draw operation.**
+
+### 12.1 Edge Audit Rules
+
+#### ❌ ILLEGAL (Auto-reject)
+
+| Violation | Threshold | Action |
+|-----------|-----------|--------|
+| `lineTo()` without jitter | > 15px straight | REJECT |
+| Single-pass fill touching contrasting color | Any occurrence | REJECT |
+| Fully opaque edges on natural elements | alpha = 1.0 at edge | REJECT |
+| Constant-angle segments | > 15px at same angle | REJECT |
+| Ruler-traceable silhouette | Any natural element | REJECT |
+
+#### ✅ REQUIRED (Must be present)
+
+| Requirement | Where | Verification |
+|-------------|-------|--------------|
+| Edge noise | All natural contours | Visual inspection |
+| Alpha falloff | All edges except focal hard edges | Check gradient stops |
+| Shape overlap | Multi-element compositions | Elements must intersect |
+| Scatter or gradient blending | All transition zones | No color-to-color contact |
+
+### 12.2 Validator Pseudocode
+
+```javascript
+function validateEdge(pathSegments) {
+    for (let seg of pathSegments) {
+        // Straight line detection
+        if (seg.length > 15 && seg.angleVariance < 0.1) {
+            return { pass: false, reason: 'Straight edge detected', segment: seg };
+        }
+        
+        // Constant angle detection
+        if (seg.angles.every(a => Math.abs(a - seg.angles[0]) < 0.05)) {
+            return { pass: false, reason: 'Constant angle segment', segment: seg };
+        }
+    }
+    return { pass: true };
+}
+
+function validateTransitions(colorZones) {
+    for (let i = 0; i < colorZones.length - 1; i++) {
+        const gap = colorZones[i + 1].start - colorZones[i].end;
+        if (gap < 5) {  // Less than 5px transition
+            return { pass: false, reason: 'Colors touching directly', zones: [i, i+1] };
+        }
+    }
+    return { pass: true };
+}
+```
+
+### 12.3 Mental Checklist (Run Every Time)
+
+Before calling any art "done":
+
+```
+□ Can I trace ANY edge with a ruler?  → If yes, add jitter
+□ Do any two colors touch directly?   → If yes, add scatter zone
+□ Are distant edges as sharp as near? → If yes, soften far edges
+□ Does any light source end abruptly? → If yes, add falloff
+□ Can I point to where X ends and Y begins? → If yes, blur boundary
+```
+
+---
+
+## 13. V6 LESSONS LEARNED (Cautionary Tale)
+
+**What happens when you understand theory but not balance.**
+
+### The Experiment
+
+V6 was our first attempt to apply Edge Mastery principles. We replaced all `lineTo()` shapes with accumulated soft blobs.
+
+### What Went Right ✅
+
+1. **Paradigm shift visible** - Mountains built from overlapping shapes, not geometry
+2. **Clouds genuinely good** - Soft blob accumulation creates believable forms
+3. **Sky gradient works** - Natural atmospheric transition
+4. **Sun glow proper** - Additive blending creates real light emission
+5. **Core technique sound** - `drawSoftBlob()` with radial gradients is correct foundation
+
+### What Went Wrong ❌
+
+1. **Mountains became cotton candy** - Too soft, no structure, no readable form
+2. **Lost the value structure** - Everything similar mid-tones, no dark/light contrast
+3. **Snow zones invisible** - Value bridging concept right, but VALUES need contrast
+4. **Water/lake unclear** - Can't identify water surface
+5. **Foreground muddy** - No distinct ground plane or elements
+6. **No focal point** - Nothing guides the eye
+
+### The Core Mistake
+
+> **We did "chaos" without "carving order back into it."**
+
+The research said:
+- "No hard edges" ✅ We did this
+- "Found edges at focal points" ❌ We forgot this
+- "Carve order from chaos" ❌ We only did chaos
+
+### The Overcorrection Problem
+
+| V5 Problem | V6 "Fix" | Actual Result |
+|------------|----------|---------------|
+| Too hard (ruler-traceable) | Made everything soft | Lost all structure |
+| Geometric shapes | Removed all shapes | Nothing is identifiable |
+| Clear but artificial | Organic but formless | Can't see anything |
+
+### Key Insight: The Two-Phase Process
+
+```
+PHASE 1: Create chaos
+- Soft blobs
+- Overlapping forms  
+- Probability placement
+- Value bridging
+
+PHASE 2: Carve order (WE SKIPPED THIS)
+- Establish value structure (darks, mids, lights)
+- Add found edges at focal points
+- Create readable silhouettes
+- Define key contours (still organic, but present)
+```
+
+### What V7 Must Do Differently
+
+1. **Value structure FIRST** - Block in dark/mid/light before any texture
+2. **Soft blobs for TEXTURE, not FORM** - Overall shapes can have definition
+3. **Selective hard edges** - Ridgelines, focal points need sharpness
+4. **Squint test** - Must identify mountain/lake/trees when squinting
+5. **Contrast hierarchy** - Focal point = highest contrast
+
+### The Balance We Need
+
+```
+Edge Distribution Target (Revised):
+┌─────────────────────────────────────────┐
+│ Lost edges (dissolving)    │ 20-25%    │
+│ Soft edges (nature)        │ 40-50%    │
+│ Found edges (selective)    │ 20-30%    │
+│ Hard edges (focal/man-made)│ 5-10%     │
+└─────────────────────────────────────────┘
+
+V6 was: 95% lost, 5% soft, 0% found, 0% hard
+We need the FULL spectrum, not just one end.
+```
+
+---
+
+## 14. QUICK VALIDATION CHECKLIST
 
 Use this after completing any art:
 
@@ -718,6 +1155,13 @@ Use this after completing any art:
 - [ ] Are distant edges softer than near edges?
 - [ ] Do forms dissolve into each other (lost edges present)?
 - [ ] Is there at least one found edge at focal point?
+- [ ] Did you do Phase 2 (carving order from chaos)?
+
+### Value Structure Check (NEW - From V6 Lesson)
+- [ ] Are there clear darks, mids, and lights?
+- [ ] Does the focal point have highest contrast?
+- [ ] Can you identify elements when squinting?
+- [ ] Is there a readable silhouette underneath the texture?
 
 ### Value Bridging Check
 - [ ] Does any color directly touch another color? → Add transition zone
@@ -768,4 +1212,5 @@ If they gesture vaguely → You've achieved natural edges.
 ---
 
 *Last Updated: January 6, 2026*
+*Version 2.0 - Added Canvas Edge Toolkit, Nature Primitives, Self-Audit System, and V6 Lessons Learned*
 *This document represents a paradigm shift in our approach to visual art.*

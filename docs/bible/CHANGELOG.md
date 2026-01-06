@@ -14,6 +14,56 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - V6 Lessons & Canvas Edge Toolkit ⭐ MAJOR UPDATE
+
+### 🔴 Source: V6 Landscape Experiment + New Research Material
+
+V6 attempted to apply Edge Mastery principles but **overcorrected** - went from "too hard" to "too soft", losing all structure. This revealed a critical missing piece: the **Two-Phase Process**.
+
+### 🆕 Added to 12-EDGE_MASTERY.md
+
+**Section 10 - Canvas Edge Toolkit:**
+- `noisyLine()` - Replace lineTo forever with jittered paths
+- `featheredFill()` - Multiple offset passes for soft edges
+- `scatter()` - Probability zones instead of borders
+
+**Section 11 - Nature Primitives Library:**
+- Mountain ridge generator (peaks with jitter)
+- Snow cap system (snow invades rock, never "meets" it)
+- Tree silhouette generator (stacks of chaos, not triangles)
+- Shoreline transition (water → wet sand → dry sand)
+- Sun & glow system (additive blending, energy falloff)
+
+**Section 12 - Self-Audit System:**
+- Illegal patterns list (auto-reject triggers)
+- Required patterns list (must be present)
+- Validator pseudocode for edge detection
+- Mental checklist to run every time
+
+**Section 13 - V6 Lessons Learned:**
+- What went right (paradigm shift visible, clouds good)
+- What went wrong (cotton candy mountains, no value structure)
+- The Overcorrection Problem analysis
+- The Two-Phase Process: Chaos → Order (we only did Phase 1)
+- Revised edge distribution targets
+
+**Section 14 - Updated Validation Checklist:**
+- Added "Value Structure Check" section
+- Added "Did you do Phase 2?" check
+- Added squint test requirement
+
+### 💡 Key Insight Added
+
+> **"Carve order from chaos" - We did the chaos, forgot to carve the order.**
+
+The Two-Phase Process:
+1. **Phase 1**: Create chaos (soft blobs, overlapping, probability)
+2. **Phase 2**: Carve order (value structure, found edges, readable silhouettes)
+
+V6 only did Phase 1. V7 must do both.
+
+---
+
 ## [2026-01-06] - Edge Mastery Paradigm Shift ⭐ CRITICAL
 
 ### 🔴 Source: V5 Mountain Landscape Analysis + Edge Theory Research
