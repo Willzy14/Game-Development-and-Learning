@@ -201,26 +201,74 @@
 - **Fix**: Moved all V2 folders inside their parent game folders
 - **Lesson**: READ ALL EXISTING DOCUMENTATION before starting work
 
+### [2026-01-06] - V7 Over-Engineering Disaster ⚠️ **CRITICAL**
+- **Project**: Art Study #2 - Landscape V7
+- **What Went Wrong**: Applied EVERYTHING from newly created documentation (noise library, material system, validation pipeline, atmosphere passes) in one massive implementation. Result: **worse than V5** which used none of these techniques.
+- **Impact**:
+  - Mountains became invisible (covered by clouds/gray gradients)
+  - Material pass recolored pixels that were already good
+  - Validation system scored 100% while output looked terrible
+  - 1000+ lines of code that degraded the image
+  - Multiple debug cycles to identify which system was breaking what
+  - Complete waste of implementation time
+- **Root Cause**:
+  1. **Treated documentation as recipe, not reference** - Applied techniques because they existed, not because they solved specific problems
+  2. **Solution-first mindset** - "I have these tools, let me use them all" instead of "What specific problem am I solving?"
+  3. **Skipped the incremental test pattern** - Went from Level 0 to Level 5 in one jump
+  4. **Metrics provided false confidence** - 100% validation score masked the visual failure
+  5. **Systems fought each other** - Big Form Pass → Material Pass → Atmosphere Pass each undid the previous
+  6. **Got excited about the documentation** - Wanted to prove the docs were useful by implementing everything
+- **What Should Have Happened**:
+  1. Start with V5 (which worked)
+  2. Identify ONE specific problem (e.g., "mountain edges too hard")
+  3. Apply ONE technique to fix it
+  4. Test: Is it better? Yes → Keep. No → Revert.
+  5. Repeat until satisfied
+- **Prevention Rules Created**:
+  - Created `16-TECHNIQUE_SELECTION.md` - Decision framework
+  - Added warnings to docs 13, 14, 15 that they're references, not recipes
+  - Established "Problem-First Selection" as mandatory approach
+  - Created "Incremental Test Pattern" for safe complexity addition
+- **Key Lessons**:
+  ```
+  More documentation ≠ Better art
+  More techniques ≠ Better results
+  Systematic application ≠ Artistic judgment
+  100% validation score ≠ Good output
+  ```
+- **Warning Signs to Watch For**:
+  - "Let me implement the whole system" → STOP, identify specific problem first
+  - "The documentation says to do X" → Check if X solves a visible problem
+  - "Validation passed" → Does it LOOK good to human eyes?
+  - "I'll add this because I have it" → What problem does it solve?
+- **Time Lost**: ~2 hours of implementation + debugging
+- **Severity**: CRITICAL - Demonstrated that more knowledge can lead to worse outcomes if applied without judgment
+
 ---
 
 ## Pattern Recognition
 
-> Review section: Updated January 5, 2026
+> Review section: Updated January 6, 2026
 
 ### Recurring Error Types
 - **Laziness/Complacency**: Occurs in 1 entry (Snake V2) - WATCH FOR THIS
 - **Not Reading Documentation**: Occurs in 2 entries (folder structure, code not written)
 - **Assuming Instead of Verifying**: Occurs in 2 entries
+- **Over-Engineering**: Occurs in 1 entry (V7 Landscape) - NEW PATTERN ⚠️
 
 ### Most Expensive Mistakes
-1. **Code shown but not written** - Total time lost: 30 minutes
-2. **Lazy V2 implementation** - Total time lost: 1+ hour of rework
+1. **V7 Over-Engineering** - Total time lost: 2+ hours, worse output than simpler approach
+2. **Code shown but not written** - Total time lost: 30 minutes
+3. **Lazy V2 implementation** - Total time lost: 1+ hour of rework
 
 ### Early Warning Signs to Watch For
 - "It's basically the same" → You're being lazy, push harder
 - "I'll just change the color" → You're avoiding real work
 - "Good enough" → Never acceptable in a learning project
 - "I think I remember the rule" → Go read the documentation
+- "Let me implement the whole system" → STOP, use incremental approach
+- "I have these techniques, let me use them" → What SPECIFIC problem are you solving?
+- "Validation passed" → Does it LOOK good? Metrics ≠ quality
 
 ### Lessons Learned Multiple Times
 > If something appears here, you're not applying the lesson!

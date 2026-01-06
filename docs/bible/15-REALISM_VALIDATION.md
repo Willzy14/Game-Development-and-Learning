@@ -2,7 +2,26 @@
 
 **Purpose:** Programmatic detection of "abstract drift" and material logic violations  
 **When to Read:** After rendering scenes, before calling them "done"  
-**Priority:** CRITICAL - Catches V6-style failures automatically
+**Priority:** SUPPLEMENT - Assists judgment, does NOT replace it
+
+> ⚠️ **V7 WARNING - METRICS ≠ QUALITY**
+> 
+> V7 scored **100% on validation** while producing **worse output than V5**.
+> 
+> **This validation system CANNOT:**
+> - Replace human artistic judgment
+> - Tell you if something looks good
+> - Catch over-processing or muddy colors
+> - Detect when systems fight each other
+> 
+> **This validation system CAN:**
+> - Catch extreme problems (no contrast, uniform edges)
+> - Provide data points for investigation
+> - Supplement (not replace) visual inspection
+> 
+> **If validation passes but it looks bad → Trust your eyes, not the score.**
+> 
+> See [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) for decision framework.
 
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |

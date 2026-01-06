@@ -4,6 +4,19 @@
 **When to Read:** After understanding Edge Mastery, before attempting realistic scenes  
 **Priority:** CRITICAL - This is the missing layer between theory and realism
 
+> ⚠️ **V7 WARNING - REFERENCE, NOT RECIPE**
+> 
+> This document is a **reference library**, not a mandate to use everything.
+> V7 applied all techniques from this doc and produced **worse results than V5**.
+> 
+> **BEFORE using any technique, ask:**
+> 1. What SPECIFIC problem am I solving?
+> 2. Can I see this problem in the current render?
+> 3. Will this ONE technique fix it?
+> 
+> If you can't answer all three, don't add the technique.
+> See [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) for decision framework.
+
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|

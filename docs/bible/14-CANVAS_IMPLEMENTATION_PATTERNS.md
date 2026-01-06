@@ -4,6 +4,26 @@
 **When to Read:** After understanding 13-MATERIAL_LOGIC.md, when building scenes  
 **Priority:** REFERENCE - Copy/paste these patterns into your projects
 
+> ⚠️ **V7 WARNING - REFERENCE LIBRARY, NOT IMPLEMENTATION GUIDE**
+> 
+> This code library exists for **targeted problem-solving**, not wholesale implementation.
+> V7 implemented the entire noise library, material system, and validation pipeline.
+> Result: **Worse than V5** which used none of these.
+> 
+> **CORRECT USE:**
+> 1. Identify a SPECIFIC visual problem
+> 2. Find the ONE technique that addresses it
+> 3. Copy ONLY that code
+> 4. Test if it improved the render
+> 5. Revert if not clearly better
+> 
+> **INCORRECT USE:**
+> - "Let me add the noise library because it's here"
+> - "I'll implement the whole material system"
+> - "More techniques = better result"
+> 
+> See [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) for decision framework.
+
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|

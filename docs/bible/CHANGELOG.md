@@ -14,6 +14,78 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - V7 Failure Analysis + Technique Selection Framework ⚠️ CRITICAL LESSON
+
+### 🔴 Source: Landscape V7 Implementation Disaster
+
+V7 applied everything from docs 13-15 (noise library, material system, validation pipeline) and produced **worse results than V5** which used none of them.
+
+### 🆕 Added - 16-TECHNIQUE_SELECTION.md (NEW FILE - ~350 lines)
+
+**Purpose:** Decision framework to prevent over-engineering. Reference, not recipe.
+
+**Core Content:**
+
+**Section 1: Problem-First Selection**
+- "Every technique must solve a SPECIFIC, IDENTIFIED problem"
+- Wrong: "I have these tools, let me use them all"
+- Right: "What specific problem am I solving?"
+
+**Section 2: Incremental Test Pattern**
+- Level 0: Minimum viable render, test structure
+- Level 1: Add ONE technique for ONE problem
+- Test: Is it better? Yes → Keep. No → Revert.
+- Repeat until satisfied
+
+**Section 3: Problem → Solution Lookup Table**
+- Maps specific visual problems to targeted techniques
+- Edge, value, material, texture, structure categories
+- Includes document reference for each solution
+
+**Section 4: Anti-Patterns**
+- "Let me use my noise library because it exists"
+- "The material system should improve everything"
+- "More passes = more realistic"
+- "Validation passed so it must be good"
+
+**Section 5: V7 Case Study**
+- Full breakdown of what went wrong
+- Why systems fought each other
+- Why 100% validation masked failure
+
+**Key Lesson:**
+```
+More documentation ≠ Better art
+More techniques ≠ Better results
+Systematic application ≠ Artistic judgment
+```
+
+### 🔧 Modified - 13-MATERIAL_LOGIC.md
+- Added V7 WARNING box at top
+- "Reference library, not mandate"
+- Links to 16-TECHNIQUE_SELECTION.md
+
+### 🔧 Modified - 14-CANVAS_IMPLEMENTATION_PATTERNS.md
+- Added V7 WARNING box at top
+- "Reference library, not implementation guide"
+- Correct vs incorrect use patterns
+
+### 🔧 Modified - 15-REALISM_VALIDATION.md
+- Changed priority from "CRITICAL" to "SUPPLEMENT"
+- Added V7 WARNING: "Metrics ≠ Quality"
+- 100% score with bad output = trust your eyes
+
+### 📁 Updated - FAILURE_ARCHIVE.md
+- Added comprehensive V7 Over-Engineering entry
+- Updated Pattern Recognition section
+- Added new warning signs to watch for
+
+### 📁 Updated - BIBLE_INDEX.md
+- Added 16-TECHNIQUE_SELECTION.md to folder map
+- Added "When to Read" entries for technique selection
+
+---
+
 ## [2026-01-06] - Canvas Implementation + Realism Validation ⭐ NEW SYSTEMS
 
 ### 🔴 Source: V6 Implementation Research + Automated Testing Requirements

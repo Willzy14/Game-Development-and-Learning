@@ -119,7 +119,8 @@ Game-Development-and-Learning/
 │   │   ├── 12-EDGE_MASTERY.md     # 🚨 CRITICAL: Edge theory paradigm shift
 │   │   ├── 13-MATERIAL_LOGIC.md   # 🚨 Form → Material → Atmosphere system
 │   │   ├── 14-CANVAS_IMPLEMENTATION_PATTERNS.md # Production Canvas code
-│   │   └── 15-REALISM_VALIDATION.md # Automated testing for natural rendering
+│   │   ├── 15-REALISM_VALIDATION.md # Automated testing for natural rendering
+│   │   └── 16-TECHNIQUE_SELECTION.md # ⭐ Decision framework (V7 lesson)
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -179,6 +180,9 @@ Game-Development-and-Learning/
 | **🛠️ Implementing material logic** | [14-CANVAS_IMPLEMENTATION_PATTERNS.md](./14-CANVAS_IMPLEMENTATION_PATTERNS.md) → Noise library + patterns |
 | **🔬 Testing if art is realistic** | [15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md) → Automated checks |
 | **🔬 Catching abstract drift** | [15-REALISM_VALIDATION.md](./15-REALISM_VALIDATION.md) → Histogram + edge tests |
+| **⭐ BEFORE adding ANY technique** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Decision framework |
+| **⭐ "Should I use this?"** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Problem-first selection |
+| **⭐ Render getting worse** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Revert, simplify |
 
 ### Staleness Tracking
 
