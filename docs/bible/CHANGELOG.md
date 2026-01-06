@@ -14,6 +14,128 @@ When you add, modify, or remove content from ANY Bible document:
 
 ---
 
+## [2026-01-06] - Material Logic System ⭐ CRITICAL NEW DOCUMENT
+
+### 🔴 Source: V6 Abstract/Dreamlike Diagnosis + Material Behavior Research
+
+V6 revealed the missing layer: **We treat all materials as the same substance with different colors.** Rock, trees, snow, clouds all had the same softness → abstract foam.
+
+### 🆕 Added - 13-MATERIAL_LOGIC.md (NEW FILE - ~1000 lines)
+
+**The Three-Layer System (What V6 Was Missing):**
+
+```
+Layer 1: FORM (establish volumes/planes) ← V6 skipped this
+Layer 2: MATERIAL (apply material behavior) ← V6 skipped this
+Layer 3: ATMOSPHERE (distance effects) ← V6 had ONLY this
+```
+
+**Core Content:**
+
+**Section 1-2: The Core Problem + Material Properties Matrix**
+- Why V6 looked abstract: same substance with different colors
+- Material properties: edge/light/texture/softness by type
+- Rock ≠ snow ≠ trees ≠ clouds behavioral table
+
+**Section 3: Form Hierarchy (Mass → Structure → Detail)**
+- PRIMARY forms: solid masses, no texture
+- SECONDARY forms: ridges, major structure
+- TERTIARY forms: surface details, material-specific
+- "Never texture without form first"
+
+**Section 4: Material-Specific Edge Behavior**
+- Rock: hard planes, soft erosion (70% hard, 30% soft)
+- Snow: soft accumulation, hard crust (20% hard, 80% soft)
+- Trees: clustered masses, soft outer (40% hard, 60% soft)
+- Clouds: all lost edges (0% hard, 100% soft)
+
+**Section 5: Light Response by Material**
+- Diffuse materials (rock, trees): gradual falloff, no highlights
+- Specular materials (snow, water): bright reflection spots
+- Volume scatter (clouds): glow from within
+
+**Section 6: Texture Frequency by Material**
+- Rock: low-medium (large facets, few cracks)
+- Snow: very high (crystalline sparkle)
+- Trees: high (chaotic leaves)
+- Clouds: medium (wispy variation)
+
+**Section 7: Coherent Noise vs Random Noise** ⭐ CRITICAL
+- V6 problem: `Math.random()` everywhere → "TV static" look
+- Solution: Perlin/Simplex noise for organic variation
+- When to use each type
+- Simple Perlin implementation included
+
+**Section 8: The Order - Form → Material → Atmosphere**
+- Step-by-step pipeline V6 skipped
+- Phase 1: Block in solid forms (no texture)
+- Phase 2: Apply material behavior
+- Phase 3: Add atmospheric depth
+- Complete render function example
+
+**Section 9: Photo Deconstruction Exercise**
+- Reduce real photo to 5 values + 3 materials + 1 light
+- Rebuild procedurally to anchor to reality
+- Prevents drifting into pure abstraction
+
+**Section 10-11: Canvas Implementation + Material Primitives**
+- `MaterialSystem` class with three-phase rendering
+- Rock cliff primitive (angular planes, cracks, erosion)
+- Fluffy cloud primitive (volume layers, coherent puffs)
+- Tree cluster primitive (firm cores, soft outer, scattered details)
+
+**Section 12: Validation Checklist**
+- Material identity check
+- Form hierarchy check  
+- Order check (Form → Material → Atmosphere)
+- Texture frequency check
+- Noise quality check
+- Edge mix check (by material type)
+
+### 📝 Updated
+
+**BIBLE_INDEX.md:**
+- Added 13-MATERIAL_LOGIC.md to When to Read table
+- Added "Art looks abstract/dreamlike" → Material Logic
+- Added "Everything same substance" → Material Logic
+- Added "BEFORE realistic scenes" priority entry
+- Updated skills tracker: Material Logic - Learning
+
+### 💡 Key Insights
+
+**The Diagnosis:**
+```
+V6 treated rock, trees, snow, clouds as
+THE SAME SUBSTANCE with different colors.
+
+Result: Abstract foam, not nature.
+```
+
+**The Solution:**
+```
+1. Establish FORM (volumes, planes, mass)
+2. Apply MATERIAL behavior (specific to type)
+3. Add ATMOSPHERE (on top, not instead of)
+```
+
+**Material Behavioral Differences:**
+- Edge character varies by material
+- Light response varies by material
+- Texture frequency varies by material
+- Softness mix varies by material
+
+**The Missing Rule:**
+> "Softness is not realism. Material logic creates realism."
+
+### 🔗 Reading Order Update
+
+New priority sequence:
+1. 12-EDGE_MASTERY.md (edge theory)
+2. 13-MATERIAL_LOGIC.md (material behavior)
+3. Then attempt realistic scenes
+
+---
+
 ## [2026-01-06] - V6 Lessons & Canvas Edge Toolkit ⭐ MAJOR UPDATE
 
 ### 🔴 Source: V6 Landscape Experiment + New Research Material

@@ -8,26 +8,48 @@ Each picture should demonstrate MORE detail than the previous.
 
 ---
 
-## 🚨 CRITICAL: EDGE MASTERY (Read This First!)
+## 🚨 CRITICAL: EDGE MASTERY + MATERIAL LOGIC (Read This First!)
 
-**Before ANY art work, you MUST read [12-EDGE_MASTERY.md](../bible/12-EDGE_MASTERY.md)**
+**Before ANY art work, you MUST read these in order:**
 
-This document contains a paradigm shift that changes everything:
+1. **[12-EDGE_MASTERY.md](../bible/12-EDGE_MASTERY.md)** - Edge theory foundation
+2. **[13-MATERIAL_LOGIC.md](../bible/13-MATERIAL_LOGIC.md)** - Material behavior (prevents abstraction)
 
-> **Nature is built from probability fields, not boundaries.**
-> **Hard edges are a human abstraction.**
+### The Core Understanding
 
-### The Checkable Rule
+**Edge Mastery Paradigm:**
+> Nature is built from probability fields, not boundaries.
+> Hard edges are a human abstraction.
+
+**Material Logic Addition:**
+> Rock ≠ Trees ≠ Snow ≠ Clouds
+> Each material has different edge/light/texture behavior.
+
+### The Checkable Rules
+
 ```
-IF AN EDGE CAN BE TRACED WITH A RULER, IT IS WRONG.
+1. IF AN EDGE CAN BE TRACED WITH A RULER, IT IS WRONG.
+
+2. IF ALL MATERIALS HAVE SAME SOFTNESS, IT IS ABSTRACT.
+
+3. FORM → MATERIAL → ATMOSPHERE (Never skip to atmosphere)
 ```
 
 ### Key Concepts to Internalize:
-1. **Edge Classification**: Hard / Soft / Lost / Found edges
-2. **Value Bridging**: Never let Color A touch Color B directly
-3. **Accumulate Form**: Build up from chaos, don't draw geometry
-4. **Edge Sharpness = f(depth)**: Far = soft edges, Near = sharp edges
-5. **Light is Distribution**: No bright object ends abruptly
+
+**From Edge Mastery:**
+1. Edge Classification: Hard / Soft / Lost / Found edges
+2. Value Bridging: Never let Color A touch Color B directly
+3. Accumulate Form: Build up from chaos, don't draw geometry
+4. Edge Sharpness = f(depth): Far = soft edges, Near = sharp edges
+5. Light is Distribution: No bright object ends abruptly
+
+**From Material Logic:**
+6. Form Hierarchy: Mass → Structure → Detail (never texture without form)
+7. Material-Specific Edges: Rock 70% hard, Snow 20% hard, Clouds 0% hard
+8. Coherent Noise: Use Perlin, not Math.random() for organic shapes
+9. Texture Frequency by Material: Rock = low, Trees = high, Snow = very high
+10. Three-Layer Process: Form → Material → Atmosphere
 
 ---
 
@@ -35,12 +57,17 @@ IF AN EDGE CAN BE TRACED WITH A RULER, IT IS WRONG.
 
 **Every art study MUST begin by reviewing these documents:**
 
-### Priority 1: Edge Theory (CRITICAL)
+### Priority 1: Edge Theory + Material Logic (CRITICAL)
 | Document | Section | What to Review |
 |----------|---------|----------------|
 | **12-EDGE_MASTERY.md** | Section 1-2 | Mental model shift, edge classification |
 | **12-EDGE_MASTERY.md** | Section 4 | Value bridging - "never touch directly" |
-| **12-EDGE_MASTERY.md** | Section 10 | Validation checklist |
+| **12-EDGE_MASTERY.md** | Section 10 | Canvas Edge Toolkit |
+| **12-EDGE_MASTERY.md** | Section 14 | Validation checklist |
+| **13-MATERIAL_LOGIC.md** | Section 1-2 | Three-layer system, material properties |
+| **13-MATERIAL_LOGIC.md** | Section 3 | Form hierarchy (Mass → Structure → Detail) |
+| **13-MATERIAL_LOGIC.md** | Section 4 | Material-specific edge behavior |
+| **13-MATERIAL_LOGIC.md** | Section 7 | Coherent noise vs random |
 
 ### Priority 2: Art Fundamentals
 | Document | Section | What to Review |
@@ -51,8 +78,22 @@ IF AN EDGE CAN BE TRACED WITH A RULER, IT IS WRONG.
 
 ### Pre-Study Checklist (Complete Before Starting)
 
+**Form Planning (NEW - From Material Logic):**
+- [ ] Read 13-MATERIAL_LOGIC.md Three-Layer System
+- [ ] Plan PRIMARY forms (solid masses, no detail)
+- [ ] Plan SECONDARY structure (ridges, major breaks)
+- [ ] Plan TERTIARY details (what material is each surface?)
+- [ ] Confirm: Form → Material → Atmosphere order
+
+**Material Planning (NEW):**
+- [ ] Identify materials in scene (rock/snow/trees/clouds/water)
+- [ ] Look up material properties in 13-MATERIAL_LOGIC.md Section 2
+- [ ] Plan edge mix per material (rock 70% hard, snow 20% hard, etc.)
+- [ ] Plan texture frequency per material
+- [ ] Confirm: Using Perlin noise, not Math.random()
+
 **Edge Planning:**
-- [ ] Read 12-EDGE_MASTERY.md (or re-read validation checklist)
+- [ ] Read 12-EDGE_MASTERY.md validation checklist
 - [ ] Plan which edges will be LOST (dissolving into background)
 - [ ] Plan which edges will be FOUND (focal point sharpening)
 - [ ] Plan value bridges between all major color zones

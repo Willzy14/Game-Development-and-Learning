@@ -169,6 +169,9 @@ Game-Development-and-Learning/
 | **🆕 Need Canvas code** | [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) → Copy-paste patterns |
 | **🚨 Edges look hard/artificial** | [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) → The paradigm shift |
 | **🚨 BEFORE any visual art** | [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) → This changes everything |
+| **🚨 Art looks abstract/dreamlike** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Material behavior |
+| **🚨 Everything same substance** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Form → Material → Atmosphere |
+| **🚨 BEFORE realistic scenes** | [13-MATERIAL_LOGIC.md](./13-MATERIAL_LOGIC.md) → Read after Edge Mastery |
 
 ### Staleness Tracking
 
@@ -207,6 +210,7 @@ See [MAINTENANCE.md](./MAINTENANCE.md) for staleness detection procedures.
 - **Large Task Management:** Expert (chunked creation pattern)
 - **🆕 Art Fundamentals:** Intermediate (5-value system, light/shadow, composition)
 - **🆕 Edge Mastery:** Learning (probability fields, value bridging, soft edges)
+- **🆕 Material Logic:** Learning (form hierarchy, material behavior, coherent noise)
 
 ---
 
