@@ -126,14 +126,89 @@ Each picture should demonstrate MORE detail than the previous.
 | # | Subject | Status | Rating | Key Techniques Practiced |
 |---|---------|--------|--------|--------------------------||
 | 1 | Egyptian Scene | ✅ Complete | 8.5/10 | Brick texture, sand ripples, palm fronds, weathering |
-| 2 | Mountain Landscape | ✅ V5 Complete | 7/10 | ColorUtils, 5-value gradients, compositing ops - BUT still hard edges |
-| 2b | Mountain V6 | 🔄 In Progress | - | Edge mastery: probability fields, value bridging, soft edges |
-| 3 | Character Portrait | ✅ Complete (V3) | 7/10 | Chibi proportions, patchwork clothing, layered rendering, style consistency |
-| 4 | Space Scene | ⏳ Not Started | - | Nebula gradients, star fields, planet surfaces |
+| 2 | Mountain Landscape | ✅ V8.4 Complete | 7.5/10 | ColorUtils, 5-value gradients, problem-first incremental |
+| 3 | Character Portrait | ✅ Complete (V3) | 7/10 | Chibi proportions, patchwork clothing, layered rendering |
+| 4 | Space Scene | ✅ V1 Complete | - | "Look how little I need" - restraint principle |
+| 4b | **Sphere Study** | ✅ Complete | - | **5-value system, Phong model, Fresnel, glass optics** |
 | 5 | Underwater Scene | ⏳ Not Started | - | Caustic light, coral detail, water particles |
 | 6 | Castle/Architecture | ⏳ Not Started | - | Stone texture, wood grain, structural detail |
 | 7 | Still Life | ⏳ Not Started | - | Material variety (metal, glass, fruit, cloth) |
 | 8 | Animal | ⏳ Not Started | - | Fur/feather texture, eye detail, anatomy |
+
+---
+
+## Study #4b: Progressive Sphere Study ⭐ FOUNDATIONAL
+
+**File**: `/art-studies/004b-sphere-study/`  
+**Resolution**: 1200x800 (4 quadrants of 600x400)  
+**Date Completed**: January 7, 2026
+
+### Purpose
+Master 3D form rendering through progressive complexity. These techniques apply to EVERYTHING - planets, characters, objects, particles.
+
+### The Four Levels
+
+| Level | Quadrant | Focus | Key Techniques |
+|-------|----------|-------|----------------|
+| 1. Basic | Top-Left | 5-value system | Offset radial gradient, value distribution |
+| 2. Intermediate | Top-Right | Environment | Ground shadow, contact shadow (AO), reflected color |
+| 3. Advanced | Bottom-Left | Material (Glossy) | Sharp specular, Fresnel rim, screen compositing |
+| 4. Photorealistic | Bottom-Right | Glass optics | Internal reflection, caustics, transparency |
+
+### Research Sources Used
+- **LearnOpenGL**: Phong lighting model (ambient + diffuse + specular)
+- **Scratchapixel**: Spherical light, inverse-square falloff, refraction
+- **Internal Bible**: 10-ART_FUNDAMENTALS.md, 12-EDGE_MASTERY.md
+
+### Key Concepts Learned
+
+**1. The 5-Value System (Basic)**
+```
+1. Highlight - nearly white, small
+2. Light - bright general area
+3. Halftone - THE TERMINATOR LINE (transition)
+4. Core Shadow - DARKEST on form (not edge!)
+5. Reflected Light - lighter than core shadow!
+```
+
+**2. The Phong Model (Advanced)**
+```
+Final Color = Ambient + Diffuse + Specular
+- Ambient: constant base (prevents pure black)
+- Diffuse: brightness from surface-to-light angle
+- Specular: bright spot from reflection-to-viewer angle
+```
+
+**3. Fresnel Effect**
+Edges at glancing angles appear brighter. Critical for:
+- Glass (very strong)
+- Metal (strong)
+- Glossy plastic (moderate)
+- Matte (minimal)
+
+**4. Glass Optics (Photorealistic)**
+- **Internal reflection**: Bright spot on SHADOW side (inverted!)
+- **Caustics**: Focused light through sphere onto ground
+- **Double edge**: Refraction creates visible inner rim
+
+### Canvas Techniques Used
+
+| Technique | Purpose |
+|-----------|---------|
+| Offset `createRadialGradient` | 3D form illusion |
+| `globalCompositeOperation: 'screen'` | Additive highlights |
+| `globalCompositeOperation: 'lighter'` | Light accumulation |
+| `globalCompositeOperation: 'overlay'` | Color tinting |
+| Ellipse scaling with `ctx.scale()` | Ground shadows |
+| Multiple gradient passes | Complex materials |
+
+### Application to Other Work
+These sphere techniques directly apply to:
+- Planet rendering (Space Scene)
+- Character eyes and shiny elements
+- Game pickups and power-ups
+- Particle effects (glowing orbs)
+- Any 3D form representation
 
 ---
 

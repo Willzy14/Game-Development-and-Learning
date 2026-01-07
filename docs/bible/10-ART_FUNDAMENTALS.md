@@ -475,5 +475,327 @@ Layer 1: UI OVERLAY            (highest layer)
 
 ---
 
+## 9. PRACTICAL LEARNINGS FROM STUDIES (January 2026)
+
+### From Sphere Study V1-V2
+
+**What Makes a Sphere Read as 3D:**
+- Gradient center offset toward light source (not centered!)
+- 12+ gradient stops for smooth transitions (5-6 is too few)
+- Core shadow is NOT at the edge - it's inside the shadow area
+- Reflected light is subtle but essential (lifts the shadow edge)
+- Specular highlight should be elliptical/shaped, not perfect circle
+
+**Glass vs Opaque Materials:**
+| Property | Opaque (Glossy) | Glass/Transparent |
+|----------|-----------------|-------------------|
+| Shadow darkness | Strong | Very light (light passes through) |
+| Caustic | None | Bright spot on shadow side (refracted light) |
+| Internal reflection | None | Light concentrates on far side of sphere |
+| Rim treatment | Fresnel brightening | Double rim (refraction at both edges) |
+| Highlight | Surface only | Surface + internal reflections |
+
+### From Shape Study V1
+
+**Critical Insight: "Sticker" vs "Solid Object"**
+
+The difference between CG icons and physical-looking objects:
+
+| Problem | Symptom | Fix |
+|---------|---------|-----|
+| Floating objects | Shadows don't "hug" the form | Add tight contact shadow + looser cast shadow |
+| Airbrushed look | Values transition too smoothly | Enforce clear 5-value separation (especially core shadow) |
+| All same material | Everything has same gloss/roughness | Vary specular width and intensity per material |
+| Perfect gradients | Too mathematically clean | (Advanced) Add micro-variation/noise to break perfection |
+
+**Contact Shadow System (Essential for Grounding):**
+```javascript
+// Two-layer shadow system
+function drawShadowSystem(cx, groundY, contactWidth, castWidth, castLength) {
+    // 1. CAST SHADOW - softer, extends away from light
+    // Gradient: center dark → edge transparent
+    // Shape: ellipse elongated toward shadow direction
+    // Edge: soft, especially far edge
+    
+    // 2. CONTACT SHADOW - tight, dark, hugs object
+    // Very dark at center (0.7 opacity)
+    // Rapid falloff (tight radius)
+    // Directly under object, minimal offset
+}
+```
+
+**Shape-Specific Lighting:**
+
+| Shape | Key Challenge | Solution |
+|-------|---------------|----------|
+| **Cube** | Faces must agree on light | Each face gets distinct value; AO at inner edges |
+| **Cylinder** | Horizontal gradient on body | 5-value left-to-right; top cap gets separate directional gradient |
+| **Cone** | Highlight tapers toward apex | Narrow specular band at apex, wider at base |
+| **Torus** | Double curvature | Each tube segment gets radial gradient; deep AO in inner hole |
+
+**The Terminator Zone:**
+The halftone/terminator area (where light turns to shadow) should be:
+- Wider than you think (not a sharp line)
+- The area of most visual interest on a form
+- Where color often shifts slightly (warm light → cool shadow or vice versa)
+
+### What We Learned About "Good Enough"
+
+**When to stop refining:**
+- ✅ Light direction is consistent across all elements
+- ✅ Forms read as 3D volumes (not flat)
+- ✅ Objects feel grounded (proper shadows)
+- ✅ 5-value system is present
+
+**Diminishing returns territory:**
+- Micro-variation/noise for imperfection
+- Per-material roughness differences  
+- Advanced subsurface scattering
+- Environment reflections
+
+These matter, but the fundamentals above give 80% of the result.
+
+### From Space Scene V2
+
+**Inter-Object Interaction (The "85% to 95%" Jump):**
+
+The single biggest difference between "nice illustration" and "convincing spatial object":
+
+| Interaction Type | What It Does | Implementation |
+|------------------|--------------|----------------|
+| **Ring shadow on planet** | Anchors rings in 3D space | Curved elliptical shadow band following ring tilt angle |
+| **Occlusion behind object** | Sells depth | Back-facing rings at 35% opacity vs front at 100% |
+| **Value shift across rings** | Shows ring curvature | Outer edge brighter, inner edge darker (5 sub-strokes) |
+| **Reflected light between objects** | Unifies the scene | Moon shadow side picks up planet's blue tint |
+
+**Why Space Scenes Are Good Practice:**
+- Allow focus on light, form, depth, interaction
+- WITHOUT fighting organic chaos (trees, rocks, terrain)
+- More forgiving of stylization than landscapes
+- Clear hierarchy is easier to maintain
+
+**The Feedback Evolution (Progress Indicator):**
+
+| Stage | Feedback Type | What It Means |
+|-------|---------------|---------------|
+| Early | "What went wrong" | Fundamentals missing |
+| Middle | "This doesn't work" | Approach issues |
+| Late | "Push this 10%, pull that 5%" | Past the hard part ✓ |
+
+When feedback becomes percentage adjustments rather than directional changes, you've crossed the competence threshold.
+
+**Remaining Polish (Taste, Not Understanding):**
+- Low-frequency noise on uniform surfaces (breaks "render" feel)
+- Vary band thickness/brightness slightly
+- Reduce star density ~10-15% (let nebula do atmosphere work)
+- Strengthen shadows by 10-15% where interaction matters
+
+These are refinements, not fixes. The fundamentals are solid.
+
+### From Underwater Scene V1 (January 2026)
+
+**The Restraint Lesson - Most Important Learning:**
+
+> "Study techniques deeply, then use them *selectively*. The art is in knowing when NOT to use something."
+
+First attempt applied every technique we'd learned (5-value sphere lighting on fish, complex material logic). It looked **worse** than the simple version. 
+
+**Key Insight:** Using a technique because you just learned it ≠ Using a technique because the scene needs it.
+
+**The Medium IS the Subject:**
+
+For environmental scenes, the **medium itself** (water, air, fog) is often more important than the objects in it:
+
+| Medium Behavior | What It Does | Implementation |
+|-----------------|--------------|----------------|
+| **Light scattering** | Rays break, fade, die unevenly | Varied lengths, tilts, opacities; some die early |
+| **Depth desaturation** | Colors die with depth | Blend toward medium color + desaturate + lower contrast |
+| **Particles create volume** | Medium is SOMETHING, not empty | Multi-layer particles at different depths/sizes |
+| **Ground interaction** | Objects anchored to surface | Contact shadows + seabed fog |
+| **Motion consistency** | Current affects everything uniformly | All plants bend same direction, fish tilt, bubbles drift |
+
+**Depth Occlusion (The 85% → 95% Jump):**
+
+Not blur. Not fog. Just **obstruction** - things getting in the way of other things:
+
+| Occlusion Type | Effect | Why It Works |
+|----------------|--------|--------------|
+| Particles in front of subjects | Creates parallax without animation | Eye reads "this is closer" |
+| Subject shadows on ground | Grounds objects in space | Connects floating elements to surface |
+| Foreground "out of focus" particles | Camera effect = physical space | Softened particles imply lens depth |
+
+**Simple Forms Can Have Dimension:**
+
+The fish are ellipses with top-lit shading (light from above → darker bellies). This gives 3D feeling WITHOUT applying full sphere study treatment. Use the minimum technique that achieves the effect.
+
+**What Worked in Underwater Scene:**
+
+| Element | Technique Used | Why It Worked |
+|---------|----------------|---------------|
+| Water volume | Particles + light rays + depth gradient | Established medium as "something" |
+| Fish depth | Color shift (not just alpha) | Background fish BLEND with water, don't just fade |
+| Seabed grounding | Contact shadows + fog layer | Objects feel placed, not floating |
+| Motion feeling | Consistent current direction | Everything responds to same invisible force |
+| Light behavior | Uneven rays, varied fade points | Light BEHAVES like light in water |
+
+**What We Avoided (Restraint Wins):**
+
+| Temptation | Why We Skipped It | Result |
+|------------|-------------------|--------|
+| Full 5-value on fish | Fish are small, simple forms | Clean silhouettes, faster to read |
+| Complex material logic per object | Scene about WATER, not objects | Focus stayed on medium behavior |
+| Per-pixel noise/texture | Would distract from depth effect | Clean particles do the work |
+| Multiple light sources | Would confuse the hierarchy | Single top-light, consistent shadows |
+
+**The Iteration Axis:**
+
+Each upgrade targeted "water behavior" not "add more stuff":
+
+```
+1. Light rays      → how light behaves IN water
+2. Desaturation    → how color dies IN water
+3. Particles       → water has mass/volume  
+4. Seabed fog      → visibility drops near bottom
+5. Motion cues     → current affects everything
+6. Occlusion       → things obstruct other things
+```
+
+**When to Apply Which Level of Detail:**
+
+| Subject Role | Detail Level | Lighting Treatment | Edge Treatment |
+|--------------|--------------|-------------------|----------------|
+| Hero/Focal | Full techniques | Complete 5-value | Sharpest edges |
+| Supporting | Moderate | Top-lit gradient only | Some soft edges |
+| Background | Minimal | Flat + depth color | Mostly lost edges |
+| Atmosphere/Medium | High investment | Behavioral, not form-based | All soft |
+
+---
+
+## 9. THE 4-LAYER TEXTURE SYSTEM ⭐ CRITICAL
+
+**What texture IS NOT:**
+- ❌ Photographic images
+- ❌ Noisy overlays everywhere  
+- ❌ "Detail" or decoration
+- ❌ Tiled patterns
+
+**What texture IS:**
+- ✅ Tiny value variation that communicates material history
+- ✅ Texture exists to: break straightness, break uniform color, suggest age/wear/erosion
+
+**The Golden Rule:**
+> Texture amplitude must be SMALLER than edge thickness.
+> If texture is louder than form → looks procedural/noisy.
+> If texture is quieter than form → feels physical/material.
+
+### The Four Layers
+
+#### Layer 1: FORM (No texture)
+- Perfect shapes
+- Clean gradients  
+- Clear lighting
+- This is your foundation - get this right first
+
+#### Layer 2: SURFACE VARIATION ⭐ Most Important
+**This is the layer most people miss.**
+
+| Property | Value |
+|----------|-------|
+| Contrast | VERY low (0.02-0.05 opacity) |
+| Scale | HUGE (30-50% of surface) |
+| Visibility | Barely visible - almost boring |
+
+**Examples:**
+- Stone not being perfectly flat
+- Sand having subtle uneven tone
+- Water having faint depth variation
+
+**What it does:** Destroys "vector" look while keeping forms readable.
+
+```javascript
+// LAYER 2: Surface Variation - HUGE scale, VERY low contrast
+for (let i = 0; i < 4; i++) {
+    const patchSize = width * (0.3 + random() * 0.2);  // HUGE
+    const patchGrad = ctx.createRadialGradient(...);
+    patchGrad.addColorStop(0, `rgba(0, 0, 0, ${0.03 + random() * 0.02})`);  // VERY subtle
+    patchGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = patchGrad;
+    ctx.fillRect(x, y, width, height);
+}
+```
+
+#### Layer 3: EDGE DAMAGE
+Texture concentrates at: edges, corners, bases, contact points.
+**This is where age lives.**
+
+| Location | Treatment |
+|----------|-----------|
+| Edges | Slightly darker values |
+| Corners | Rounded by occlusion darkening |
+| Bases | Dirt/moisture accumulation |
+| Contact points | Where things touch = darker |
+
+```javascript
+// Edge darkening - subtle value shift at edges
+const edgeGrad = ctx.createLinearGradient(x, 0, x + width * 0.15, 0);
+edgeGrad.addColorStop(0, 'rgba(30, 25, 20, 0.08)');  // Very subtle
+edgeGrad.addColorStop(1, 'rgba(30, 25, 20, 0)');
+
+// Base darkening - moisture/dirt accumulates
+const baseGrad = ctx.createLinearGradient(0, y + height - 20, 0, y + height);
+baseGrad.addColorStop(0, 'rgba(20, 15, 10, 0)');
+baseGrad.addColorStop(1, 'rgba(15, 10, 5, 0.15)');
+```
+
+#### Layer 4: ACCUMULATION (Optional but powerful)
+Tells a story of time and use.
+
+**Examples:**
+- Dirt near ground
+- Moss in crevices
+- Sediment on seabed
+- Grime where water would run
+- Wear where feet would tread
+
+```javascript
+// Vertical streaking - water/dirt accumulation respects GRAVITY
+const streakGrad = ctx.createLinearGradient(0, y, 0, y + height);
+streakGrad.addColorStop(0, 'rgba(40, 35, 30, 0)');
+streakGrad.addColorStop(0.2, 'rgba(40, 35, 30, 0.02)');
+streakGrad.addColorStop(0.8, 'rgba(35, 30, 25, 0.04)');  // Darker toward bottom
+streakGrad.addColorStop(1, 'rgba(30, 25, 20, 0.06)');
+```
+
+### Practical Techniques
+
+| Technique | Description | Use Case |
+|-----------|-------------|----------|
+| Low-frequency noise modulation | HUGE scale, very low opacity | Making stone not look plastic |
+| Edge-only noise | Texture only near edges | Where weather/hands/erosion happens |
+| Directional texture | Respects gravity/growth | Vertical streaking, horizontal banding |
+| Value texture > Color texture | Light/dark, not color speckling | Form reads better than pattern |
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| "Let's add a stone texture" | Tiled patterns, noise soup | "Let's slightly damage perfection" |
+| Texture everywhere | Destroys readability | Concentrate at edges/corners |
+| High contrast texture | Looks procedural | Lower opacity (0.02-0.05) |
+| Small scale texture | Reads as noise | Larger patches (30-50% of surface) |
+| Color speckling | Looks synthetic | Use value variation only |
+
+### The Mental Model
+
+> ❌ "I need to add texture to this surface"
+> ✅ "I need to slightly damage this surface's perfection"
+
+Texture should:
+- Almost disappear when viewed up close
+- Be obvious when removed
+- Tell a story of age, use, weather
+
+---
+
 *Document created: January 6, 2026*  
-*Source: Classical art fundamentals research + lessons learned from Art Study #1-3*
+*Updated: January 7, 2026 - Added practical learnings from Sphere Study V2, Shape Study V1, Space Scene V2, Underwater Scene V1, and the 4-Layer Texture System from Forest Temple*

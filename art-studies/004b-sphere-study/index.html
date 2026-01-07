@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Study #4b: Progressive Sphere Rendering</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #ccc;
+        }
+        h1 {
+            color: #88aaff;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 2px solid #333;
+            border-radius: 4px;
+        }
+        .info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #222;
+            border-radius: 4px;
+            max-width: 1200px;
+        }
+        .info h3 {
+            color: #88aaff;
+            margin-top: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .level {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .level h4 {
+            margin: 0 0 8px 0;
+            color: #aaa;
+        }
+        .technique {
+            display: inline-block;
+            background: #1a2a3a;
+            padding: 2px 6px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Art Study #4b: Progressive Sphere Rendering</h1>
+    <p class="subtitle">Master 3D form through 4 levels of increasing realism</p>
+    
+    <canvas id="artCanvas" width="1200" height="800"></canvas>
+    
+    <div class="info">
+        <h3>The Phong Lighting Model Applied</h3>
+        <p><strong>Light Source:</strong> Upper-left for all spheres (consistent study)</p>
+        <div class="grid">
+            <div class="level">
+                <h4>1. BASIC (Top-Left)</h4>
+                <p>5-value system: highlight → light → halftone → core shadow → reflected light</p>
+                <span class="technique">Offset radial gradient</span>
+                <span class="technique">Value distribution</span>
+            </div>
+            <div class="level">
+                <h4>2. INTERMEDIATE (Top-Right)</h4>
+                <p>Environment grounding with shadows and color interaction</p>
+                <span class="technique">Ground shadow</span>
+                <span class="technique">Contact shadow</span>
+                <span class="technique">Reflected color</span>
+            </div>
+            <div class="level">
+                <h4>3. ADVANCED (Bottom-Left)</h4>
+                <p>Material-specific rendering with specular and Fresnel</p>
+                <span class="technique">Sharp specular</span>
+                <span class="technique">Fresnel rim</span>
+                <span class="technique">screen composite</span>
+            </div>
+            <div class="level">
+                <h4>4. PHOTOREALISTIC (Bottom-Right)</h4>
+                <p>Glass/translucent with internal optics</p>
+                <span class="technique">Internal reflection</span>
+                <span class="technique">Caustics</span>
+                <span class="technique">Subsurface glow</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="art.js"></script>
+</body>
+</html>

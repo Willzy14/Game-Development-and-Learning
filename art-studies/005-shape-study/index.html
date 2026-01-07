@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Study #5: Shape Study - Lighting on 3D Forms</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #ccc;
+        }
+        h1 {
+            color: #88aaff;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 2px solid #333;
+            border-radius: 4px;
+        }
+        .info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #222;
+            border-radius: 4px;
+            max-width: 900px;
+        }
+        .info h3 {
+            color: #88aaff;
+            margin-top: 0;
+        }
+        .shapes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .shape-info {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        .shape-info h4 {
+            margin: 0 0 6px 0;
+            color: #aaa;
+        }
+        .shape-info p {
+            margin: 3px 0;
+            color: #8a8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Art Study #5: Shape Study</h1>
+    <p class="subtitle">Applying 5-value lighting theory to different 3D primitives</p>
+    
+    <canvas id="artCanvas" width="900" height="900"></canvas>
+    
+    <div class="info">
+        <h3>Lighting Principles Applied to Each Shape</h3>
+        <div class="shapes">
+            <div class="shape-info">
+                <h4>Cube</h4>
+                <p>• Flat planes = sharp value transitions</p>
+                <p>• Each face has uniform value</p>
+                <p>• Hard edges between planes</p>
+            </div>
+            <div class="shape-info">
+                <h4>Cylinder</h4>
+                <p>• Curved surface = gradient like sphere</p>
+                <p>• Flat ends = uniform value</p>
+                <p>• Linear highlight along length</p>
+            </div>
+            <div class="shape-info">
+                <h4>Cone</h4>
+                <p>• Gradient narrows toward apex</p>
+                <p>• Terminator curves around form</p>
+                <p>• Sharp tip = value convergence</p>
+            </div>
+            <div class="shape-info">
+                <h4>Torus</h4>
+                <p>• Double curvature = complex gradient</p>
+                <p>• Inner shadow from self-occlusion</p>
+                <p>• Highlight wraps around tube</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="art.js"></script>
+</body>
+</html>

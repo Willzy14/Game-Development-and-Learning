@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Study #4b V2: Refined Sphere Rendering</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #ccc;
+        }
+        h1 {
+            color: #aa88ff;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 2px solid #333;
+            border-radius: 4px;
+        }
+        .info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #222;
+            border-radius: 4px;
+            max-width: 1000px;
+        }
+        .info h3 {
+            color: #aa88ff;
+            margin-top: 0;
+        }
+        .improvements {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .sphere-info {
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .sphere-info h4 {
+            margin: 0 0 8px 0;
+            color: #aaa;
+        }
+        .improvement {
+            font-size: 0.9em;
+            color: #8a8;
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Art Study #4b V2: Refined Spheres</h1>
+    <p class="subtitle">Pushing toward photorealism with smoother gradients and shaped highlights</p>
+    
+    <canvas id="artCanvas" width="1000" height="600"></canvas>
+    
+    <div class="info">
+        <h3>V2 Improvements Over V1</h3>
+        <div class="improvements">
+            <div class="sphere-info">
+                <h4>Glossy Purple (Left)</h4>
+                <p class="improvement">✓ 12+ gradient stops (vs 6)</p>
+                <p class="improvement">✓ Wider, softer terminator zone</p>
+                <p class="improvement">✓ Elliptical highlight shape</p>
+                <p class="improvement">✓ Secondary highlight bloom</p>
+                <p class="improvement">✓ Subtle surface variation</p>
+                <p class="improvement">✓ Enhanced Fresnel rim</p>
+            </div>
+            <div class="sphere-info">
+                <h4>Glass (Right)</h4>
+                <p class="improvement">✓ Multiple internal reflections</p>
+                <p class="improvement">✓ Concentrated caustic with bloom</p>
+                <p class="improvement">✓ Environment reflection hints</p>
+                <p class="improvement">✓ Double-rim refraction edge</p>
+                <p class="improvement">✓ Chromatic aberration hint</p>
+                <p class="improvement">✓ 15+ composited layers</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="art-v2.js"></script>
+</body>
+</html>

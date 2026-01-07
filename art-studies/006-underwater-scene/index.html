@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underwater Scene V1 - Applying All Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a1520;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #60a0c0;
+            font-weight: 300;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+        .subtitle {
+            color: #456;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 1px solid #234;
+            box-shadow: 0 0 50px rgba(40, 100, 150, 0.3);
+        }
+        .info {
+            margin-top: 20px;
+            color: #456;
+            font-size: 0.85rem;
+            max-width: 800px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .techniques {
+            margin-top: 15px;
+            padding: 15px 20px;
+            background: rgba(40, 100, 150, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #4080a0;
+        }
+        .techniques h3 {
+            color: #6090b0;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .techniques ul {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+        }
+        .techniques li {
+            color: #567;
+            font-size: 0.8rem;
+            margin: 4px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+        .techniques li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: #4080a0;
+            font-size: 0.6rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Underwater Scene V1</h1>
+    <p class="subtitle">Applying lessons from Sphere, Shape, and Space studies</p>
+    
+    <canvas id="artCanvas" width="800" height="800"></canvas>
+    
+    <div class="info">
+        <div class="techniques">
+            <h3>Techniques Applied</h3>
+            <ul>
+                <li>5-value lighting on all forms</li>
+                <li>Caustic light rays from surface</li>
+                <li>Depth-based blue shift</li>
+                <li>Atmospheric perspective in water</li>
+                <li>Material variety (coral, rock, fish)</li>
+                <li>Clear visual hierarchy</li>
+                <li>Focal point (orange clownfish)</li>
+                <li>Particles and bubbles</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="art.js?v=2"></script>
+</body>
+</html>
