@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Modular Architecture</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <h1>🐦 Flappy Bird</h1>
+            <p>Press SPACE or TAP to fly</p>
+            <button id="startBtn">Start Game</button>
+            <button id="settingsBtn">⚙️ Settings</button>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <h2>Game Over!</h2>
+            <p>Score: <span id="finalScore">0</span></p>
+            <p>High Score: <span id="highScore">0</span></p>
+            <div id="medal"></div>
+            <button id="restartBtn">Play Again</button>
+            <button id="menuBtn">Main Menu</button>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ Settings</h2>
+                    <button id="closeModal" class="close-btn">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="masterVolume">Master Volume</label>
+                        <input type="range" id="masterVolume" min="0" max="100" value="30">
+                        <span id="masterVolumeValue">30%</span>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="musicVolume">Music Volume</label>
+                        <input type="range" id="musicVolume" min="0" max="100" value="15">
+                        <span id="musicVolumeValue">15%</span>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <button id="resetScores" class="danger-btn">Reset High Scores</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- HUD -->
+        <div id="hud" class="hidden">
+            <div id="scoreDisplay">0</div>
+        </div>
+    </div>
+    
+    <!-- MODULAR ARCHITECTURE: Load order matters! -->
+    <!-- 1. AUDIO (sound effects - customizable per theme) -->
+    <script src="audio-modular.js"></script>
+    
+    <!-- 2. THEME (visuals - customizable per theme) -->
+    <script src="theme.js"></script>
+    
+    <!-- 3. GAME (mechanics - LOCKED, never changes for themes) -->
+    <script src="game-modular.js"></script>
+</body>
+</html>

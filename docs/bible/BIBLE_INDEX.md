@@ -2,13 +2,13 @@
 ## Master Reference System for Web-Based 2D Game Development
 
 **Project:** Game Development Learning Journey  
-**Last Updated:** January 6, 2026  
-**System Version:** 5.1 - Theme Reskin Architecture Added
+**Last Updated:** January 7, 2026  
+**System Version:** 5.3 - Never Self-Censor Vision Rule Added
 
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
-|--------------|----------------|----------------|
-| 2026-01-06   | 2026-01-06     | Flappy Bird V4 Egypt - theme reskin patterns |
+|--------------|----------------|--------------|
+| 2026-01-07   | 2026-01-07     | Added Rule 12 + 12.1 (Vision & Art Protocol Integration) |
 <!-- END METADATA -->
 
 ---
@@ -94,6 +94,38 @@ ALL of these are REQUIRED for V2:
 ```
 **Why:** Snake V2 kept V1's music unchanged. Missed learning opportunity.
 
+### Rule 11: Separate Mechanics from Presentation ⭐
+```
+Games MUST use modular architecture:
+- game.js    → MECHANICS ONLY (physics, collision, scoring)
+- theme.js   → VISUALS ONLY (colors, rendering, effects)
+- audio.js   → SOUNDS ONLY (effects, music)
+
+New levels = swap theme + audio. NEVER copy or modify game.js.
+```
+**Why:** Inca Breakout (Jan 6, 2026) - "reskin" accidentally changed 11 gameplay constants. Game played completely differently.
+
+See [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) for full implementation guide.
+
+### Rule 12: Never Self-Censor Your Vision ⭐ NEW
+```
+❌ WRONG: "I want to add fireflies but I might hit the code limit... skip it"
+✅ RIGHT: "I want fireflies, light rays, mushrooms - let me plan chunks to deliver ALL"
+
+Delivery limits are DELIVERY constraints, not QUALITY constraints.
+Plan in chunks. Never compromise vision.
+```
+**Why:** Jungle Theme V2 (Jan 7, 2026) - Held back features (fireflies, light rays, bioluminescent mushrooms) due to output limit fears. When asked "did you want to do more?" - YES. Self-censorship cost quality.
+
+### Rule 12.1: Art Protocols Apply Everywhere
+```
+A game background IS a landscape.
+A character sprite IS a character portrait.
+Art protocols (edge mastery, atmospheric perspective, material logic)
+are DEFAULT, not afterthought.
+```
+**Why:** Jungle Theme V1 was created in "functional mode" ignoring all art protocols. Quality jumped only when explicitly asked to upgrade.
+
 ---
 
 ## 📁 REPOSITORY MAP
@@ -120,7 +152,8 @@ Game-Development-and-Learning/
 │   │   ├── 13-MATERIAL_LOGIC.md   # 🚨 Form → Material → Atmosphere system
 │   │   ├── 14-CANVAS_IMPLEMENTATION_PATTERNS.md # Production Canvas code
 │   │   ├── 15-REALISM_VALIDATION.md # Automated testing for natural rendering
-│   │   └── 16-TECHNIQUE_SELECTION.md # ⭐ Decision framework (V7 lesson)
+│   │   ├── 16-TECHNIQUE_SELECTION.md # ⭐ Decision framework (V7 lesson)
+│   │   └── 17-MODULAR_ARCHITECTURE.md # ⭐ Mechanics/presentation separation
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -183,6 +216,9 @@ Game-Development-and-Learning/
 | **⭐ BEFORE adding ANY technique** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Decision framework |
 | **⭐ "Should I use this?"** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Problem-first selection |
 | **⭐ Render getting worse** | [16-TECHNIQUE_SELECTION.md](./16-TECHNIQUE_SELECTION.md) → Revert, simplify |
+| **⭐ Creating new level/theme** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Full guide |
+| **⭐ Starting any new game** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Required structure |
+| **⚠️ Reskin changed mechanics** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Verification checklist |
 
 ### Staleness Tracking
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Template</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 GAME NAME</h1>
+        
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <div class="controls">
+            <button id="startBtn">START</button>
+            <button id="muteBtn">🔊</button>
+        </div>
+        
+        <div class="instructions">
+            <p>Controls: [Describe controls here]</p>
+        </div>
+    </div>
+    
+    <!-- 
+    LOAD ORDER IS IMPORTANT:
+    1. theme.js first (defines THEME object)
+    2. audio.js second (defines AUDIO object)  
+    3. game.js last (uses THEME and AUDIO)
+    -->
+    <script src="theme.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

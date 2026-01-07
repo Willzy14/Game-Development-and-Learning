@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Scarab - Egyptian Desert (Modular)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0a2e 0%, #4a1942 30%, #c9634a 60%, #f4a460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 400px;
+            height: 600px;
+        }
+
+        #gameCanvas {
+            border: 4px solid #ffd700;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(26, 10, 46, 0.9);
+            color: #ffd700;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .screen h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #ffd700;
+        }
+
+        .screen p {
+            margin: 10px 0;
+            color: #d4a84b;
+        }
+
+        .screen button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #1a0a2e;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .screen button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        #hud {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #scoreDisplay {
+            font-size: 48px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+
+        #medal {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2d1b4e, #1a0a2e);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #ffd700;
+            width: 90%;
+            max-width: 350px;
+            color: #ffd700;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .setting-group {
+            margin: 15px 0;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #d4a84b;
+        }
+
+        .setting-group input[type="range"] {
+            width: 100%;
+        }
+
+        .danger-btn {
+            background: #8b0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <h1>🪲 Flappy Scarab</h1>
+            <p>Egyptian Desert Adventure</p>
+            <p>Press SPACE or TAP to fly</p>
+            <button id="startBtn">Enter the Desert</button>
+            <button id="settingsBtn">⚙️ Settings</button>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <h2>The Scarab Falls!</h2>
+            <p>Score: <span id="finalScore">0</span></p>
+            <p>High Score: <span id="highScore">0</span></p>
+            <div id="medal"></div>
+            <button id="restartBtn">Rise Again</button>
+            <button id="menuBtn">Return to Oasis</button>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ Settings</h2>
+                    <button id="closeModal" class="close-btn">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="masterVolume">Master Volume</label>
+                        <input type="range" id="masterVolume" min="0" max="100" value="40">
+                        <span id="masterVolumeValue">40%</span>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="musicVolume">Music Volume</label>
+                        <input type="range" id="musicVolume" min="0" max="100" value="30">
+                        <span id="musicVolumeValue">30%</span>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <button id="resetScores" class="danger-btn">Reset High Scores</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- HUD -->
+        <div id="hud" class="hidden">
+            <div id="scoreDisplay">0</div>
+        </div>
+    </div>
+    
+    <!-- MODULAR ARCHITECTURE: Load order matters! -->
+    <!-- 1. AUDIO (Egyptian themed sounds) -->
+    <script src="egypt-audio.js"></script>
+    
+    <!-- 2. THEME (Egyptian visuals - desert, pyramids, scarab) -->
+    <script src="egypt-theme.js"></script>
+    
+    <!-- 3. GAME (same mechanics as base game - NEVER changes for themes) -->
+    <script src="../game-modular.js"></script>
+</body>
+</html>

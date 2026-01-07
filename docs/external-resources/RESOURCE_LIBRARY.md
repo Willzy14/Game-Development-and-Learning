@@ -73,6 +73,107 @@
 
 ---
 
+## 🎨 Canvas Art Repositories (Curated - Jan 2026)
+
+> **Philosophy**: "Most bad generative art comes from 'look how much I can do'. Most good generative art comes from 'look how little I need'."
+
+### Research Directive (How to Study These)
+```
+For each repository:
+- Identify the render order
+- Identify where structure is locked
+- Identify where randomness is constrained
+- Identify what is intentionally NOT done
+
+Extract patterns, not visuals.
+You are teaching taste through omission.
+```
+
+---
+
+### 🧱 FOUNDATIONAL CANVAS ART (Clean, Readable, Structured)
+
+#### MDN Canvas Examples (Gold Standard Baseline)
+- **Link**: https://github.com/mdn/dom-examples/tree/main/canvas
+- **Why It Matters**: Extremely disciplined use of Canvas primitives
+- **Look For**: Path construction, gradients used sparingly, clear layering order
+- **Key Insight**: This is what "boring but correct" looks like
+
+#### Anvaka / playgrounds
+- **Link**: https://github.com/anvaka
+- **Notable Repos**: panzoom, field-playground, w-gl
+- **Key Insight**: Strong form + minimal effects beats complex noise
+
+---
+
+### 🌍 LANDSCAPES, TERRAIN & ORGANIC FORMS
+
+#### Simplex Noise.js (Procedural Terrain)
+- **Link**: https://github.com/jwagner/simplex-noise.js
+- **Why It Matters**: Noise generator you can read + reason about
+- **Look For**: How noise is SAMPLED, not just generated; how terrain is layered
+
+#### Delaunay (Non-Grid Terrain)
+- **Link**: https://github.com/ironwallaby/delaunay
+- **Why It Matters**: Useful for non-grid terrain structure thinking
+
+#### Ocean (Water & Shoreline Logic)
+- **Link**: https://github.com/jbouny/ocean
+- **Key Insight**: How reflections fade, how edges DISSOLVE instead of meet
+- **Application**: Transition logic, not visual copying
+
+---
+
+### 🌲 ORGANIC SHAPES (Not Geometry)
+
+#### p5.js Sketches (Processing Foundation)
+- **Link**: https://github.com/processing/p5.js-sketches
+- **Link**: https://github.com/aferriss/p5js-sketches
+- **Why It Matters**: Maps almost 1:1 to Canvas; the thinking is what you want
+- **Look For**: Cluster logic, Big→Medium→Small progression, intentional imperfection
+
+---
+
+### 🧠 "GOOD TASTE" GENERATIVE ART
+
+#### Tyler Hobbs (Conceptual Reference)
+- **Link**: https://github.com/tylerxhobbs
+- **Why It Matters**: Not to copy style — to observe restraint
+- **Key Observations**:
+  - Extreme restraint
+  - Very few rules
+  - Strong hierarchy
+- **Application**: Teaches what to TURN OFF when your system has too many rules firing
+
+---
+
+### 🎛️ CANVAS RENDERING DISCIPLINE (Sequencing)
+
+#### canvas2D
+- **Link**: https://github.com/fserb/canvas2D
+- **Why It Matters**: Clear separation of: layout → render → effects
+- **Application**: No "everything everywhere" drawing
+
+#### uPlot (Layer Discipline)
+- **Link**: https://github.com/leeoniya/uPlot
+- **Why It Matters**: Not art, but demonstrates disciplined layer separation
+
+---
+
+### 🔬 DEBUGGING & VISUALIZATION
+
+#### Visual Debugging Ideas
+- **Links**: 
+  - https://github.com/samizdatco/sketchbook
+  - https://github.com/1wheel/sketches
+- **Concepts to Extract**:
+  - Render silhouette-only passes
+  - Render edge hardness maps
+  - Render value-only previews
+- **Application**: Catch abstraction before it becomes a full version
+
+---
+
 ## Written Tutorials & Blog Posts
 
 ### [Tutorial/Article Title]

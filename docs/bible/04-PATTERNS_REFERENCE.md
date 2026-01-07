@@ -6,7 +6,7 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|-----------------|
-| 2026-01-05   | 2026-01-05     | Added Code Architecture Principles section |
+| 2026-01-06   | 2026-01-06     | Added CRITICAL mechanics lock rule to Theme Swap pattern |
 <!-- END METADATA -->
 
 **Related Documents:**
@@ -915,9 +915,80 @@ this.cloudLayer3 = new BackgroundLayer(0.6, 250, 3);   // Fast near clouds
 
 ## THEME SWAP / RESKINNING PATTERN ⭐ NEW
 
+> **⚠️ IMPORTANT:** This section covers the conceptual approach. For **full implementation details**, see:
+> [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md)
+
 ### Learned From: Flappy Bird V4 Egypt - Complete Theme Transformation
 
 **The Big Insight:** Same mechanics + different art/audio = new game level
+
+### ⚠️ CRITICAL: MECHANICS MUST NOT CHANGE
+
+**A reskin/level is NOT a new game. Gameplay must be IDENTICAL.**
+
+This was learned the hard way with the Inca Temple Breakout failure (Jan 6, 2026).
+
+#### LOCKED Constants (NEVER Change During Reskin)
+
+| Category | Constants |
+|----------|-----------|
+| **Paddle** | width, height, speed, Y position |
+| **Ball** | radius, initial speed, max speed, speed increase rate |
+| **Bricks** | rows, cols, width, height, padding, offsets |
+| **Physics** | collision detection, bounce angles, gravity |
+| **Game Flow** | lives, scoring per brick, state machine logic |
+
+#### ALLOWED to Change
+
+| Category | Elements |
+|----------|----------|
+| **Visuals** | Colors, gradients, textures, patterns, sprites |
+| **Audio** | Entire sound system, music, effects |
+| **Background** | All background rendering |
+| **Effects** | Particles, trails, explosions (visual only) |
+| **UI** | Text styling, fonts, decorative elements |
+
+#### Reskin Verification Checklist
+
+**BEFORE committing a reskin, run this check:**
+
+```bash
+# Extract constants from both files and compare
+grep -E "^const (PADDLE|BALL|BRICK|INITIAL)" original/game.js > original_constants.txt
+grep -E "^const (PADDLE|BALL|BRICK|INITIAL)" reskin/game.js > reskin_constants.txt
+diff original_constants.txt reskin_constants.txt
+```
+
+**If diff shows ANY differences → FIX THEM or document explicit exception**
+
+#### The Inca Failure (What NOT To Do)
+
+```javascript
+// ORIGINAL
+const BRICK_OFFSET_TOP = 60;
+const BALL_SPEED_MAX = 12;
+const BRICK_ROWS = 6;
+
+// INCA (WRONG - these changed "accidentally")
+const BRICK_OFFSET_TOP = H * 0.35;  // 280px - completely different!
+const BALL_SPEED_MAX = 10;           // Changed without intent
+const BRICK_ROWS = 5;                // Fewer bricks = easier game
+```
+
+**Result:** Game played completely differently. User noticed immediately.
+
+#### Correct Reskin Workflow
+
+```
+1. COPY original game.js EXACTLY
+2. Create separate rendering file (e.g., inca-renderer.js)
+3. Replace ONLY render() calls, never touch physics/constants
+4. Audio in separate file (inca-audio.js)
+5. Background in separate file (inca-background.js)
+6. VERIFY constants match original before committing
+```
+
+---
 
 ### Theme Swap Checklist
 

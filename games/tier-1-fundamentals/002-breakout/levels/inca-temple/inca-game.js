@@ -24,12 +24,12 @@ const BALL_SPEED_MAX = 10;
 const BALL_SPEED_INCREASE = 0.15;
 
 // Inca brick layout - pyramid style
-const BRICK_ROWS = 6;
+const BRICK_ROWS = 5;
 const BRICK_COLS = 10;
 const BRICK_WIDTH = 68;
 const BRICK_HEIGHT = 22;
 const BRICK_PADDING = 6;
-const BRICK_OFFSET_TOP = H * 0.55; // Lower on screen to show background
+const BRICK_OFFSET_TOP = H * 0.35; // Higher up to show background and give play area
 const BRICK_OFFSET_LEFT = (W - (BRICK_COLS * (BRICK_WIDTH + BRICK_PADDING))) / 2;
 
 const INITIAL_LIVES = 3;
@@ -145,13 +145,10 @@ class Ball {
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
         
-        // Glow
-        const glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 2.5);
-        glow.addColorStop(0, 'rgba(255, 215, 0, 0.4)');
-        glow.addColorStop(1, 'rgba(255, 215, 0, 0)');
-        ctx.fillStyle = glow;
+        // Small highlight for 3D effect (no large glow that causes trails)
+        ctx.fillStyle = 'rgba(255, 255, 200, 0.6)';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius * 2.5, 0, Math.PI * 2);
+        ctx.arc(this.x - 2, this.y - 2, this.radius * 0.3, 0, Math.PI * 2);
         ctx.fill();
     }
     

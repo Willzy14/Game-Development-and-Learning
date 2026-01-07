@@ -6,7 +6,7 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-05   | 2026-01-05     | Bible restructure session |
+| 2026-01-07   | 2026-01-07     | Jungle theme + Space V1 + Restraint principle |
 <!-- END METADATA -->
 
 **Related Documents:**
@@ -51,6 +51,119 @@ At the end of each session:
 ---
 
 # SESSION ENTRIES
+
+---
+
+## January 7, 2026 - Jungle Theme + Space V1 + "Look How Little I Need" ⭐⭐⭐
+
+### Accomplished
+
+**1. Jungle Theme for Flappy Bird (Modular Architecture)**
+- ✅ Created `005-flappy-bird-v5-jungle/` folder
+- ✅ Built `jungle-theme.js` with full art protocols (~1250 lines)
+- ✅ Built `jungle-audio.js` with rainforest soundscape
+- ✅ Proved modular architecture works (theme swap without touching game code)
+
+**2. Art Protocol Integration (Self-Reflection Moment)**
+- ✅ Initially built functional theme (forgot art protocols!)
+- ✅ Upgraded with: ColorUtils, NoiseUtils, atmospheric perspective, organic curves, value bridging
+- ✅ Added atmospheric effects: fireflies, volumetric light rays, bioluminescent mushrooms, drifting mist
+
+**3. Documentation Updates**
+- ✅ Added Rule 12: Never Self-Censor Vision
+- ✅ Added Rule 12.1: Art Protocols Apply Everywhere
+- ✅ BIBLE_INDEX.md updated to v5.3
+- ✅ Added curated Canvas art repos to RESOURCE_LIBRARY.md
+
+**4. Space Scene V1 (Art Study #4)**
+- ✅ Created `004-space-scene/` folder (~350 lines)
+- ✅ Applied "restraint principle" from curated repos
+- ✅ One nebula, one planet, layered star field
+- ✅ Intentionally omitted: multiple nebulae, rings, asteroids, lens flares
+
+**5. Session Handoff**
+- ✅ Updated START_HERE.md with current state and next options
+
+### The Critical Insight: Restraint Principle
+
+User shared curated Canvas art repositories with this framing:
+
+> "Most bad generative art comes from 'Look how much I can do'.
+> Most good generative art comes from 'Look how little I need'."
+
+**Research Directive for studying repos:**
+```
+For each repository:
+- Identify the render order
+- Identify where structure is locked
+- Identify where randomness is constrained
+- Identify what is intentionally NOT done
+
+Extract patterns, not visuals.
+You are teaching taste through omission.
+```
+
+### Self-Reflection: The Self-Censorship Problem
+
+During jungle theme creation, I held back features (fireflies, light rays, mushrooms, mist) due to:
+- Fear of output limits
+- "Good enough" thinking
+- Not internalizing chunking rule
+
+**Admission:** If chunking rule was internalized, I wouldn't self-censor. Would just say "this needs 3 chunks" and proceed.
+
+**New Rule Created:** Rule 12 - Never Self-Censor Vision
+> "Every idea imagined must be articulated. If output limits exist, request chunking. Never reduce scope to fit perceived constraints."
+
+### What I Learned
+
+**1. Art Protocols Are Default, Not Optional**
+When building any visual (game theme, art study), start with full art protocol checklist. Don't retrofit.
+
+**2. Restraint > Spectacle**
+Space V1 proves that fewer elements with strong hierarchy creates more impact than complexity.
+
+**3. "What NOT to do" Is Critical**
+The repos teach taste through omission. What you leave out defines quality as much as what you include.
+
+**4. Modular Architecture Works**
+Theme swapping without touching game code is proven. Can now create unlimited themes.
+
+**5. Documentation As Reference Library**
+Repos list + research directive = how to study. Not "copy visuals" but "extract patterns."
+
+### Files Created/Modified
+
+**New Files:**
+- `games/tier-2-core-mechanics/005-flappy-bird/005-flappy-bird-v5-jungle/index.html`
+- `games/tier-2-core-mechanics/005-flappy-bird/005-flappy-bird-v5-jungle/jungle-theme.js`
+- `games/tier-2-core-mechanics/005-flappy-bird/005-flappy-bird-v5-jungle/jungle-audio.js`
+- `art-studies/004-space-scene/index.html`
+- `art-studies/004-space-scene/art.js`
+
+**Modified Files:**
+- `docs/bible/01-CORE_RULES.md` - Rules 12 & 12.1 added
+- `docs/bible/BIBLE_INDEX.md` - Updated to v5.3
+- `docs/external-resources/RESOURCE_LIBRARY.md` - Canvas repos section added
+- `START_HERE.md` - Updated session state
+
+### Bible Updates Made
+- Rule 12: Never Self-Censor Vision
+- Rule 12.1: Art Protocols Apply Everywhere
+- BIBLE_INDEX.md v5.3
+- RESOURCE_LIBRARY.md Canvas repos section
+
+### Curated Repos Documented
+
+| Category | Repos | Key Learning |
+|----------|-------|--------------|
+| Foundational | MDN Canvas, Anvaka | "Boring but correct" baseline |
+| Terrain | simplex-noise.js, delaunay | Noise sampling, not generation |
+| Water | jbouny/ocean | Transition logic, edge dissolving |
+| Organic | p5.js sketches | Cluster logic, big→small progression |
+| Taste | Tyler Hobbs | Extreme restraint, few rules |
+| Discipline | canvas2D, uPlot | Layout → render → effects separation |
+| Debug | sketchbook, sketches | Silhouette passes, value previews |
 
 ---
 

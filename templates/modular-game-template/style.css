@@ -1,0 +1,62 @@
+/* Base game styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+#gameCanvas {
+    border: 3px solid #4a90c0;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(74, 144, 192, 0.3);
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+button {
+    background: linear-gradient(135deg, #4a90c0 0%, #2a5080 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(74, 144, 192, 0.4);
+}
+
+.instructions {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}

@@ -6,7 +6,7 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-05   | 2026-01-05     | Tier 1 complete - all rules documented |
+| 2026-01-07   | 2026-01-07     | Added Rule 12 - Never Self-Censor Vision |
 <!-- END METADATA -->
 
 **Related Documents:**
@@ -473,6 +473,59 @@ FEATURES:
 
 ---
 
+### Rule 11: Separate Mechanics from Presentation 🔴 ⭐ NEW
+
+**The Rule:**
+```
+Games MUST use modular architecture:
+
+REQUIRED FILE STRUCTURE:
+├── game.js      # MECHANICS ONLY (physics, collision, scoring, state)
+├── theme.js     # VISUALS ONLY (colors, rendering, effects)
+├── audio.js     # SOUNDS ONLY (effects, music)
+
+New levels = swap theme.js + audio.js
+NEVER copy or modify game.js for levels
+```
+
+**Origin Story:** Inca Breakout Level (January 6, 2026) - Created what was supposed to be a "reskin" but accidentally changed 11 gameplay constants. Ball capped 17% slower, one fewer brick row, bricks 220px lower. User noticed immediately that gameplay felt different. Root cause: everything in one file, "tweaks" happened while building visuals.
+
+**Why This Matters:**
+```
+❌ OLD WAY (Everything mixed):
+   - Copy game.js to new folder
+   - Modify colors, accidentally change physics
+   - Different game feel per "level"
+   - Bug in physics = fix in N files
+
+✅ NEW WAY (Separated):
+   - game.js shared by ALL levels
+   - theme.js and audio.js per level
+   - Gameplay IDENTICAL across all themes
+   - Bug in physics = fix in 1 file
+```
+
+**Verification Commands:**
+```bash
+# Should return NOTHING (no constants in theme)
+grep -E "^const (PADDLE|BALL|BRICK|INITIAL)" levels/*/theme.js
+
+# Should show level loads PARENT game.js
+grep "game.js" levels/jungle/index.html
+# Expected: <script src="../game.js"></script>
+```
+
+**Checklist for New Levels:**
+- [ ] Using PARENT game.js (not copied)?
+- [ ] No physics constants in theme.js?
+- [ ] No collision code in theme.js?
+- [ ] No scoring logic in theme.js?
+- [ ] Play test feels identical to base game?
+
+**Full Guide:** See [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) for interfaces, templates, and examples.
+
+---
+
 ## PRE-TASK CHECKLISTS
 
 ### Starting a New Game
@@ -610,5 +663,84 @@ Simple, strong signals > complex, subtle details.
 
 ---
 
-*Last Updated: January 6, 2026*  
-*Rules Added Through: Flappy Bird V4 Egypt (Theme Reskin)*
+*Last Updated: January 7, 2026*  
+*Rules Added Through: Jungle Theme V2 (Art Protocol Integration)*
+
+---
+
+### Rule 12: Never Self-Censor Your Vision 🟡
+
+**The Rule:**
+```
+❌ WRONG: "I want to add fireflies but I might hit the code limit... skip it"
+✅ RIGHT: "I want fireflies, light rays, mushrooms - let me plan chunks to deliver ALL of them"
+
+The delivery limit is a DELIVERY CONSTRAINT, not a QUALITY CONSTRAINT.
+Plan in chunks. Never compromise vision.
+```
+
+**Origin Story:** Jungle Theme V2 - While creating a game theme, I held back features I genuinely wanted (fireflies, volumetric light rays, bioluminescent mushrooms, mist particles) because I was worried about hitting output limits. This resulted in a functional but uninspired first version. When asked "did you want to do more?", the answer was YES - I had self-censored my vision due to delivery constraints.
+
+**The Insight:**
+> "The rules will set you free" - If the rule to break work into bite-sized pieces was internalized, there would be no need to self-censor. Plan ALL features, deliver in chunks.
+
+**Prevention Strategy:**
+1. **Vision First** - Write down EVERYTHING you want to build, without constraint
+2. **Plan Chunks** - Break the vision into 100-200 line deliverable chunks
+3. **Deliver All** - Execute each chunk sequentially
+4. **Never Skip** - If you want a feature, plan it. Don't skip because "it might be too much"
+
+**Signs You're Self-Censoring:**
+- Thinking "this might be too complex"
+- Saying "I'll skip this for now"
+- Feeling the work is "good enough" when you know it could be better
+- Cutting features before even attempting them
+
+**The Better Approach:**
+```
+BEFORE: "I'll add basic trees... done"
+AFTER:  "I want: trees + fireflies + light rays + mushrooms + mist
+         Chunk 1: Trees (150 lines)
+         Chunk 2: Fireflies (60 lines)
+         Chunk 3: Light rays (50 lines)
+         Chunk 4: Mushrooms (60 lines)
+         Chunk 5: Mist (40 lines)
+         Execute all chunks."
+```
+
+**Checklist:**
+- [ ] Have I written down my FULL vision?
+- [ ] Did I skip anything because "it might be too much"?
+- [ ] Have I planned chunks for ALL features?
+- [ ] Am I delivering what I WANT or just what's "safe"?
+
+---
+
+### Rule 12.1: Art Protocols Apply Everywhere 🟡
+
+**The Rule:**
+```
+❌ WRONG: "Art studies" = visual quality | "Game development" = functionality
+✅ RIGHT: Art protocols apply to ALL visual code, including games
+
+A game background IS a landscape.
+A character sprite IS a character portrait.
+The skills must transfer.
+```
+
+**Origin Story:** Jungle Theme V1 vs V2 - The first jungle theme was created in "functional mode" with hard edges, simple alpha fades, and no value bridging. Only when explicitly asked to apply art protocols did the quality jump. The art protocols (edge mastery, atmospheric perspective, material logic, value bridging) should have been DEFAULT, not afterthought.
+
+**Prevention Strategy:**
+1. Before writing ANY visual code, ask: "Which art protocols apply?"
+2. Default to soft edges, gradients, value bridging
+3. Never use simple alpha for depth - use atmospheric color shift
+4. Different materials need different rendering (bark ≠ leaves ≠ clouds)
+
+**Quick Art Protocol Checklist:**
+- [ ] Are edges organic (not ruler-traceable)?
+- [ ] Is depth shown via color shift (not just alpha)?
+- [ ] Do different materials render differently?
+- [ ] Are there value bridges between adjacent elements?
+- [ ] Would this pass the landscape V4 standard?
+
+---
