@@ -3,19 +3,30 @@
 
 **Project:** Game Development Learning Journey  
 **Last Updated:** January 7, 2026  
-**System Version:** 5.3 - Never Self-Censor Vision Rule Added
+**System Version:** 5.4 - Pre-Execution Checklist Added
 
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|--------------|
-| 2026-01-07   | 2026-01-07     | Added Rule 12 + 12.1 (Vision & Art Protocol Integration) |
+| 2026-01-07   | 2026-01-07     | Added Pre-Execution Checklist to 08-QUICK_REFERENCE.md |
 <!-- END METADATA -->
 
 ---
 
-# 🚨 MANDATORY: READ BEFORE ANY WORK 🚨
+# 🚨 INVOKE THIS BEFORE ANY MAJOR TASK 🚨
 
-## ⛔ THE HARD RULES
+**See [08-QUICK_REFERENCE.md](./08-QUICK_REFERENCE.md) → PRE-EXECUTION CHECKLIST**
+
+Quick version:
+1. **Architecture** - Game? Theme? Art? Know which files to touch
+2. **Art Protocols** - ColorUtils, NoiseUtils, soft edges, atmosphere
+3. **Restraint** - What problem does each feature solve? What am I NOT including?
+4. **Failure Prevention** - Checked FAILURE_ARCHIVE? Not changing mechanics?
+5. **Vision** - Full vision articulated? Not self-censoring?
+
+---
+
+# ⛔ THE HARD RULES
 
 **These rules exist because we broke them and paid the price. They are NEVER optional.**
 

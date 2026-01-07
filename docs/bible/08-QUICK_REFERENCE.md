@@ -6,13 +6,72 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-05   | 2026-01-05     | Tier 1 complete - all snippets documented |
+| 2026-01-07   | 2026-01-07     | Added PRE-EXECUTION CHECKLIST |
 <!-- END METADATA -->
 
 **Related Documents:**
 - [02-AUDIO_MASTERY.md](./02-AUDIO_MASTERY.md) - Full audio patterns
 - [03-VISUAL_TECHNIQUES.md](./03-VISUAL_TECHNIQUES.md) - Full visual techniques
 - [04-PATTERNS_REFERENCE.md](./04-PATTERNS_REFERENCE.md) - Full pattern details
+
+---
+
+## 🚨 PRE-EXECUTION CHECKLIST (INVOKE BEFORE ANY MAJOR TASK)
+
+**Use this checklist before starting ANY game, theme, or art piece.**
+
+Copy and complete this before writing code:
+
+```markdown
+### PRE-EXECUTION CHECKLIST
+
+**Task:** [What am I about to build?]
+
+#### 1. ARCHITECTURE CHECK
+- [ ] Is this a GAME? → Use modular architecture (game.js + theme.js + audio.js)
+- [ ] Is this a THEME? → Only touch theme.js, NEVER game mechanics
+- [ ] Is this ART? → Apply restraint principle from start
+
+#### 2. ART PROTOCOL CHECK (Rule 12.1)
+- [ ] ColorUtils ready? (hexToRgb, withAlpha, blend, lighten, darken)
+- [ ] NoiseUtils ready? (valueNoise2D for organic shapes)
+- [ ] Soft edges planned? (No ruler-traceable lines)
+- [ ] Atmospheric perspective? (Color shift, not alpha)
+- [ ] Value bridging? (No hard color boundaries)
+
+#### 3. RESTRAINT CHECK (The Most Important)
+- [ ] Can I name the SPECIFIC PROBLEM each feature solves?
+- [ ] What am I INTENTIONALLY NOT including?
+- [ ] "Look how little I need" - fewer elements with strong hierarchy
+
+#### 4. FAILURE PREVENTION
+- [ ] Checked FAILURE_ARCHIVE.md for similar past mistakes?
+- [ ] NOT changing game mechanics when doing visual work?
+- [ ] One change at a time, test after each?
+
+#### 5. VISION CHECK (Rule 12)
+- [ ] Am I holding back features due to output limits?
+- [ ] If yes: Request chunking, don't self-censor
+- [ ] Full vision articulated before starting?
+
+#### READY TO EXECUTE: [ ]
+```
+
+### When to Use This Checklist
+
+| Trigger | Action |
+|---------|--------|
+| "Create a new game" | Full checklist |
+| "Create a new theme" | Sections 1, 2, 3, 4 |
+| "Create art study" | Sections 2, 3, 5 |
+| "Add a feature" | Section 3, 4 |
+| "Fix a bug" | Section 4 only |
+
+### The Core Questions (Memorize These)
+
+1. **"What specific problem does this solve?"** - If you can't answer, don't add it
+2. **"What am I intentionally NOT doing?"** - Restraint defines quality
+3. **"Am I touching things I shouldn't?"** - Modular boundaries exist for a reason
 
 ---
 
