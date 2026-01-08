@@ -6,7 +6,7 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-08   | 2026-01-08     | Phase 2 Complete - Outcome Log Infrastructure |
+| 2026-01-08   | 2026-01-08     | Part 10 - External Review & V1.2 Specification |
 <!-- END METADATA -->
 
 **Related Documents:**
@@ -2234,4 +2234,57 @@ Older entries may be archived to `docs/session-logs/` folder when this file grow
 ---
 
 *Session Log Started: January 5, 2026*  
-*Current Session Count: 4 documented*
+*Current Session Count: 10 documented*
+
+---
+
+## Part 10: External Review & V1.2 Specification (January 8, 2026)
+
+### What Happened
+
+Created DECISION_TREE_EXAMPLE.md showing complete workflow from "build F-Zero game" to implementation. User shared with external AI for hole detection. External review caught **3 genuine technical errors** and **7 architectural blindspots** that would have caused real problems in production.
+
+**3 Genuine Technical Errors:**
+
+1. **Variable Timestep Error (CRITICAL)** - Said "variable timestep easier for 60fps" but racing games need fixed/semi-fixed for consistent handling
+2. **Environment Conflation (DESIGN ERROR)** - Conflated physics (vacuum) with rendering (fog/glow), would have banned valid cinematic effects  
+3. **Q0 Confidence Error** - Assumed "build" = "new" when users often mean "use scaffold"
+
+**7 Architectural Blindspots:**
+
+4. **Art Tree Not Game Tree (CRITICAL)** - Q0-Q9 focuses on visuals, missing gameplay mechanics (Q10-Q18 needed)
+5. **Missing Platform Decision** - Assumes Canvas 2D, but engine choice changes everything
+6. **No Proof-of-Fun Gate** - Jumps to polish before validating fun gameplay
+7. **No Definition of Done** - Validates 60fps but not "lap completes" or "restart works"
+8. **Missing Legal Constraint** - No warning about copyrighted names (F-Zero, Blue Falcon)
+9. **No Doc Budget** - Loads 14 docs for all projects, should be 5/9/14 based on scope
+10. **Origin Form Narrow** - Only asks if age>50, but pristine ships need silhouette grammar too
+
+### What We Built
+
+- **DECISION_TREE_EXAMPLE.md** - Updated with external review findings, marked errors, added severity ratings
+- **DECISION_GRAPH_V1.2_SPEC.md** - Complete v1.2 specification with all fixes:
+  - New questions: Q-0a (template), Q0.5 (scope), Q0.6 (platform), Q4a/Q4b (split environment), Q10-Q18 (genre mechanics)
+  - New forbidden rules: `avoid_variable_timestep_for_racing`, `inspired_by_only`
+  - Engine-specific doc loading (Canvas/Godot/Unity/Unreal)
+  - Doc budget enforcement (5/9/14)
+  - Progressive complexity with proof-of-fun gate
+  - Genre-specific DoD checklists
+
+### What We Learned
+
+**Technical Correctness:** "Sounds right" ≠ "is right" - verify technical claims, especially genre-specific
+
+**Design Conflation:** Physical medium (vacuum) ≠ art atmosphere (neon glow) - look for conflated concerns
+
+**Gameplay ≠ Visuals:** "F-Zero style" is 70% gameplay feel, 30% visual style - add mechanics questions
+
+**Early Decisions Matter:** Platform/engine changes everything - belongs in interrogation, not implementation
+
+**Fun Before Pretty:** Greybox → core loop → mechanics → GATE: fun? → visuals - validate before polish
+
+**Measurable Validation:** Need binary checks ("lap completes: yes/no"), not subjective ("looks good")
+
+**External Validation Gold:** Internal found 10 holes, external caught 3 genuine errors - perspective matters
+
+---
