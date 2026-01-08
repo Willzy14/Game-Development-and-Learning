@@ -124,16 +124,16 @@ Each picture should demonstrate MORE detail than the previous.
 ## Progress Tracker
 
 | # | Subject | Status | Rating | Key Techniques Practiced |
-|---|---------|--------|--------|--------------------------||
+|---|---------|--------|--------|--------------------------|||
 | 1 | Egyptian Scene | ✅ Complete | 8.5/10 | Brick texture, sand ripples, palm fronds, weathering |
 | 2 | Mountain Landscape | ✅ V8.4 Complete | 7.5/10 | ColorUtils, 5-value gradients, problem-first incremental |
 | 3 | Character Portrait | ✅ Complete (V3) | 7/10 | Chibi proportions, patchwork clothing, layered rendering |
 | 4 | Space Scene | ✅ V1 Complete | - | "Look how little I need" - restraint principle |
 | 4b | **Sphere Study** | ✅ Complete | - | **5-value system, Phong model, Fresnel, glass optics** |
-| 5 | Underwater Scene | ⏳ Not Started | - | Caustic light, coral detail, water particles |
-| 6 | Castle/Architecture | ⏳ Not Started | - | Stone texture, wood grain, structural detail |
-| 7 | Still Life | ⏳ Not Started | - | Material variety (metal, glass, fruit, cloth) |
-| 8 | Animal | ⏳ Not Started | - | Fur/feather texture, eye detail, anatomy |
+| 5 | Shape Study | ✅ Complete | - | 5-value lighting on primitives (cube, cylinder, cone, torus) |
+| 6 | Underwater Scene | ✅ Complete | - | Caustic light rays, soft edges, floating particles, restraint |
+| 7 | Forest Temple | ✅ Complete | - | Stone columns (4-layer texture), light shafts, vines, moss |
+| 8 | Mountain Shrine (Final) | ✅ V1 Complete | - | Everything applied selectively - focal point treatment |
 
 ---
 
