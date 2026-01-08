@@ -6,7 +6,7 @@
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|----------------|
-| 2026-01-07   | 2026-01-07     | Added Rule 12 - Never Self-Censor Vision |
+| 2026-01-08   | 2026-01-08     | Added Rule 13 - Planning Documents for Complex Projects |
 <!-- END METADATA -->
 
 **Related Documents:**
@@ -16,7 +16,7 @@
 
 ---
 
-## THE 10 COMMANDMENTS
+## THE CORE RULES (13 Rules)
 
 ### Rule 1: Incremental Development 🔴
 
@@ -742,5 +742,183 @@ The skills must transfer.
 - [ ] Do different materials render differently?
 - [ ] Are there value bridges between adjacent elements?
 - [ ] Would this pass the landscape V4 standard?
+
+---
+
+### Rule 13: Planning Documents for Complex Projects 🔴 ⭐ NEW
+
+**The Rule:**
+```
+For complex projects requiring multiple art pieces, style consistency, or integration of theory from multiple Bible docs:
+
+1. CREATE a planning document BEFORE coding
+2. DOCUMENT all design decisions with Bible doc references
+3. USE planning doc as EXTERNAL MEMORY during implementation
+4. REFERENCE specific sections AS NEEDED (don't try to remember everything)
+
+Planning documents transform complex work from "overwhelming" to "systematic".
+```
+
+**Origin Story:** Final Piece V2 (January 8, 2026) - Faced with applying Phase 1 research (2000+ lines across 18-COMPOSITION_THEORY.md, 19-COLOR_HARMONY.md, 20-ART_STYLES.md) to upgrade the mountain shrine scene. Initial concern: "hell of a lot of information to ingest." Solution: Created PLANNING-V2.md documenting ALL decisions with specific Bible doc section references BEFORE writing code. Result: Successfully completed art-v2.js by REFERENCING planning doc and Bible sections AS NEEDED instead of trying to REMEMBER everything. Cognitive load dramatically reduced. All decisions traceable and validated.
+
+**When to Use Planning Documents:**
+
+**REQUIRED for:**
+- Projects with 3+ art pieces requiring style consistency
+- Games where decisions span multiple Bible docs (composition + color + style + audio)
+- Upgrades applying new theory (like Final Piece V2)
+- Any work where "how did I decide this?" matters
+
+**OPTIONAL for:**
+- Single art studies (simple iteration)
+- Tier 1-2 games (minimal cross-doc requirements)
+- Quick experiments or prototypes
+
+**Planning Document Structure:**
+
+```markdown
+# PROJECT PLANNING: [Project Name]
+
+## 🔍 SCENE INTERROGATION (Use DECISION_GRAPH.md)
+
+**Q0: Task Type** (CRITICAL - ASK FIRST)
+- Answer: [new/reskin/extend/fix]
+- Workflow: [full_implementation/rendering_only/add_features/bug_fix]
+- Preserve: [systems to keep unchanged]
+- Modify: [systems to change]
+
+**Q1: Style Aesthetic**
+- Answer: [style name]
+- Realism Slider: [0-100]%
+
+**Q2-Q9: [Continue interrogation per DECISION_GRAPH.md]
+
+## I. SCENE/PROJECT ANALYSIS
+- What exists currently?
+- What problems need solving?
+- What are the goals?
+
+## II. SYSTEM DECISIONS
+
+### Composition System
+**Decision:** [e.g., Golden Ratio focal point]
+**Bible Reference:** 18-COMPOSITION_THEORY.md, Section [X]
+**Rationale:** [Why this choice for this project]
+
+### Color Harmony
+**Decision:** [e.g., Split-complementary harmony]
+**Bible Reference:** 19-COLOR_HARMONY.md, Section [X]
+**Rationale:** [Why this palette works here]
+
+### Style System
+**Decision:** [e.g., Stylized realism]
+**Bible Reference:** 20-ART_STYLES.md, Section [X]
+**Rationale:** [Why this style fits]
+
+[Additional systems as needed: Audio, Interaction, etc.]
+
+## III. IMPLEMENTATION PLAN
+- Render order
+- Layer breakdown
+- Code architecture (what classes to use)
+
+## IV. SUCCESS CRITERIA
+Validation checklists (how to verify decisions were applied correctly)
+
+## V. EXPECTED OUTCOMES
+What improvements are anticipated
+
+## VI. META-LEARNING GOALS
+What this project tests/validates
+```
+
+**The External Memory Principle:**
+
+Planning documents are NOT "extra work" - they are COGNITIVE OFFLOADING:
+
+```
+❌ WITHOUT PLANNING:
+- Try to remember 2000+ lines of theory
+- Make decisions in working memory
+- No record of why choices were made
+- Can't validate consistency
+- Overwhelmed by complexity
+
+✅ WITH PLANNING:
+- All decisions written down
+- Reference Bible docs AS NEEDED (one section at a time)
+- Clear rationale for every choice
+- Can validate against documented criteria
+- Complexity manageable through structure
+```
+
+**Implementation Workflow:**
+
+```
+0. DETERMINE TASK TYPE (CRITICAL FIRST STEP)
+   - Use DECISION_GRAPH.md Question 0
+   - Identify: new/reskin/extend/fix
+   - Document what to preserve vs modify
+   - NEVER skip this - determines entire workflow
+
+1. CREATE planning doc (1-2 hours)
+   - Run interrogation (Q0-Q9 from DECISION_GRAPH.md)
+   - Analyze scene/project
+   - Document all system decisions
+   - Write validation criteria
+
+2. CODE with planning doc OPEN (3-5 hours)
+   - Reference planning doc for decisions
+   - Reference specific Bible doc sections when needed
+   - Check off validation criteria as you go
+
+3. VALIDATE against planning doc (30 minutes)
+   - Review all success criteria
+   - Verify all decisions implemented
+   - Document outcomes/learnings
+```
+
+**Key Insight from Final Piece V2:**
+
+> "Planning phase will now become the most important because you can point to the research you need in the planning document instead of having to try and remember everything all of the time."
+> 
+> The planning document is a MAP that shows WHERE in the Bible docs to look when you need specific information. You don't memorize the map - you USE it to navigate.
+
+**Signs You Need a Planning Document:**
+
+- Thinking "there's too much to keep track of"
+- Making decisions without knowing where they came from
+- Inconsistency between different parts of project
+- Can't validate if theory was applied correctly
+- Feeling overwhelmed by complexity
+- Working from multiple Bible docs (3+ sources)
+
+**Planning Document Validation Checklist:**
+
+- [ ] All major decisions documented?
+- [ ] Each decision has Bible doc section reference?
+- [ ] Rationale explained for each choice?
+- [ ] Implementation plan includes render order/architecture?
+- [ ] Success criteria can be verified objectively?
+- [ ] Expected outcomes documented?
+
+**Reference Documents:**
+- See [DECISION_GRAPH.md](./DECISION_GRAPH.md) for interrogation framework (Q0-Q9)
+- See `/art-studies/008-final-piece/PLANNING-V2.md` for complete example
+- See `/games/tier-1-fundamentals/02-pong-painterly/PLANNING.md` for reskin example
+- See [18-COMPOSITION_THEORY.md](./18-COMPOSITION_THEORY.md) for composition decisions
+- See [19-COLOR_HARMONY.md](./19-COLOR_HARMONY.md) for color system decisions
+- See [20-ART_STYLES.md](./20-ART_STYLES.md) for style system decisions
+
+**Checklist:**
+- [ ] Have I determined task type FIRST (Q0 from DECISION_GRAPH.md)?
+- [ ] Do I know what to preserve vs modify?
+- [ ] Is this project complex enough for planning doc?
+- [ ] Have I run interrogation framework (Q0-Q9)?
+- [ ] Have I created planning doc BEFORE coding?
+- [ ] Are all decisions documented with Bible references?
+- [ ] Can I validate each decision objectively?
+- [ ] Am I using planning doc as external memory (not trying to remember everything)?
+- [ ] If reskin: Have I modified ONLY rendering (not game logic)?
 
 ---

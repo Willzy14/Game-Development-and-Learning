@@ -24,6 +24,8 @@
 <!-- END METADATA -->
 
 **Related Documents:**
+- [DECISION_GRAPH.md](./DECISION_GRAPH.md) - Use interrogation framework (Q3-Q5) to determine material/age/environment properties
+- [24-REALISM_DEGRADATION.md](./24-REALISM_DEGRADATION.md) - Degradation states and weathering (Section VII)
 - [12-EDGE_MASTERY.md](./12-EDGE_MASTERY.md) - Edge theory foundation (read first)
 - [10-ART_FUNDAMENTALS.md](./10-ART_FUNDAMENTALS.md) - Value and composition
 - [11-CANVAS_PATTERNS.md](./11-CANVAS_PATTERNS.md) - Implementation patterns

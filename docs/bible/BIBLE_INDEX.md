@@ -2,13 +2,13 @@
 ## Master Reference System for Web-Based 2D Game Development
 
 **Project:** Game Development Learning Journey  
-**Last Updated:** January 7, 2026  
-**System Version:** 5.4 - Pre-Execution Checklist Added
+**Last Updated:** January 8, 2026  
+**System Version:** 5.5 - Rule 13 Added (Planning Documents)
 
 <!-- STALENESS METADATA -->
 | Last Updated | Last Validated | Update Trigger |
 |--------------|----------------|--------------|
-| 2026-01-07   | 2026-01-07     | Added Pre-Execution Checklist to 08-QUICK_REFERENCE.md |
+| 2026-01-08   | 2026-01-08     | Added Rule 13 - Planning Documents for Complex Projects |
 <!-- END METADATA -->
 
 ---
@@ -79,6 +79,18 @@ respond to intensity, be subtle enough not to distract
 ```
 **Why:** Snake V1 & V2 - Background music transforms "functional" to "immersive".
 
+### Rule 13: Planning Documents for Complex Projects
+```
+For complex projects (3+ art pieces, multi-doc integration):
+1. DETERMINE task type FIRST (Q0: new/reskin/extend/fix)
+2. CREATE planning doc via interrogation framework (Q0-Q9)
+3. DOCUMENT all decisions with Bible doc references
+4. USE planning doc as external memory during implementation
+```
+**Why:** Final Piece V2 - Planning doc prevented cognitive overload. Phase 2 Pong - Missing Q0 caused rebuild instead of reskin.
+
+**See:** [DECISION_GRAPH.md](./DECISION_GRAPH.md) for complete interrogation framework
+
 ### Rule 8: NEVER Be Lazy ⭐⭐
 ```
 ❌ WRONG: Copy V1 code, change colors, call it V2
@@ -137,6 +149,20 @@ are DEFAULT, not afterthought.
 ```
 **Why:** Jungle Theme V1 was created in "functional mode" ignoring all art protocols. Quality jumped only when explicitly asked to upgrade.
 
+### Rule 13: Planning Documents for Complex Projects 🔴 ⭐ NEW
+```
+For complex projects spanning multiple Bible docs:
+1. CREATE planning document BEFORE coding
+2. DOCUMENT all decisions with Bible doc references
+3. USE planning doc as EXTERNAL MEMORY
+4. REFERENCE specific sections AS NEEDED (don't memorize)
+
+Planning docs transform "overwhelming" to "systematic".
+```
+**Why:** Final Piece V2 (Jan 8, 2026) - Applied 2000+ lines of theory (composition, color, style) by creating PLANNING-V2.md with all decisions referenced to Bible docs. Successfully implemented by REFERENCING docs (not REMEMBERING). Cognitive load dramatically reduced. All decisions traceable.
+
+See `/art-studies/008-final-piece/PLANNING-V2.md` for complete example.
+
 ---
 
 ## 📁 REPOSITORY MAP
@@ -164,7 +190,15 @@ Game-Development-and-Learning/
 │   │   ├── 14-CANVAS_IMPLEMENTATION_PATTERNS.md # Production Canvas code
 │   │   ├── 15-REALISM_VALIDATION.md # Automated testing for natural rendering
 │   │   ├── 16-TECHNIQUE_SELECTION.md # ⭐ Decision framework (V7 lesson)
-│   │   └── 17-MODULAR_ARCHITECTURE.md # ⭐ Mechanics/presentation separation
+│   │   ├── 17-MODULAR_ARCHITECTURE.md # ⭐ Mechanics/presentation separation
+│   │   ├── 18-COMPOSITION_THEORY.md # Mathematical foundations (golden ratio, rule of thirds)
+│   │   ├── 19-COLOR_HARMONY.md # Color relationships & harmony systems
+│   │   ├── 20-ART_STYLES.md # Realism-stylization spectrum
+│   │   ├── 21-CLASSICAL_TECHNIQUES.md # Chiaroscuro, sfumato, impasto, atmospheric
+│   │   ├── 22-LANDSCAPE_MASTERS.md # Constable, Bierstadt, Monet, Turner
+│   │   ├── 23-ENVIRONMENTAL_STORYTELLING.md # Dark Souls, Hollow Knight, BioShock
+│   │   ├── 24-REALISM_DEGRADATION.md # 🆕 How to break perfection (weathering, aging)
+│   │   └── DECISION_GRAPH.md # 🆕 Scene interrogation framework (Q0-Q9)
 │   │
 │   ├── FAILURE_ARCHIVE.md        # ⚠️ Mistakes & lessons (prevents repetition)
 │   ├── GAME_COMPLETION_CHECKLIST.md # Quality gates for shipping games
@@ -230,6 +264,17 @@ Game-Development-and-Learning/
 | **⭐ Creating new level/theme** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Full guide |
 | **⭐ Starting any new game** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Required structure |
 | **⚠️ Reskin changed mechanics** | [17-MODULAR_ARCHITECTURE.md](./17-MODULAR_ARCHITECTURE.md) → Verification checklist |
+| **🎨 Composition decisions** | [18-COMPOSITION_THEORY.md](./18-COMPOSITION_THEORY.md) → Golden ratio, rule of thirds |
+| **🎨 Color palette selection** | [19-COLOR_HARMONY.md](./19-COLOR_HARMONY.md) → Harmony systems |
+| **🎨 Style spectrum decisions** | [20-ART_STYLES.md](./20-ART_STYLES.md) → Realism vs stylization |
+| **🎨 Lighting & atmosphere** | [21-CLASSICAL_TECHNIQUES.md](./21-CLASSICAL_TECHNIQUES.md) → Chiaroscuro, sfumato |
+| **🎨 Landscape rendering** | [22-LANDSCAPE_MASTERS.md](./22-LANDSCAPE_MASTERS.md) → Master techniques |
+| **🎨 Environmental narrative** | [23-ENVIRONMENTAL_STORYTELLING.md](./23-ENVIRONMENTAL_STORYTELLING.md) → Game design |
+| **🆕 Breaking perfection** | [24-REALISM_DEGRADATION.md](./24-REALISM_DEGRADATION.md) → Weathering, aging, asymmetry |
+| **🆕 Aged/ancient structures** | [24-REALISM_DEGRADATION.md](./24-REALISM_DEGRADATION.md) → Edge hierarchy, degradation |
+| **🆕 ANY new project/scene** | [DECISION_GRAPH.md](./DECISION_GRAPH.md) → Run interrogation framework (Q0-Q9) |
+| **🆕 Task type unclear** | [DECISION_GRAPH.md](./DECISION_GRAPH.md) → Question 0 (new/reskin/extend/fix) |
+| **🆕 Don't know which Bible docs** | [DECISION_GRAPH.md](./DECISION_GRAPH.md) → Auto-loading logic |
 
 ### Staleness Tracking
 

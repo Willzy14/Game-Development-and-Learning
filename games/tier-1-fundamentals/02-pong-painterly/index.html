@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painterly Pong - Decision-Graph Test (RESKIN)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: hsl(40, 20%, 85%);
+            font-family: 'Georgia', serif;
+        }
+        
+        #gameCanvas {
+            border: 3px solid hsl(40, 30%, 60%);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            color: hsl(0, 0%, 30%);
+        }
+        
+        .controls {
+            margin-top: 10px;
+            font-size: 14px;
+            color: hsl(0, 0%, 40%);
+        }
+        
+        .note {
+            margin-top: 15px;
+            padding: 10px;
+            background: hsla(30, 80%, 95%, 0.8);
+            border-left: 4px solid hsl(30, 80%, 50%);
+            max-width: 600px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>🎨 Painterly Pong</h1>
+        <p>Decision-Graph Navigation Test (RESKIN of 001-pong)</p>
+    </div>
+    
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <div class="controls">
+        <p>Player (W/S) vs AI</p>
+        <p>Press SPACE to start | First to 5 points wins</p>
+    </div>
+    
+    <div class="note">
+        <strong>Test Note:</strong> This is a RESKIN of 001-pong, not a rebuild. Game logic, AI, physics, and audio are preserved from original. Only rendering functions modified to apply painterly (impressionist) aesthetic per decision-graph navigation.
+    </div>
+    
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
