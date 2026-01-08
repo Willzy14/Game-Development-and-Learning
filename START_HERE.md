@@ -66,10 +66,11 @@ For each repository:
 
 **READ BEFORE DOING ANYTHING:**
 
-1. Read `docs/bible/01-CORE_RULES.md` - Rules 12 & 12.1 are NEW
-2. Read `docs/bible/BIBLE_INDEX.md` - Contains hard rules and repository map
-3. Read `docs/external-resources/RESOURCE_LIBRARY.md` - Canvas art repos section (NEW)
-4. Check `docs/FAILURE_ARCHIVE.md` - Past mistakes to avoid
+1. **Read `docs/DEVELOPMENT_PHILOSOPHY.md` FIRST** - Understand WHY we do things this way
+2. Read `docs/bible/01-CORE_RULES.md` - Rules 12 & 12.1 are NEW
+3. Read `docs/bible/BIBLE_INDEX.md` - Contains hard rules and repository map
+4. Read `docs/external-resources/RESOURCE_LIBRARY.md` - Canvas art repos section (NEW)
+5. Check `docs/FAILURE_ARCHIVE.md` - Past mistakes to avoid
 
 **Key Files:**
 - Space Scene V1: `art-studies/004-space-scene/art.js`
@@ -79,7 +80,7 @@ For each repository:
 
 **AT SESSION END:**
 1. Update `docs/bible/09-SESSION_LOG.md` with what was learned
-2. Update this file with current state
+2. Update this file with current state (ALWAYS reference DEVELOPMENT_PHILOSOPHY.md at the top)
 3. Git commit and push
 
 ---
