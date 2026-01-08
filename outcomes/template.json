@@ -1,0 +1,388 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Outcome Log Template",
+  "description": "Decision memory record for DECISION_GRAPH v1.1 - copy and fill this for each completed project",
+  "type": "object",
+  "required": [
+    "project_id",
+    "date",
+    "decisions",
+    "loaded_docs",
+    "result_quality"
+  ],
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Unique identifier: [task-type]-[brief-description]-[date]",
+      "example": "reskin-pong-painterly-2026-01-08"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Completion date in YYYY-MM-DD format",
+      "example": "2026-01-08"
+    },
+    "decisions": {
+      "type": "object",
+      "description": "Q0-Q9 answers from interrogation (auto-filled by interrogate.js)",
+      "required": ["task_type", "style"],
+      "properties": {
+        "task_type": {
+          "type": "string",
+          "enum": ["new", "reskin", "extend", "fix"],
+          "description": "Q0: Project task type (CRITICAL)"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "photorealistic",
+            "painterly_impressionist",
+            "painterly_expressionist",
+            "stylized_realistic",
+            "abstract_geometric",
+            "abstract_organic",
+            "minimalist",
+            "maximalist"
+          ],
+          "description": "Q1: Artistic style"
+        },
+        "age": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Q2: Age of objects (0=new, 50=weathered, 100=ancient)"
+        },
+        "origin_form": {
+          "type": "string",
+          "enum": ["perfect_geometric", "crafted_architectural", "organic_natural", "composite"],
+          "description": "Q2.5: Original form before degradation (conditional: age>50 AND realistic)"
+        },
+        "material": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["stone", "wood", "metal", "fabric", "organic", "synthetic", "composite", "energy"]
+          },
+          "description": "Q3: Primary materials (multiple selection)"
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "outdoor_temperate",
+            "outdoor_harsh",
+            "indoor_controlled",
+            "underwater",
+            "space_vacuum",
+            "magical_unstable"
+          ],
+          "description": "Q4: Environment conditions"
+        },
+        "lighting": {
+          "type": "string",
+          "enum": [
+            "direct_sun",
+            "diffuse_overcast",
+            "artificial_warm",
+            "artificial_cool",
+            "dim_ambient",
+            "dramatic_contrast",
+            "magical_glow"
+          ],
+          "description": "Q5: Lighting condition"
+        },
+        "composition": {
+          "type": "string",
+          "enum": ["simple", "moderate", "complex"],
+          "description": "Q6: Compositional complexity"
+        },
+        "color_palette": {
+          "type": "string",
+          "enum": [
+            "monochromatic",
+            "analogous",
+            "complementary",
+            "triadic",
+            "naturalistic",
+            "stylized_limited"
+          ],
+          "description": "Q7: Color approach"
+        },
+        "technique_emphasis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "chiaroscuro",
+              "sfumato",
+              "impasto",
+              "glazing",
+              "scumbling",
+              "wet_on_wet",
+              "dry_brush",
+              "none"
+            ]
+          },
+          "description": "Q8: Classical techniques (multiple selection)"
+        },
+        "special_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "readability_critical",
+              "performance_critical",
+              "accessibility_required",
+              "animation_planned",
+              "none"
+            ]
+          },
+          "description": "Q9: Special requirements (multiple selection)"
+        }
+      }
+    },
+    "applied_rules": {
+      "type": "array",
+      "description": "Which rules from Bible docs were actually used during implementation",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doc": {
+            "type": "string",
+            "description": "Bible document name",
+            "example": "REALISM_DEGRADATION"
+          },
+          "section": {
+            "type": "string",
+            "description": "Specific section used",
+            "example": "Section IV.C - Column Erosion Pattern"
+          },
+          "influence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "How strongly this rule was applied (0.0-1.0)"
+          },
+          "notes": {
+            "type": "string",
+            "description": "How/why this rule was applied"
+          }
+        }
+      },
+      "example": [
+        {
+          "doc": "CLASSICAL_TECHNIQUES",
+          "section": "Section III - Brushwork Methods",
+          "influence": 0.9,
+          "notes": "Used broken color technique with 3-4 patches per area"
+        }
+      ]
+    },
+    "loaded_docs": {
+      "type": "array",
+      "description": "Bible docs loaded per auto-loading logic (auto-filled by interrogate.js)",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "CORE_RULES",
+        "VISUAL_TECHNIQUES",
+        "CLASSICAL_TECHNIQUES",
+        "COLOR",
+        "COMPOSITION"
+      ]
+    },
+    "skipped_docs": {
+      "type": "array",
+      "description": "Bible docs skipped per auto-loading logic (auto-filled by interrogate.js)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doc": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "example": [
+        {
+          "doc": "REALISM_DEGRADATION",
+          "reason": "Age 10 too low (threshold 50)"
+        }
+      ]
+    },
+    "conflicts_resolved": {
+      "type": "array",
+      "description": "Conflicts detected and resolved per priority system (auto-filled by interrogate.js)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Conflicting properties"
+          },
+          "winner": {
+            "type": "string",
+            "description": "Which property won per priority system"
+          },
+          "resolution": {
+            "type": "string",
+            "description": "How conflict was resolved"
+          },
+          "impact": {
+            "type": "string",
+            "description": "Effect on implementation"
+          }
+        }
+      },
+      "example": [
+        {
+          "properties": ["style", "age"],
+          "winner": "style",
+          "resolution": "Painterly style determines rendering approach",
+          "impact": "Load REALISM_DEGRADATION with influence 0.3 (suggest, not simulate)"
+        }
+      ]
+    },
+    "violations": {
+      "type": "array",
+      "description": "Forbidden rules violated during implementation (hopefully empty!)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule": {
+            "type": "string",
+            "description": "Which forbidden rule was broken"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why it was violated"
+          },
+          "result": {
+            "type": "string",
+            "description": "What happened as a result"
+          },
+          "worth_it": {
+            "type": "boolean",
+            "description": "Would you do it again?"
+          }
+        }
+      },
+      "example": [
+        {
+          "rule": "silhouette_protection",
+          "reason": "Wanted heavy degradation on ancient wall",
+          "result": "Wall became unrecognizable blob, had to reduce noise from 0.8 to 0.5",
+          "worth_it": false
+        }
+      ]
+    },
+    "result_quality": {
+      "type": "object",
+      "description": "Measurable quality metrics for the completed project",
+      "properties": {
+        "visual_fidelity": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "How well did visuals match planning goals? (1-10)"
+        },
+        "performance_fps": {
+          "type": "number",
+          "description": "Actual FPS achieved (if measured)"
+        },
+        "code_quality": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Code cleanliness, maintainability (1-10)"
+        },
+        "met_requirements": {
+          "type": "boolean",
+          "description": "Did project meet all stated requirements?"
+        },
+        "user_feedback": {
+          "type": "string",
+          "description": "Any user/playtester feedback received"
+        }
+      },
+      "example": {
+        "visual_fidelity": 9,
+        "performance_fps": 60,
+        "code_quality": 8,
+        "met_requirements": true,
+        "user_feedback": "Painterly style looks great, gameplay unchanged"
+      }
+    },
+    "result_notes": {
+      "type": "array",
+      "description": "Observations, insights, interesting findings from the project",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "Broken color technique (3-4 patches per area) created painterly feel without losing form",
+        "Silhouette protection was critical - without it, ball became unrecognizable",
+        "Performance stayed at 60fps even with layered color patches",
+        "Reference image helped maintain style consistency across all sprites"
+      ]
+    },
+    "keep_for_future": {
+      "type": "array",
+      "description": "Patterns, techniques, approaches that worked well - do this again!",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "Preserve all game logic, only modify rendering layer (reskin best practice)",
+        "Test gameplay identical to original after each sprite change",
+        "Use broken color (multiple colors per area) for painterly authenticity",
+        "Layer patches of color rather than smooth gradients",
+        "Silhouette protection prevents over-decoration in reskins"
+      ]
+    },
+    "avoid_for_future": {
+      "type": "array",
+      "description": "Mistakes, pitfalls, things that didn't work - avoid next time!",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "Don't use smooth linear gradients in painterly style - kills the effect",
+        "Don't over-noise shapes - silhouette must remain clear",
+        "Don't modify collision detection 'for realism' - breaks gameplay",
+        "Don't apply degradation at full strength in painterly (use influence 0.3)"
+      ]
+    },
+    "time_metrics": {
+      "type": "object",
+      "description": "Actual time spent on each phase (for future estimation)",
+      "properties": {
+        "planning_minutes": {
+          "type": "number",
+          "description": "Time from interrogation to implementation start"
+        },
+        "implementation_minutes": {
+          "type": "number",
+          "description": "Actual coding time (exclude breaks)"
+        },
+        "debugging_minutes": {
+          "type": "number",
+          "description": "Time fixing issues and refining"
+        },
+        "total_minutes": {
+          "type": "number",
+          "description": "Sum of above"
+        }
+      },
+      "example": {
+        "planning_minutes": 15,
+        "implementation_minutes": 90,
+        "debugging_minutes": 30,
+        "total_minutes": 135
+      }
+    }
+  }
+}
