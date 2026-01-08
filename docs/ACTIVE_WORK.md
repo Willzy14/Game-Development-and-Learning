@@ -8,13 +8,43 @@
 
 ## 📋 Current Projects
 
+### External Review Phase 2: V1.2 Validation ⏸️ **STARTS NEXT SESSION** (January 8, 2026)
+
+**Goal:** External AI validation of V1.2 specification before implementation
+
+**Status:** Queued - critical first step next session
+
+**Why This Matters:**
+- V1.1 external review caught **3 genuine technical errors** that would have shipped
+- V1.2 spec addresses all findings (10 holes)
+- Second review validates fixes correct, no new holes introduced
+- De-risks 400-line implementation
+
+**File to Review:** `/docs/DECISION_GRAPH_V1.2_SPEC.md`
+
+**Key Questions:**
+1. Are 3 technical errors correctly fixed? (timestep, environment split, Q0)
+2. Does Q10-Q18 genre subtree adequately cover gameplay mechanics?
+3. Any new holes introduced by v1.2 changes?
+4. Is proof-of-fun gate workflow sound?
+5. Are DoD checklists comprehensive enough?
+6. Any other critical gaps?
+
+**After Review:**
+- ✅ Validated → Implement v1.2 OR test v1.1 first (choose path)
+- ❌ Issues → Fix v1.2 spec, consider third review
+
+---
+
 ### Decision-Graph System Deployment (Phases 4 → 2 → 1 → 3)
 
 **Started:** January 8, 2026  
-**Goal:** Deploy v1.1 decision-graph in production through systematic infrastructure and testing  
-**Rationale:** Thinking brain sequence - build tools, create memory, validate system, then apply at scale
+**Current Phase:** External validation  
+**Goal:** Deploy decision-graph with external validation before production use
 
-#### Phase 4: Build Planning Doc Generator ✅ COMPLETE
+---
+
+#### Phase 4: Build Planning Doc Generator ✅ COMPLETE (V1.1)
 **Purpose:** Automate interrogation process to reduce friction and errors
 
 **Deliverables:**
@@ -100,6 +130,177 @@ node outcomes/query.js violations=exists
 ---
 
 #### Phase 1: Test System on Real Project ⏸️ QUEUED
+
+**Goal:** Validate system works in practice
+
+**Status:** Queued (after v1.2 external validation)
+
+**Decision Point:**
+- If v1.2 validated → Choose: Implement v1.2 first OR test v1.1 first
+- If v1.2 has issues → Fix spec, revalidate
+
+**Approach:** Small art study (low risk) OR skip to v1.2 implementation (if critical fixes needed)
+
+**Art Study Option:**
+1. Simple geometric abstraction (3-4 shapes)
+2. Run interrogate.js (v1.1)
+3. Follow planning doc
+4. Complete outcome log
+5. Analyze: Did it work? Any issues?
+
+**Time:** ~90 minutes  
+**Risk:** Low  
+**Value:** Validates v1.1 workflow before v1.2 upgrade
+
+---
+
+#### Phase 3: Start Next Game with Full System ⏸️ QUEUED
+
+**Goal:** Apply complete system at production scale
+
+**Status:** Queued (after Phase 1 OR after v1.2 implementation + test)
+
+**Candidates:**
+- F-Zero style racer (tests v1.2 genre subtree)
+- Tetris (classic puzzle mechanics)
+- Space Invaders (shooter mechanics)
+
+**Workflow:**
+1. Run interrogation (v1.1 or v1.2)
+2. Generate planning doc
+3. Implement following doc only
+4. Complete outcome log
+5. Compare to pre-decision-graph games
+
+**Success:** No doc browsing, confident execution, patterns emerge
+
+---
+
+## 📚 External Review History
+
+### Review 1: V1.1 Validation (January 8, 2026)
+
+**Reviewer:** External AI (anonymous)  
+**Document:** `/docs/DECISION_TREE_EXAMPLE.md` (v1.1 complete workflow)
+
+**Findings:**
+
+**3 Genuine Technical Errors Caught:**
+1. **Variable timestep for racing** (CRITICAL)
+   - Said: "variable timestep ◄── easier for 60fps"
+   - Reality: Frame-dependent physics = inconsistent handling
+   - Impact: Would have shipped broken racing games
+   - Quote: "Genuine technical error. Racing games benefit from stable handling; fixed or semi-fixed is safer."
+
+2. **Environment conflates physics + rendering** (DESIGN ERROR)
+   - Said: environment="space_vacuum" → forbidden: atmospheric_effects
+   - Reality: Bans fog/bloom/glow (cinematic rendering, not physics)
+   - Impact: Would have banned valid F-Zero neon glow effects
+   - Quote: "Your tree conflates physics and cinematic rendering, and you'll ban good-looking choices."
+
+3. **Q0 inference too confident** (LOGIC ERROR)
+   - Said: User says "build" → task_type = "new"
+   - Reality: Often means "build using scaffold" or "reskin"
+   - Impact: Needless architecture rewrites
+   - Quote: "In real use, people say 'build' when they mean: 'make me a prototype using your existing racer scaffold'."
+
+**7 Architectural Blindspots Identified:**
+4. **"Art tree pretending to be game tree"** (CRITICAL)
+   - Problem: Q0-Q9 focuses on visuals, not gameplay
+   - Reality: F-Zero is 70% gameplay feel, 30% visual style
+   - Impact: Two devs with same answers build different games
+   - Quote: "Without handling/feel spec you ship wrong game even if it looks perfect."
+
+5. **Missing platform/engine decision early** (CRITICAL)
+   - Problem: Assumes Canvas 2D
+   - Reality: Engine changes everything (file structure, rendering, input)
+   - Impact: Wrong architecture built
+
+6. **No progressive complexity** (HIGH)
+   - Problem: Jumps to "build full architecture" then polish
+   - Reality: Better flow: greybox → core loop → mechanics → GATE: fun? → visuals
+   - Impact: Polish before fun validated
+
+7. **No definition of done** (CRITICAL)
+   - Problem: Validates "60fps" but not gameplay outcomes
+   - Reality: Need checks: lap completes, collision works, restart/pause
+   - Impact: Ships "runs" but isn't playable
+
+8. **Missing legal constraint** (HIGH - product risk)
+   - Problem: References "F-Zero" freely
+   - Reality: Can't use copyrighted names/assets
+   - Impact: Legal risk in shipped product
+
+9. **No doc budget** (MEDIUM)
+   - Problem: Loads 14 docs for all projects
+   - Reality: PoC needs 5, demo needs 9, full needs 14+
+   - Impact: Drowns in docs
+
+10. **Origin form trigger narrow** (MEDIUM)
+    - Problem: Only asks if age > 50
+    - Reality: Pristine manufactured objects need silhouette grammar too
+    - Impact: Misses design language for new ships
+
+**Overall Assessment:**
+- Status: V1.1 production-ready for visual/artistic projects (60% coverage)
+- Critical Limitation: Visual-focused, gameplay-weak
+- Errors: 3 genuine technical errors would have shipped broken
+- Recommendation: Add Q10-Q18 mechanics, fix errors for v1.2
+
+---
+
+### Review 2: V1.2 Validation ⏸️ NEXT SESSION
+
+**Document:** `/docs/DECISION_GRAPH_V1.2_SPEC.md`  
+**Status:** Awaiting external review  
+**Purpose:** Validate fixes correct, no new holes introduced
+
+---
+
+## 📋 Systematic Deployment Sequence
+
+**Rationale:** Build tools → create memory → validate → scale
+
+1. ✅ **Phase 4:** Planning Doc Generator (reduce friction)
+2. ✅ **Phase 2:** Outcome Log Infrastructure (capture learning)
+3. ✅ **External Review 1:** Validate v1.1 (caught 3 errors + 7 blindspots)
+4. ✅ **V1.2 Specification:** Address all findings
+5. ⏸️ **External Review 2:** Validate v1.2 fixes (**NEXT SESSION START**)
+6. ⏸️ **Implementation:** V1.2 enhancements OR test v1.1 first
+7. ⏸️ **Phase 1:** Test system (validate workflow)
+8. ⏸️ **Phase 3:** Production game (scale up)
+
+**Current Step:** External Review 2 (step 5)
+
+---
+
+## 📊 V1.1 vs V1.2 Comparison
+
+| Feature | V1.1 | V1.2 |
+|---------|------|------|
+| **Visual Questions** | Q1-Q9 ✅ | Q1-Q9 ✅ |
+| **Gameplay Mechanics** | ❌ None | ✅ Q10-Q18 genre subtree |
+| **Platform Decision** | ❌ Assumes Canvas 2D | ✅ Q0.6 early |
+| **Scope Management** | ❌ No scope question | ✅ Q0.5 (PoC/demo/full) |
+| **Template Check** | ❌ Assumes "new" | ✅ Q-0a pre-check |
+| **Environment** | ❌ Conflates physics + rendering | ✅ Q4a (physics) + Q4b (rendering) |
+| **Timestep** | ❌ Variable for racing (wrong) | ✅ Fixed/semi-fixed (correct) |
+| **Doc Budget** | ❌ Loads 14 for all | ✅ 5/9/14 by scope |
+| **Proof-of-Fun** | ❌ No gate | ✅ Gate before visuals |
+| **Definition of Done** | ❌ Subjective | ✅ Genre-specific checklists |
+| **Legal Safety** | ❌ No IP constraint | ✅ inspired_by_only rule |
+| **Origin Form** | age > 50 only | ✅ OR manufactured OR readability |
+| **Coverage** | 60% (visuals strong) | ~85% (adds gameplay) |
+| **Status** | Production-ready* | Spec complete, awaiting validation |
+
+*with known limitations for gameplay-heavy projects
+
+---
+
+**Last Updated:** January 8, 2026  
+**Next Action:** External review of `/docs/DECISION_GRAPH_V1.2_SPEC.md`  
+**Status:** All tools built, v1.2 spec ready for validation
+
 **Purpose:** Validate v1.1 improvements work in practice
 
 **Tasks:**
