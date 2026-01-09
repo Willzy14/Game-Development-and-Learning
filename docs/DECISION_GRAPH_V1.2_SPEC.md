@@ -2,6 +2,7 @@
 
 **Status:** Planning (awaiting v1.1 validation)  
 **Based On:** External AI review findings (January 8, 2026)  
+**External Reviews:** 2 completed (both validated core approach, identified 5 critical fixes)  
 **Purpose:** Fix critical holes and architectural blindspots in v1.1
 
 ---
@@ -27,15 +28,27 @@
 **Question:** "Do you want this based on an existing starter template?"
 
 **Options:**
-- **A)** None - build from scratch
-- **B)** Use last [genre] scaffold (if available)
-- **C)** Choose from templates (list available)
-- **D)** Reskin existing game (specify which)
-- **E)** Extend existing game (specify which)
+- **A)** None - build from scratch → `NEW_FROM_SCRATCH`
+- **B)** Use last [genre] scaffold (if available) → `NEW_FROM_SCAFFOLD`
+- **C)** Choose from templates (list available) → `NEW_FROM_SCAFFOLD`
+- **D)** Reskin existing game (specify which) → `RESKIN_RENDER_ONLY`
+- **E)** Extend existing game (specify which) → `EXTEND_SYSTEMS`
+- **F)** Fix/debug existing game → `DEBUG_MIN_CHANGE`
+
+**Task Type Taxonomy (CRITICAL - from External Review #2):**
+
+| Task Type | Doc Loading | What's Built |
+|-----------|-------------|---------------|
+| `NEW_FROM_SCRATCH` | Full stack (architecture + mechanics + visuals) | Everything new |
+| `NEW_FROM_SCAFFOLD` | Skip bootstrap, load mechanics + visuals | Systems on existing structure |
+| `RESKIN_RENDER_ONLY` | Skip mechanics + architecture, load render/style only | New visuals only |
+| `EXTEND_SYSTEMS` | Load only delta docs for new subsystem | New mechanics on existing game |
+| `DEBUG_MIN_CHANGE` | Load only relevant subsystem docs | Minimal targeted fix |
 
 **Impact:**
-- If B/C/D/E selected → Q0 auto-filled, skip architecture docs
-- If A selected → Continue to Q0 normally
+- Task type determines doc loading strategy (not just "skip architecture")
+- Scaffold tasks still need mechanics docs if adding new subsystems
+- Reskin tasks skip mechanics entirely
 
 **Priority:** 95 (between Q-0a and Q0)
 
@@ -48,14 +61,14 @@
 **Question:** "What scope are you targeting?"
 
 **Options:**
-- **A)** Proof of concept (1 feature, demo quality, ~1-3 hours)
-- **B)** Playable demo (core loop complete, polish, ~4-8 hours)
-- **C)** Full game (all features, production ready, 10+ hours)
+- **A)** Proof of concept (1 feature, same-session effort)
+- **B)** Playable demo (core loop complete, 1-2 focused sessions)
+- **C)** Full game (all features, multi-week effort)
 
 **Impact:**
-- Sets doc budget: PoC=5 docs, Demo=9 docs, Full=14+ docs
+- Sets doc budget with must-load categories (see Doc Budget section)
 - Determines feature expectations
-- Affects time estimates in outcome log
+- Affects effort band in outcome log (not hours - too variable)
 
 **Priority:** 92 (between Q0 and Q0.6)
 
@@ -143,15 +156,25 @@
 
 ### Genre Mechanics Subtree (NEW - CRITICAL)
 
-**Trigger:** After Q9 if task_type = "new" AND request implies known genre
+**Trigger:** After Q0.6 (BEFORE visuals) if task_type = "new" AND genre detected
 
-**Genre Detection:**
-- Racing: F-Zero, racer, racing, kart, hover, speed
-- Platformer: jump, run, climb, Mario, Sonic
+**Genre Detection (2-step to prevent misclassification):**
+
+**Step 1: Keyword Hint**
+- Racing: F-Zero, racer, racing, kart, hover
+- Platformer: jump, run, climb, Mario, Sonic, platform
 - Shooter: shoot, gun, bullet, space invaders, shmup
 - Puzzle: puzzle, match, block, Tetris, logic
 
-**If genre detected → show genre-specific mechanics questions (Q10-Q18)**
+**Step 2: Confirmation Question (REQUIRED - External Review #2)**
+> "Which best matches what you want: racing / platformer / shooter / puzzle / adventure / other?"
+
+**Why 2-step:** Keywords can misclassify ("speed platformer" → racing wrong, "hover shooter" → racing wrong). One forced-choice question prevents wrong subtree.
+
+**If genre confirmed → show genre-specific mechanics questions (Q10-Q18+)**
+
+**Inferred Flags:**
+- If genre in {racing, platformer, fighter} → `feel_critical = true` (used by Rule 7)
 
 ---
 
@@ -208,7 +231,31 @@
 - C) Survival (don't explode, last longest)
 - D) Score threshold (points from tricks, boosts)
 
-**Priority:** All Q10-Q18 have priority 85 (below visual questions, above implementation)
+**Q19: Track Constraint Model (NEW - External Review #2)**
+- A) Hard walls (solid collision, full stop)
+- B) Soft barriers (bounce + slow down)
+- C) Magnetic rails (snap-to track, F-Zero style)
+- D) Open (can go off-track, time penalty)
+
+**Q20: Energy System Coupling (NEW - External Review #2)**
+- A) Energy = health only (damage drains it)
+- B) Energy = boost only (boost drains it)
+- C) Energy = health + boost (F-Zero classic risk/reward)
+- D) Separate bars (health and boost independent)
+
+**Why Q19-Q20 matter:** These affect HUD design, damage logic, boost logic, and balancing. Missing them causes architecture rework later.
+
+**Priority:** All Q10-Q18 have priority 88-89 (ABOVE visual questions for games)
+
+**⚠️ CRITICAL FIX (External Review #2):**
+> "If mechanics are lower priority than visuals, you'll still end up with pretty wrong-feel racers."
+
+**Priority Order for Games:**
+- Q0/Q0.5/Q0.6 = 100/92/90 (setup)
+- Q10-Q18 (mechanics) = 88-89 (gameplay feel)
+- Q1-Q9 (visuals) = 70-85 (appearance)
+
+**Rule:** If `task_type = new` AND `genre detected` → mechanics questions MUST complete before art questions proceed.
 
 ---
 
@@ -237,7 +284,7 @@
 
 ### 8. inspired_by_only (NEW)
 
-**Condition:** User request references known IP (detected via keywords: F-Zero, Mario, Zelda, Sonic, etc.)
+**Condition:** User request references known IP (detected via keywords: F-Zero, Mario, Zelda, Sonic, Pokémon, Metroid, Pac-Man, Street Fighter, Halo, Minecraft, Final Fantasy, etc.)
 
 **Reason:** Product legal risk - avoid copyrighted assets/names
 
@@ -246,9 +293,11 @@
 - `asset_replicas` (exact track layouts, exact ship designs)
 - `music_sound_clones` (Nintendo audio)
 - `branding_references` (logos, trademarks)
+- `distinctive_character_elements` (Captain Falcon voice vibe, etc.)
+- `lookalike_naming` ("Silent City" for "Mute City" is still risky)
 
 **Required:**
-- `original_names` (create new names for ships/tracks/characters)
+- `original_names` (create NEW naming system, not near-puns)
 - `original_designs` (inspired by, not copied from)
 - `inspired_by_credit_only` (not "based on" or "from")
 
@@ -279,6 +328,20 @@
 - Load: UNREAL_PATTERNS (1.0)
 - Skip: CANVAS_PATTERNS, GODOT_PATTERNS, UNITY_PATTERNS
 
+### Visual Style Engine-Specific Docs (External Review #2)
+
+**Problem:** "neon haze" implementation differs massively by engine.
+
+**Solution:** For Q4b atmosphere styles, also load engine-specific implementations:
+
+| Style | Canvas 2D | Godot | Unity URP |
+|-------|-----------|-------|------------|
+| Neon haze | Gradients + additive blending | Canvas shaders / WorldEnvironment | Bloom + post-processing |
+| Motion blur | Manual trail sprites | Shader + velocity buffer | Post-processing stack |
+| Fog/haze | Alpha gradients | WorldEnvironment fog | Fog volume |
+
+**Future:** Create NEON_HAZE_CANVAS, NEON_HAZE_GODOT, NEON_HAZE_URP docs as needed.
+
 ---
 
 ### Genre-Specific Mechanics Loading
@@ -304,20 +367,38 @@
 
 ### Doc Budget Enforcement (Q0.5)
 
+**⚠️ CRITICAL FIX (External Review #2):**
+> "Top N by influence will sometimes drop something essential. Example: PoC racer top 5 might be COLOR, COMPOSITION, STYLES, EDGE_MASTERY, CANVAS_PATTERNS... and accidentally skip RACING_MECHANICS."
+
+**Solution: Doc Classes with Minimums**
+
+| Class | Examples | Rule |
+|-------|----------|------|
+| **Must-Load** | CORE_RULES, engine patterns, genre mechanics | Always loaded (locked slots) |
+| **Nice-to-Have** | COLOR, COMPOSITION, CLASSICAL_TECHNIQUES | Sorted by influence, fills remaining slots |
+| **Optional** | DEGRADATION, ADVANCED_MATERIALS, JUICE | Only if budget allows |
+
+**Budget Allocation:**
+
 **If scope = "proof_of_concept":**
-- Max docs: 5
-- Sort by influence weight
-- Load top 5 only
-- Skip all others with reason: "Exceeds PoC doc budget (5 max)"
+- Total: 5 docs
+- Must-load: 3 slots (CORE_RULES + engine + genre mechanics)
+- Flexible: 2 slots (top 2 nice-to-have by influence)
 
 **If scope = "playable_demo":**
-- Max docs: 9
-- Sort by influence weight
-- Load top 9 only
+- Total: 9 docs
+- Must-load: 4 slots (+ VISUAL_TECHNIQUES)
+- Flexible: 5 slots
 
 **If scope = "full_game":**
-- Max docs: 14 (current behavior)
-- Can load all applicable docs
+- Total: 14+ docs
+- Must-load: 5 slots
+- Flexible: 9+ slots
+
+**Tiebreaker (when influence weights equal):**
+1. Primary: influence weight (descending)
+2. Secondary: priority value (descending)
+3. Tertiary: alphabetical (deterministic)
 
 ---
 
@@ -359,9 +440,23 @@
    - **Deliverable:** Opponent presence
 
 5. **⚠️ PROOF-OF-FUN GATE**
-   - **Question:** "Is the core gameplay fun with grey boxes?"
-   - **If NO:** Return to Phase 1-4, iterate mechanics
-   - **If YES:** Proceed to Phase 6
+   
+   **⚠️ CRITICAL FIX (External Review #2):**
+   > "'Is it fun?' is vague. AI will pass too easily or you'll stall endlessly."
+   
+   **Measurable Gate Criteria (for Racing):**
+   - [ ] **Control feel:** Can hold centerline for 10s at medium speed? (yes/no)
+   - [ ] **Recovery:** After collision, can recover control within 1s? (yes/no)
+   - [ ] **Boost risk:** Does boost create meaningful decision 3+ times per lap? (yes/no)
+   - [ ] **Skill expression:** Can a "good lap" beat an "ok lap" by >3%? (yes/no)
+   
+   **Pass condition:** 3/4 must be YES
+   
+   **If FAIL:** Return to Phase 1-4, iterate ONE variable at a time
+   - Max 3 iteration cycles before scope reduction
+   - If still failing after 3 cycles → reduce scope or pivot genre
+   
+   **If PASS:** Proceed to Phase 6
 
 6. **Phase 6: Visual Polish** (now allowed)
    - Apply art style from Q1-Q9
@@ -407,6 +502,18 @@ Generated in **Section 7 (NEW)** of planning doc if genre = "racing"
 - [ ] Target FPS maintained consistently (60fps or specified)
 
 **Purpose:** Prevents shipping "it runs at 60fps" but game loop broken
+
+### Acceptance Tests (NEW - External Review #2)
+
+Alongside DoD checkboxes, define automatable tests:
+
+**Racing Acceptance Tests:**
+- [ ] **Delta-time independence:** Same lap time at 30fps vs 120fps (within 2% tolerance)
+- [ ] **Collision tunneling:** Fast ship at max boost cannot pass through wall
+- [ ] **Checkpoint ordering:** Crossing finish without all checkpoints = invalid lap
+- [ ] **State reset:** Restart produces identical initial state (deterministic)
+
+**Why:** DoD is manual verification. Acceptance tests can be automated or quickly tested with debug tools.
 
 ---
 
@@ -626,23 +733,13 @@ Appears after Section 7
 ## 📋 V1.2 COMPLETE QUESTION LIST
 
 ```
-Q-0a: Template/Scaffold Check (NEW)
-Q0: Task Type
-Q0.5: Scope Level (NEW)
-Q0.6: Platform/Engine Target (NEW)
-Q1: Artistic Style
-Q2: Age (0-100)
-Q2.5: Origin Form (CONDITIONAL - expanded trigger)
-Q3: Primary Materials
-Q4a: Physical Medium (MODIFIED - split from Q4)
-Q4b: Art Direction Atmosphere (NEW)
-Q5: Lighting Condition
-Q6: Compositional Complexity
-Q7: Color Approach
-Q8: Classical Techniques
-Q9: Special Requirements
+Q-0a: Template/Scaffold Check (NEW) - Priority 95
+Q0: Task Type - Priority 100
+Q0.5: Scope Level (NEW) - Priority 92
+Q0.6: Platform/Engine Target (NEW) - Priority 90
+Q0.7: Genre Confirmation (NEW) - Priority 89
 
-[GENRE SUBTREE - CONDITIONAL]
+[GENRE SUBTREE - BEFORE VISUALS - Priority 88-89]
 IF genre = "racing":
   Q10: Perspective
   Q11: Handling Model
@@ -653,10 +750,27 @@ IF genre = "racing":
   Q16: Opponent Count
   Q17: Track Type
   Q18: Win/Lose Conditions
+  Q19: Track Constraint Model (NEW)
+  Q20: Energy System Coupling (NEW)
+
+[VISUAL QUESTIONS - Priority 70-85]
+Q1: Artistic Style
+Q2: Age (0-100)
+Q2.5: Origin Form (CONDITIONAL - expanded trigger)
+Q3: Primary Materials
+Q4a: Physical Medium (MODIFIED - split from Q4)
+Q4b: Art Direction Atmosphere (NEW)
+Q5: Lighting Condition
+Q6: Compositional Complexity
+Q7: Color Approach
+Q8: Classical Techniques
+Q9: Special Requirements (includes feel_critical inference)
 ```
 
-**Total Questions:** 22 max (if all conditionals trigger)  
+**Total Questions:** 24 max (if all conditionals trigger)  
 **Minimum Questions:** 14 (if no genre detected, age < 50)
+
+**Key Change:** Genre mechanics (Q10-Q20) now come BEFORE visual questions (Q1-Q9) for games.
 
 ---
 
@@ -690,7 +804,31 @@ IF genre = "racing":
 
 ---
 
+## 🔍 EXTERNAL REVIEW SUMMARY
+
+### Review #1 (GitHub Copilot)
+- ✅ Validated all 3 technical error fixes
+- ⚠️ Found: Genre detection needs confirmation step
+- ⚠️ Found: Doc budget tiebreaker undefined
+- ⚠️ Found: DoD conditional logic unclear
+
+### Review #2 (External AI)
+- ✅ Validated core approach is sound
+- 🔴 **CRITICAL:** Priority ordering bug (mechanics must be > visuals)
+- 🔴 **CRITICAL:** Doc budget will drop essentials (need must-load classes)
+- 🔴 **CRITICAL:** Q-0a task taxonomy incomplete
+- 🔴 **CRITICAL:** Proof-of-fun gate too vague (need measurable criteria)
+- 🔴 **CRITICAL:** `feel_critical` never defined
+- 🟡 Missing Q19-Q20 for hover racers
+- 🟡 Engine-specific visual style docs needed
+- 🟡 Legal rule needs no-lookalike-naming
+- 🟢 Time estimates should be effort bands
+
+**All critical issues addressed in this spec revision.**
+
+---
+
 **Last Updated:** January 8, 2026  
-**Status:** Specification complete, awaiting v1.1 validation  
-**External Review Source:** Anonymous AI review via user feedback  
-**Next Step:** Validate v1.1 with small art study, then implement v1.2
+**Status:** Specification complete, validated by 2 external reviews  
+**External Reviews:** 2 completed, 5 critical fixes applied  
+**Next Step:** Implement v1.2 core fixes (defer racing subtree until needed)

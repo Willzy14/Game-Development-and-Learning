@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids - Tier 2 Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+        
+        #gameContainer {
+            position: relative;
+        }
+        
+        #gameCanvas {
+            border: 2px solid #333;
+            display: block;
+        }
+        
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            font-size: 18px;
+            pointer-events: none;
+        }
+        
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+        }
+        
+        #overlay.hidden {
+            display: none;
+        }
+        
+        #overlay h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+        }
+        
+        #overlay p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #aaa;
+        }
+        
+        #overlay .highlight {
+            color: #fff;
+            font-size: 24px;
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="ui">
+            <div id="score">SCORE: 0</div>
+            <div id="lives">LIVES: ♦♦♦</div>
+            <div id="highScore">HIGH: 0</div>
+        </div>
+        <div id="overlay">
+            <h1>ASTEROIDS</h1>
+            <p class="highlight">Press ENTER to Start</p>
+            <p>↑ Thrust | ← → Rotate | SPACE Shoot</p>
+        </div>
+    </div>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

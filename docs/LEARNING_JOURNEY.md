@@ -8,9 +8,9 @@
 
 **Start Date**: 2026-01-03  
 **Current Tier**: 2 (in progress)  
-**Current Game**: Flappy Bird (V4 Egypt complete)  
-**Total Games Completed**: 5  
-**Total Hours Logged**: ~31.5 hours  
+**Current Game**: Platformer \"Lantern Spirit\" (In Progress)  
+**Total Games Completed**: 7  
+**Total Hours Logged**: ~40 hours  
 **Shared Libraries Created**: 1 (Audio System)
 
 ---
@@ -18,14 +18,14 @@
 ## Quick Stats
 
 ### Games by Status
-- ✅ **Completed**: 5 (Pong, Breakout, Space Invaders, Snake, Flappy Bird)
-- 🚧 **In Progress**: 0
+- ✅ **Completed**: 7 (Pong, Breakout, Space Invaders, Snake, Flappy Bird, Asteroids v2, Platformer base)
+- 🚧 **In Progress**: 1 (Platformer polish)
 - ⏸️ **On Hold**: 0
 - ❌ **Abandoned**: 0
 
 ### Skills by Confidence
-- **Mastered (5/5)**: 8 skills (game loop, AABB collision, input handling, state machines, localStorage, parallax scrolling, procedural generation, theme reskinning)
-- **Confident (4/5)**: 15 skills (Canvas 2D, OOP classes, projectile systems, audio synthesis, gradients, particle effects, modern visual design, touch controls, responsive design, fullscreen API, procedural music, settings persistence, musical scales, infinite scrolling, chunked development)
+- **Mastered (5/5)**: 10 skills (game loop, AABB collision, input handling, state machines, localStorage, parallax scrolling, procedural generation, theme reskinning, variable jump physics, modular architecture)
+- **Confident (4/5)**: 20 skills (Canvas 2D, OOP classes, projectile systems, audio synthesis, gradients, particle effects, modern visual design, touch controls, responsive design, fullscreen API, procedural music, settings persistence, musical scales, infinite scrolling, chunked development, double jump, coyote time, dynamic lighting, atmospheric particles, horizontal scrolling camera)
 - **Comfortable (3/5)**: 6 skills (AI patterns, grid systems, wave management, shared library extraction, screen shake, combo systems)
 - **Learning (2/5)**: 2 skills (shield damage systems, collision optimization)
 - **Just Started (1/5)**: 0 skills
@@ -193,30 +193,73 @@
 - **Biggest Challenge**: Loop glitch in infinite scrolling (solved with position-based generation, not wrapping)
 - **Critical Lesson**: When component patterns are proven, combining them into new themes requires careful planning but can work perfectly on first test
 
-### Tier 2 Reflection (In Progress - 1 game complete)
-> Flappy Bird proved theme reskinning is a powerful technique for learning
+#### 2. Asteroids v2 - ✅ Complete!
+- **Dates**: 2026-01-08 → 2026-01-08
+- **Status**: Complete with full polish
+- **Key Skills Learned**: 
+  - **Rotation + thrust physics** (angle-based velocity)
+  - **Screen wrapping** (toroidal topology)
+  - **Modular architecture** (game.js/theme.js/audio.js split)
+  - **getState() pattern** for decoupled rendering
+  - **Procedural FX audio** (laser, explosion, thrust)
+  - **Procedural ambient music** (drone + arpeggio + pads)
+  - **Painterly cosmic visuals** (nebula gradients, gravity wells)
+  - **Asteroid splitting** (large → medium → small)
+  - **Combo system** (timed multipliers)
+  - **Charge shot mechanic** (hold to charge)
+  - **Lives + respawn with invulnerability**
+- **Retrospective**: Needs formal writeup
+- **Biggest Win**: Modular architecture made theme/audio iterations trivial - could swap entire visual style without touching game logic
+- **Biggest Challenge**: Didn't check shared-library before building audio from scratch (lesson: Pre-Flight Checklist added to GAME_SESSION_PROMPT.md)
+- **Critical Lesson**: ALWAYS check shared-library and SKILLS_TRACKER before building new systems
 
-- **Duration**: ~2 days (V1-V4 progression)
-- **Total Time**: ~8 hours across 4 versions
-- **Key Breakthrough**: Complete theme reskin (V4 Egypt) demonstrated that visual/audio theming is learnable and teachable
-- **Major New Patterns Added**:
-  - **Theme Swap Architecture**: Abstract colors, separate layers, swap everything
-  - **Musical Scale Theming**: Phrygian Dominant = Egyptian, Pentatonic = Asian
-  - **Large Task Breakdown**: 8-part chunking for 1500+ line files
-  - **80% Rule**: 4 strong signals (palette, landmark, scale, character) = theme feel
-- **Next Game Recommendation**: Endless runner or similar procedural game
+#### 3. Platformer "Lantern Spirit" - 🚧 In Progress
+- **Dates**: 2026-01-08 → ongoing
+- **Status**: Playable, needs polish
+- **Key Skills Learned**: 
+  - **Variable height jump** (hold longer = jump higher)
+  - **Double jump** (air jump with separate force)
+  - **Coyote time** (6 frame grace period after leaving platform)
+  - **Jump buffering** (6 frame input buffer)
+  - **Platform collision** (one-way from above)
+  - **Horizontal scrolling camera** (threshold-based follow)
+  - **Zone-based level design** (5 zones of increasing difficulty)
+  - **Dynamic lighting** (lantern glow with flicker)
+  - **Atmospheric particles** (fireflies, motes, mist layers)
+  - **Cached background rendering** (stars, mountains pre-rendered)
+  - **Ethereal audio design** (drone + pads + arpeggio ambient music)
+- **Retrospective**: TBD after completion
+- **Biggest Win**: Variable height jump feels great - hold-to-extend gives precise control
+- **Biggest Challenge**: Theme/game.js interface mismatches (property names, function signatures) - required debugging
+- **Critical Lesson**: When creating theme.js, match EXACTLY the data shapes provided by game.js getState()
 
-#### 2. [Next Game] - 🔜
+#### 4. [Next Game] - 🔜
 - **Dates**: TBD
 - **Status**: Not started
-- **Recommendation**: Temple Run style endless runner, or platformer
+- **Recommendation**: Frogger (lane-based), Doodle Jump (vertical), or polish Platformer further
 - **Key Skills to Learn**: 
-  - More complex procedural generation
-  - Platform physics
-  - Collectible systems
-  - Progressive difficulty
-- **Plan**: Apply theme swap patterns from Flappy Bird V4
+  - Lane-based hazard timing
+  - Vertical infinite scrolling
+  - Death zones and checkpoints
+- **Plan**: Apply modular architecture pattern
 - **Retrospective**: [Link]
+
+### Tier 2 Reflection (In Progress - 3 games, 1 in polish phase)
+> Asteroids v2 proved modular architecture, Platformer introduced physics-heavy gameplay
+
+- **Duration**: ~4 days so far
+- **Total Time**: ~16 hours across 3 games (Flappy Bird, Asteroids v2, Platformer)
+- **Key Breakthrough**: Modular architecture (game/theme/audio split) is the standard going forward - makes iteration trivial
+- **Major New Patterns Added**:
+  - **Modular File Architecture**: game.js (logic) + theme.js (visuals) + audio.js (sound)
+  - **getState() Pattern**: Game exposes state object, theme renders it - zero coupling
+  - **Platformer Physics**: Variable jump, double jump, coyote time, jump buffering
+  - **Dynamic Lighting**: Radial gradients with flicker for atmospheric glow
+  - **Zone-Based Level Design**: Tutorial → Learning → Challenge → Gauntlet → Finale
+  - **Pre-Flight Checklist**: Check shared-library and skills before building
+- **Next Steps**: Polish platformer (death zones, victory effects, mobile), then new game or Tier 3
+
+#### 4. [Next Game] - 🔜
 
 ---
 

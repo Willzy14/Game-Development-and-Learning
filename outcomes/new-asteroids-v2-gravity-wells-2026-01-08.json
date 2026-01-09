@@ -1,0 +1,130 @@
+{
+  "project_id": "new-asteroids-v2-gravity-wells-2026-01-08",
+  "date": "2026-01-08",
+  "decisions": {
+    "task_type": "new",
+    "scope": "playable_demo",
+    "platform": "web_canvas_2d",
+    "genre": "shooter_arcade",
+    "style": "painterly_impressionist",
+    "movement_model": "rotation_thrust",
+    "shooting_style": "single_charge",
+    "screen_behavior": "wrap",
+    "lives_health": "lives_3",
+    "color_palette": "vibrant_saturated",
+    "audio_approach": "procedural_web_audio"
+  },
+  "applied_rules": [
+    "GAME_SESSION_PROMPT interrogation sequence",
+    "Proof-of-fun gate before visual polish",
+    "17-MODULAR_ARCHITECTURE.md (after refactor)",
+    "getState() pattern for game/theme separation",
+    "SETTINGS object for tunable values",
+    "Art Study 007 reference for painterly style"
+  ],
+  "loaded_docs": [
+    "GAME_SESSION_PROMPT.md",
+    "01-CORE_RULES.md",
+    "11-CANVAS_PATTERNS.md",
+    "14-CANVAS_IMPLEMENTATION_PATTERNS.md",
+    "02-AUDIO_MASTERY.md",
+    "20-ART_STYLES.md",
+    "17-MODULAR_ARCHITECTURE.md (loaded mid-session after violation)"
+  ],
+  "skipped_docs": [
+    "REALISM_DEGRADATION.md (not applicable - space theme)",
+    "CLASSICAL_TECHNIQUES.md (not needed for this style)"
+  ],
+  "conflicts_resolved": [
+    {
+      "conflict": "Pixel art vs painterly style mid-session",
+      "resolution": "User preferred painterly after seeing Forest Temple reference",
+      "outcome": "Complete visual rewrite to painterly gradients"
+    }
+  ],
+  "violations": [
+    {
+      "rule": "17-MODULAR_ARCHITECTURE.md",
+      "description": "Built all visuals in game.js with draw() methods inside classes",
+      "when": "Phase 6 - Visual Polish",
+      "why": "Didn't load architecture doc before implementation",
+      "consequence": "Required ~40 minute refactor to extract to theme.js",
+      "fix_applied": "Added Hard Rule #6 to GAME_SESSION_PROMPT.md"
+    }
+  ],
+  "result_quality": {
+    "visual_fidelity": 9,
+    "performance": 10,
+    "code_quality": 8,
+    "fun_factor": 8,
+    "polish_level": 7,
+    "notes": "Visuals excellent (painterly style worked great), audio incomplete (stubs only)"
+  },
+  "result_notes": [
+    "Painterly style using Art Study 007 reference produced cohesive, beautiful result",
+    "Gravity wells added genuine gameplay depth - not just an Asteroids clone",
+    "Combo system encourages aggressive play",
+    "Game is challenging but fair - 'hard but fun' per user",
+    "Modular refactor proved the architecture pattern works",
+    "Lives system required changes across 5+ locations"
+  ],
+  "keep_for_future": [
+    "Use existing art studies as explicit style references",
+    "getState() pattern cleanly separates game logic from rendering",
+    "Centralized SETTINGS object for all tunable values",
+    "Proof-of-fun checkpoint before investing in visuals",
+    "Warm/cool color harmony for space themes (golden bullets, cool ship)",
+    "Radial gradients with offset center for 3D-ish rocks",
+    "Iterating on user feedback quickly builds trust"
+  ],
+  "avoid_for_future": [
+    "Building ANY visual code in game.js - always use theme.js",
+    "Forgetting start screen ('ready' state)",
+    "Hardcoding values that should be in SETTINGS",
+    "Leaving HTML HUD elements when using canvas-based UI",
+    "Skipping architecture doc load before implementation phase",
+    "Leaving audio as stubs - complete in same session"
+  ],
+  "time_metrics": {
+    "planning_minutes": 10,
+    "implementation_minutes": 135,
+    "debugging_minutes": 35,
+    "total_minutes": 180,
+    "refactor_overhead_minutes": 40,
+    "notes": "Refactor cost ~40 minutes that could have been avoided"
+  },
+  "creative_additions": [
+    {
+      "feature": "Gravity Wells",
+      "description": "Large asteroids may contain gravity wells that spawn when destroyed, pulling ship and bullets",
+      "impact": "Adds strategic depth - can use wells to curve shots or get pulled into danger"
+    },
+    {
+      "feature": "Combo System",
+      "description": "Rapid kills build multiplier up to 10x, resets on timeout or death",
+      "impact": "Encourages aggressive play, risk/reward tension"
+    },
+    {
+      "feature": "Charge Shot",
+      "description": "Hold space to charge, release for powerful shot",
+      "impact": "Adds timing skill, satisfying to land charged shots"
+    }
+  ],
+  "incomplete_features": [
+    {
+      "feature": "Audio System",
+      "status": "stub_only",
+      "methods_stubbed": [
+        "playShoot",
+        "playChargedShoot", 
+        "playThrust",
+        "playExplosion",
+        "playGravityWellSpawn",
+        "playGravityWellDestroy",
+        "playComboIncrease",
+        "playShipDestroy",
+        "playUISelect"
+      ]
+    }
+  ]
+}

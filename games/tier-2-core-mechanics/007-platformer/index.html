@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lantern Spirit - Platformer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a2e;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        #gameContainer {
+            position: relative;
+        }
+        canvas {
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 0 40px rgba(255, 180, 100, 0.3);
+        }
+        #debug {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            color: #666;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        <div id="debug"></div>
+    </div>
+    
+    <!-- Modular Architecture: game.js (mechanics) | theme.js (visuals) | audio.js (sound) -->
+    <script src="audio.js"></script>
+    <script src="theme.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

@@ -4,6 +4,27 @@
 
 ---
 
+## Quick Reference: Reusable Code Locations
+
+| System | Best Reference | Path |
+|--------|----------------|------|
+| **Audio (basic)** | Shared Library | `shared-library/audio/AudioSystem.js` |
+| **Audio (procedural music)** | Asteroids v2 | `games/tier-2/.../006-asteroids-v2/audio.js` |
+| **Audio (ethereal/ambient)** | Platformer | `games/tier-2/.../007-platformer/audio.js` |
+| **Collision (AABB)** | Shared Library | `shared-library/collision/CollisionUtils.js` |
+| **High Score (localStorage)** | Space Invaders | `games/tier-2/.../003-space-invaders/` |
+| **Particles** | Snake | `games/tier-2/.../004-snake/` |
+| **Parallax Scrolling** | Flappy Bird | `games/tier-2/.../005-flappy-bird/` |
+| **Theme Swap** | Flappy Bird v4 | `games/tier-2/.../005-flappy-bird/theme.js` |
+| **Modular Architecture** | Asteroids v2 | `games/tier-2/.../006-asteroids-v2/` |
+| **Combo System** | Asteroids v2 | `games/tier-2/.../006-asteroids-v2/game.js` |
+| **Lives/Respawn** | Breakout, Asteroids v2 | Multiple |
+| **Platformer Physics** | Platformer | `games/tier-2/.../007-platformer/game.js` |
+| **Variable Height Jump** | Platformer | `games/tier-2/.../007-platformer/game.js` |
+| **Horizontal Scrolling Camera** | Platformer | `games/tier-2/.../007-platformer/game.js` |
+
+---
+
 ## How to Use This
 - **Check off** skills when you've successfully implemented them
 - **Note the game** where you first used the skill
@@ -131,12 +152,13 @@
 - [ ] Command *(Learned in: [Game])* - Confidence: [1-5]
 - [ ] Factory *(Learned in: [Game])* - Confidence: [1-5]
 - [ ] Service Locator *(Learned in: [Game])* - Confidence: [1-5]
-- [ ] MVC/MVP architecture *(Learned in: [Game])* - Confidence: [1-5]
+- [x] MVC-like separation (getState() pattern) *(Learned in: Asteroids v2)* - Confidence: 4/5
 
 ### Game-Specific Patterns
 - [x] Game loop architecture *(Learned in: Pong)* - Confidence: 5/5
 - [x] Component pattern (via OOP classes) *(Learned in: Breakout)* - Confidence: 4/5
 - [x] Update method pattern *(Learned in: Pong)* - Confidence: 5/5
+- [x] Modular file architecture (game/theme/audio split) *(Learned in: Asteroids v2)* - Confidence: 4/5
 - [ ] Dirty flag *(Learned in: [Game])*
 - [ ] Double buffer *(Learned in: [Game])*
 - [ ] Flyweight (data sharing) *(Learned in: [Game])*
@@ -149,14 +171,15 @@
 - [x] Basic 2D movement (4-direction) *(Learned in: Pong - up/down)* - Confidence: 5/5
 - [x] Horizontal movement *(Learned in: Breakout - paddle)* - Confidence: 5/5
 - [ ] 8-directional movement *(Learned in: [Game])*
-- [ ] Smooth acceleration/deceleration *(Learned in: [Game])*
-- [ ] Jump mechanics *(Learned in: [Game])*
-- [ ] Double jump *(Learned in: [Game])*
+- [x] Smooth acceleration/deceleration *(Learned in: Asteroids v2 - thrust + drag)* - Confidence: 4/5
+- [x] Rotation + thrust movement *(Learned in: Asteroids v2)* - Confidence: 4/5
+- [x] Jump mechanics *(Learned in: Platformer - variable height jump)* - Confidence: 4/5
+- [x] Double jump *(Learned in: Platformer - Lantern Spirit)* - Confidence: 4/5
 - [ ] Wall jump *(Learned in: [Game])*
 - [ ] Dash/dodge *(Learned in: [Game])*
-- [ ] Ground detection *(Learned in: [Game])*
-- [ ] Coyote time *(Learned in: [Game])*
-- [ ] Jump buffering *(Learned in: [Game])*
+- [x] Ground detection *(Learned in: Platformer - platform collision)* - Confidence: 4/5
+- [x] Coyote time *(Learned in: Platformer - 6 frame buffer)* - Confidence: 4/5
+- [x] Jump buffering *(Learned in: Platformer - 6 frame buffer)* - Confidence: 4/5
 - [ ] Moving platforms *(Learned in: [Game])*
 - [ ] 3D character controller *(Learned in: [Game])*
 
@@ -164,12 +187,13 @@
 - [x] Health system (lives) *(Learned in: Breakout, Space Invaders)* - Confidence: 5/5
 - [ ] Damage system *(Learned in: [Game])*
 - [x] Projectiles *(Learned in: Space Invaders)* - Confidence: 4/5
+- [x] Charge shots (hold to charge) *(Learned in: Asteroids v2)* - Confidence: 4/5
 - [ ] Melee combat *(Learned in: [Game])*
 - [x] Hit detection (bullet collisions) *(Learned in: Space Invaders)* - Confidence: 4/5
 - [ ] Hitboxes and hurtboxes *(Learned in: [Game])*
-- [ ] Combo system *(Learned in: [Game])*
+- [x] Combo system *(Learned in: Asteroids v2)* - Confidence: 4/5
 - [ ] Knockback *(Learned in: [Game])*
-- [ ] Invincibility frames *(Learned in: [Game])*
+- [x] Invincibility frames *(Learned in: Asteroids v2 - respawn invulnerability)* - Confidence: 4/5
 - [ ] Boss patterns *(Learned in: [Game])*
 
 ### Progression Systems
@@ -253,11 +277,18 @@
 - [x] Character design through shape language *(Learned in: Flappy Bird V4 - scarab beetle)* - Confidence: 4/5
 - [x] 80% Rule (strong theme signals) *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 4/5
 - [x] Multi-layer background composition *(Learned in: Flappy Bird V2-V4)* - Confidence: 5/5
+- [x] Painterly rendering (soft edges, gradients) *(Learned in: Asteroids v2)* - Confidence: 4/5
+- [x] Warm/cool color harmony *(Learned in: Asteroids v2 - Forest Temple style)* - Confidence: 4/5
+- [x] Radial gradient effects *(Learned in: Asteroids v2 - nebula, gravity wells)* - Confidence: 4/5
+- [x] Dynamic lighting/glow effects *(Learned in: Platformer - lantern glow)* - Confidence: 4/5
+- [x] Atmospheric particles (fireflies, motes, mist) *(Learned in: Platformer)* - Confidence: 4/5
+- [x] Cached background layers for performance *(Learned in: Platformer - star/mountain caching)* - Confidence: 4/5
 
 ### Audio Theming
 - [x] Musical scales for cultural theming *(Learned in: Flappy Bird V4 Egypt - Phrygian Dominant)* - Confidence: 4/5
 - [x] Instrument selection for theme (oud, ney) *(Learned in: Flappy Bird V4 Egypt)* - Confidence: 3/5
 - [x] Ambient sound theming *(Learned in: Flappy Bird V4 Egypt - desert wind)* - Confidence: 3/5
+- [x] Ethereal/mystical audio design *(Learned in: Platformer - drone + pads + arpeggio)* - Confidence: 4/5
 
 ---
 
@@ -335,6 +366,8 @@
 - Parallax scrolling, infinite scrolling
 - Theme swap architecture, color abstraction
 - Large task breakdown (chunked creation)
+- Modular architecture (game/theme/audio split)
+- Rotation + thrust movement, gravity wells
 
 ### Comfortable Skills (Can implement with minor reference)
 - Procedural generation (position-based seeding)
@@ -342,10 +375,12 @@
 - Character design through shape language
 - Touch controls, responsive design
 - Object pooling, projectile systems
+- Painterly rendering (soft edges, warm/cool harmony)
+- Combo systems, charge shots
 
 ### Learning Skills (Need significant reference/tutorial)
 - Screen shake timing/feel
-- Advanced physics (gravity curves, momentum)
+- Advanced physics (gravity curves - learned in Asteroids v2)
 - Shield/damage systems
 - Progressive difficulty scaling
 
@@ -358,5 +393,5 @@
 
 ---
 
-*Last Updated: January 6, 2026*
-*Latest Addition: Theme Reskinning & Large Task Management (Flappy Bird V4 Egypt)*
+*Last Updated: January 9, 2026*
+*Latest Addition: Platformer Physics (variable jump, double jump, coyote time), Dynamic Lighting, Atmospheric Particles (Platformer "Lantern Spirit")*

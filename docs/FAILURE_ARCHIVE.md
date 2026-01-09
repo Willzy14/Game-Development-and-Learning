@@ -360,6 +360,33 @@
 ### Lessons Learned Multiple Times
 > If something appears here, you're not applying the lesson!
 - **Read documentation first**: Learned in Code/Disk incident, repeated in Folder Structure incident
+- **Load architecture docs BEFORE implementation**: Learned in Inca Disaster, repeated in Asteroids v2
+
+---
+
+### [2026-01-08] - Built Visuals in game.js Instead of theme.js ⚠️ **ARCHITECTURE VIOLATION**
+- **Game**: Asteroids v2 - Gravity Wells Edition
+- **What Went Wrong**: Built all pixel art visuals directly in `game.js` with `draw()` methods inside Ship, Bullet, Asteroid, GravityWell, and FloatingText classes. This violated the modular architecture established after the Inca Disaster.
+- **Impact**: 
+  - Had to refactor mid-session to extract all visuals to theme.js
+  - ~40 minutes lost to refactoring
+  - Created ~1100 lines of code that needed restructuring
+- **Root Cause**: 
+  - Didn't load 17-MODULAR_ARCHITECTURE.md before Phase 6 (Visual Polish)
+  - Got excited about implementing pixel art and forgot separation principle
+  - Old habit from games built before modular architecture was established
+- **What Should Have Happened**:
+  1. Load 17-MODULAR_ARCHITECTURE.md before ANY visual code
+  2. Create theme.js FIRST with THEME object and render() function
+  3. Add `getState()` methods to classes in game.js
+  4. All colors, draw code, visual effects go ONLY in theme.js
+- **Fix Applied**: 
+  - Refactored: Extracted all visuals to theme.js (761 lines)
+  - Updated GAME_SESSION_PROMPT.md with Hard Rule #6 requiring modular architecture
+  - Added mandatory doc load before Phase 6
+- **Time Lost**: ~40 minutes
+- **Severity**: MODERATE - Caught same session, but shouldn't have happened given Inca Disaster lesson
+- **Lesson**: **ALWAYS** load architecture doc before implementation phase. The rule exists because we learned it the hard way before.
 
 ---
 

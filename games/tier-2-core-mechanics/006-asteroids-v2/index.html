@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids v2 - Gravity Wells</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+        }
+        
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #gameCanvas {
+            border: 2px solid #444;
+            background: #000;
+        }
+
+        #debugInfo {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+        
+        #instructions {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="debugInfo">Debug: Loading...</div>
+        <div id="instructions">
+            WASD/Arrows: Rotate & Thrust | SPACE: Shoot (hold to charge) | P: Pause
+        </div>
+    </div>
+    <!-- MODULAR ARCHITECTURE: theme.js (visuals) + audio.js (sounds) + game.js (mechanics) -->
+    <script src="theme.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
