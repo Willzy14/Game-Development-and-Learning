@@ -128,6 +128,8 @@
 - [ ] 2D vs 3D audio *(Learned in: [Game])*
 - [ ] Audio Mixer *(Learned in: [Game])*
 - [x] Volume control *(Learned in: Pong - gain nodes)*
+- [x] Chord progression composition *(Learned in: Time-Slice Runner - triads, bass, melody, rhythm)* - Confidence: 4/5
+- [x] Musical structure (bass + chords + melody + rhythm) *(Learned in: Time-Slice Runner)* - Confidence: 4/5
 
 ### Advanced Unity
 - [ ] ScriptableObjects *(Learned in: [Game])*
@@ -180,6 +182,8 @@
 - [x] Ground detection *(Learned in: Platformer - platform collision)* - Confidence: 4/5
 - [x] Coyote time *(Learned in: Platformer - 6 frame buffer)* - Confidence: 4/5
 - [x] Jump buffering *(Learned in: Platformer - 6 frame buffer)* - Confidence: 4/5
+- [x] Air control (horizontal movement during jump) *(Learned in: Time-Slice Runner)* - Confidence: 4/5
+- [x] Time manipulation mechanic *(Learned in: Time-Slice Runner - gameSpeed multiplier)* - Confidence: 4/5
 - [ ] Moving platforms *(Learned in: [Game])*
 - [ ] 3D character controller *(Learned in: [Game])*
 
@@ -227,11 +231,12 @@
 - [x] Seeded random (position-based) *(Learned in: Flappy Bird V4 - pyramids, palms)* - Confidence: 4/5
 - [ ] Perlin noise *(Learned in: [Game])*
 - [ ] Weighted random selection *(Learned in: [Game])*
-- [x] Procedural level layout *(Learned in: Flappy Bird - infinite obstacles)* - Confidence: 4/5
+- [x] Procedural level layout *(Learned in: Flappy Bird - infinite obstacles)* - Confidence: 5/5
 - [ ] Wave function collapse *(Learned in: [Game])*
 - [ ] BSP (Binary Space Partitioning) *(Learned in: [Game])*
 - [ ] Cellular automata *(Learned in: [Game])*
 - [x] Procedural content (backgrounds, terrain) *(Learned in: Flappy Bird V4 Egypt - pyramids, dunes, palms)* - Confidence: 4/5
+- [x] Endless platform generation *(Learned in: Time-Slice Runner - difficulty ramping, variation)* - Confidence: 4/5
 
 ---
 

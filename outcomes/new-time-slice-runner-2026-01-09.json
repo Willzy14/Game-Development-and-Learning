@@ -1,0 +1,280 @@
+{
+  "project_id": "new-time-slice-runner-2026-01-09",
+  "date": "2026-01-09",
+  "decisions": {
+    "task_type": "new",
+    "style": "stylized_realistic",
+    "age": 8,
+    "skill_priority": "professional",
+    "mechanics_depth": "deep",
+    "audio_complexity": "procedural_music",
+    "mobile": false,
+    "scope": "medium"
+  },
+  "loaded_docs": [
+    "START_HERE.md",
+    "docs/bible/BIBLE_INDEX.md",
+    "docs/bible/01-CORE_RULES.md",
+    "docs/FAILURE_ARCHIVE.md",
+    "shared-library/README.md",
+    "PLANNING.md"
+  ],
+  "result_quality": {
+    "game_feel": 5,
+    "visual_polish": 5,
+    "audio_quality": 5,
+    "code_quality": 5,
+    "feature_completeness": 5,
+    "notes": "Final Tier 2 game - endless runner with time manipulation, elevated standards applied (multi-mode progression, chord-based music, time-travel theme with atmospheric depth)"
+  },
+  "what_worked": [
+    "Chord progression music (Am-F-C-G) - using triads (3 simultaneous oscillators) creates actual harmony, not beeping",
+    "Melody + bass + rhythm layers - 16-note melody sequence over chord structure sounds musical",
+    "Air control (A/D keys) - horizontal movement while jumping makes game feel responsive and fair",
+    "Jump momentum - slight horizontal boost on jump creates natural arc",
+    "Collision with lastY check - prevents fall-through bug by comparing previous Y position",
+    "Time-slice mechanic - hold Shift to slow time 70%, drains chrono meter, refills on perfect landings (center 20%)",
+    "Procedural platform generation - gap/width variation with difficulty ramping formula works endlessly",
+    "Difficulty mode system - Easy/Normal/Hard with unlock thresholds (500/1000) and adjusted physics",
+    "High-contrast character - white/cyan core with dark purple outline (15:1 ratio), rotating clock hands, time-ribbon trail",
+    "Time-travel theme - clock towers (far), floating gears (mid), hourglasses (near) with atmospheric perspective",
+    "Clock face platforms - Roman numeral etchings, glowing time-runes, golden platforms with spinning gears",
+    "Time-slice VFX - giant clock overlay, radial ripples, sepia tint, sweeping clock hands",
+    "Themed particles - clock springs (jump), Roman numerals (perfect landing), hourglasses (chrono refill)",
+    "Atmospheric perspective - 3 background layers with alpha/saturation shifts and color temperature",
+    "Painterly techniques - edge lighting (warm highlights/cool shadows), visible strokes, layered textures",
+    "Modular architecture (Rule 11) - game.js (mechanics), theme.js (visuals), audio.js (audio) stayed separated through 4 rounds of fixes"
+  ],
+  "what_didnt_work": [
+    "Initial gameplay balance - jump too weak (-13), speed too fast (4), gaps too large (150), platforms too narrow (100)",
+    "Shift key detection - needed ShiftLeft, ShiftRight, AND 'Shift' to catch all browsers",
+    "Drone music attempt - single oscillator + beeps is NOT melodic, needed actual chord progressions",
+    "Flat character design - initial square with no contrast failed scarab quality standard",
+    "Generic sci-fi theme - initial background/platforms didn't express time-travel concept",
+    "Platform spawning logic - condition `platforms.length < 10 AND last platform position` could both fail, causing endless void",
+    "No air control initially - player felt helpless during jumps, needed A/D horizontal movement",
+    "Fall-through collision bug - needed lastY comparison to prevent tunneling through platforms at high speed",
+    "Jump too high after first fix (-18) - overcompensated, needed to settle at -14",
+    "Art study techniques not applied - initial visuals were flat without atmospheric perspective or chiaroscuro"
+  ],
+  "patterns_used": [
+    {
+      "name": "Chord Progression Music",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["audio.js"],
+        "key_functions": [
+          "startMusic() - creates 4-chord progression (Am-F-C-G), 8-bar structure",
+          "playChord(root, third, fifth) - plays triad with 3 simultaneous oscillators",
+          "Melody sequence - 16 notes cycling over chord structure",
+          "Bass line - triangle wave at 220Hz with note sequence",
+          "Rhythm pattern - 8 pulses with volume variation for kick/snare effect"
+        ],
+        "notes": "CRITICAL LEARNING: Single oscillator = beeping. Chord triads (3 notes played simultaneously) = harmony. Structure: bass (foundation) + chords (harmony) + melody (interest) + rhythm (drive). Each chord gets 2 bars. Melody and bass follow chord progression. This is the pattern for musical composition in Web Audio API."
+      }
+    },
+    {
+      "name": "Procedural Platform Generation",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["game.js"],
+        "key_functions": [
+          "spawnPlatform() - calculates gap/width with variation, ensures jumpability",
+          "initializePlatforms() - creates starting platform + fills screen",
+          "Update loop - removes off-screen platforms, spawns new ones when rightmost < CANVAS_WIDTH + 400",
+          "Difficulty formula - distance * increaseRate, capped at max multiplier",
+          "lastPlatformX tracking - ensures continuous generation"
+        ],
+        "notes": "Endless generation pattern: track rightmost platform X, spawn new when < threshold, remove when off-screen. Add random variation to gap/width for interest. Scale difficulty with distance traveled. Ensure platforms always jumpable (max gap check). Golden platforms (15% chance) for variety."
+      }
+    },
+    {
+      "name": "Time Manipulation Mechanic",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["game.js"],
+        "key_functions": [
+          "gameSpeed variable - multiplier for all movement (1.0 normal, 0.3 slowed)",
+          "Chrono meter - drains when time-slice active, refills on perfect landings",
+          "Perfect landing detection - checks if player lands in center 20% of platform",
+          "Time-slice activation - hold Shift, check chrono > 0, set gameSpeed",
+          "All physics/movement multiply by gameSpeed"
+        ],
+        "notes": "Resource-based slow-motion pattern: limited meter prevents abuse, perfect landings reward skill with refill. gameSpeed multiplier affects ALL movement (player, platforms, particles, scrolling). Visual feedback (VFX overlay) and audio cue on activation. Creates risk/reward: use slow-mo to land difficult jumps, but must perfect-land to sustain."
+      }
+    },
+    {
+      "name": "High-Contrast Character Design",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["theme.js"],
+        "key_functions": [
+          "renderPlayer() - draws dark outer aura + bright center core",
+          "Luminosity contrast - white/cyan center vs dark purple outline (15:1 ratio)",
+          "Rotating clock hands - 2 hands at different speeds around character center",
+          "Time-ribbon trail - flowing effect behind character",
+          "Color shift in time-slice - golden/amber when slowing time"
+        ],
+        "notes": "Scarab-quality contrast achieved through luminosity difference, not just hue. Pattern: dark feathered outer (sfumato technique) + bright gradient core + animated details (clock hands) + motion trail. Character must be instantly visible against any background. Color shift provides gameplay feedback."
+      }
+    },
+    {
+      "name": "Atmospheric Perspective (3-Layer Background)",
+      "use_count": 2,
+      "extract_after": 3,
+      "status": "one_more",
+      "implementation": {
+        "files": ["theme.js"],
+        "key_functions": [
+          "generateBackgroundLayers() - creates 3 depth layers (far/mid/near)",
+          "Far layer (clock towers) - low alpha (0.15), desaturated, slow parallax",
+          "Mid layer (floating gears) - medium alpha (0.3), mid saturation, medium parallax",
+          "Near layer (hourglasses/mist) - high alpha (0.5), high saturation, fast parallax",
+          "Color temperature shifts - cooler colors recede, warmer advance"
+        ],
+        "notes": "Art study integration: atmospheric perspective creates depth through alpha/saturation/parallax. Each layer has distinct visual elements matching theme. Parallax speed increases with proximity. Color temperature reinforces depth (cool = far, warm = near). Used in Platformer (mountains/trees) and now Time-Slice Runner (clock towers/gears). ONE MORE USE = EXTRACT."
+      }
+    },
+    {
+      "name": "Air Control Physics",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["game.js"],
+        "key_functions": [
+          "Player.update() - checks A/D keys when !grounded",
+          "Horizontal velocity in air - moveSpeed * 0.6 (reduced from ground speed)",
+          "Jump momentum - slight horizontal boost on jump initiation",
+          "Maintains jump arc - air control doesn't override gravity curve"
+        ],
+        "notes": "Makes jumping feel fair and responsive. Pattern: allow horizontal input during jump at reduced speed (60% of ground), add slight momentum on jump start for natural arc. Prevents 'locked in air' frustration while maintaining physics weight. Critical for endless runner where precision landing is core mechanic."
+      }
+    },
+    {
+      "name": "Collision with Fall-Through Prevention",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["game.js"],
+        "key_functions": [
+          "Player.update() - stores lastY before applying physics",
+          "Platform collision check - compares current Y AND lastY",
+          "Condition: this.lastY + this.height <= plat.y && this.y + this.height >= plat.y",
+          "Prevents tunneling at high speeds or low framerates"
+        ],
+        "notes": "Critical fix for high-speed games. Pattern: store previous position, check if player crossed platform boundary between frames. Prevents 'tunneling' bug where fast-moving objects pass through thin platforms. Essential for any game with high velocity or time manipulation."
+      }
+    },
+    {
+      "name": "Difficulty Mode System",
+      "use_count": 2,
+      "extract_after": 3,
+      "status": "one_more",
+      "implementation": {
+        "files": ["game.js"],
+        "key_functions": [
+          "DIFFICULTY_MODES object - defines Easy/Normal/Hard presets",
+          "Each mode: scrollSpeedMultiplier, platformWidthMultiplier, gapMultiplier, unlock threshold",
+          "Mode selection screen - shows locked/unlocked states",
+          "Progress saving - tracks unlocked modes in localStorage",
+          "Milestone unlocks - checks score thresholds during gameplay"
+        ],
+        "notes": "Elevated standard from Platformer external review. Pattern: multiple difficulty presets with physics multipliers, unlock progression (500/1000 score), localStorage persistence, mode selection UI. Easy mode makes testing possible, Hard mode adds replay value. Used in Platformer (levels) and Time-Slice Runner (difficulty modes). ONE MORE USE = EXTRACT."
+      }
+    },
+    {
+      "name": "Themed Particle Effects",
+      "use_count": 1,
+      "extract_after": 3,
+      "status": "new_pattern",
+      "implementation": {
+        "files": ["game.js", "theme.js"],
+        "key_functions": [
+          "Particle class - type-based initialization (jump/landing/perfect/chrono/speed)",
+          "renderParticle() - draws based on type (clock springs, Roman numerals, hourglasses)",
+          "Spawn on events - jump, landing, perfect landing, time-slice, chrono refill",
+          "Particle update - movement + gravity/float + lifespan"
+        ],
+        "notes": "Visual feedback through thematic particles. Pattern: event-driven spawning, type-based rendering, physics-based movement. Clock springs (spiral) on jump, Roman numerals on perfect landing, hourglasses on chrono refill. Reinforces time-travel theme while providing gameplay feedback."
+      }
+    },
+    {
+      "name": "Modular Game Architecture (Rule 11)",
+      "use_count": 8,
+      "extract_after": 3,
+      "status": "ready_to_extract",
+      "implementation": {
+        "files": ["game.js", "theme.js", "audio.js"],
+        "key_functions": [
+          "game.js - ALL mechanics, NO rendering (Player/Platform classes, physics, collision, scoring)",
+          "theme.js - ALL visuals, NO logic (render functions, background, particles, UI)",
+          "audio.js - ALL audio, NO logic (music, SFX, Web Audio context)",
+          "getGameState() - serializes state object for theme.js",
+          "THEME.render(state) - consumes state, produces visuals"
+        ],
+        "notes": "Used in: Pong, Breakout, Space Invaders, Snake, Flappy Bird, Asteroids, Platformer, Time-Slice Runner. CRITICAL pattern that saved Time-Slice Runner during 4 rounds of fixes - gameplay bugs never touched theme.js, visual polish never touched game.js, music fixes never touched either. READY FOR SHARED LIBRARY EXTRACTION (template files + guidelines)."
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "challenge": "Gameplay Balance (4 iterations)",
+      "solution": "Incremental tuning: jump -13→-15→-18→-14, speed 4→3→2.5, gaps 150→130→100, platforms 100→120→150. Added Easy mode with 0.5x speed, 1.8x platforms, 0.6x gaps. Tested each change before next adjustment.",
+      "learning": "Complex mechanics need iterative balance. Don't change multiple variables at once (Rule 1). Easy mode essential for testing and accessibility."
+    },
+    {
+      "challenge": "Music Composition (avoiding drone/beeping)",
+      "solution": "Replaced single oscillator with chord triads (3 simultaneous notes). Created Am-F-C-G progression with playChord() function. Added 16-note melody sequence, bass line (triangle wave), rhythm pattern (8 pulses). Structure: 8 bars, 2 bars per chord.",
+      "learning": "Single oscillator = beeping. Chord triads = harmony. Need bass (foundation) + chords (harmony) + melody (interest) + rhythm (drive) for musical composition. This is the template for future music systems."
+    },
+    {
+      "challenge": "High-Contrast Character (scarab quality)",
+      "solution": "Dark outer aura (purple/black, feathered edges with sfumato) + bright core (white to cyan gradient) = 15:1 luminosity ratio. Added rotating clock hands, flowing time-ribbon trail. Color shift to golden/amber in time-slice mode.",
+      "learning": "Contrast = luminosity difference, not just hue. Pattern: dark feathered outer + bright gradient core + animated details + motion trail. Character must be visible against any background."
+    },
+    {
+      "challenge": "Fall-Through Bug",
+      "solution": "Added lastY tracking - store player.y before physics update. Collision check: lastY + height <= platform.y AND y + height >= platform.y (crossed boundary between frames).",
+      "learning": "High-speed movement can tunnel through thin collision boxes. Solution: compare previous frame position to detect boundary crossing. Essential for time manipulation or high-velocity games."
+    },
+    {
+      "challenge": "Platform Generation (running out of platforms)",
+      "solution": "Initial logic had two failing conditions: `platforms.length < 10 AND last platform < CANVAS_WIDTH + 200`. Changed to single condition: `rightmost platform < CANVAS_WIDTH + 400`. Ensures continuous generation.",
+      "learning": "Endless generation needs fail-safe spawning. Don't rely on multiple conditions that could both fail. Always spawn when rightmost element approaches screen edge."
+    },
+    {
+      "challenge": "Integrating Art Study Techniques",
+      "solution": "Applied atmospheric perspective (3 layers with alpha/saturation/parallax), chiaroscuro (high contrast character), painterly techniques (edge lighting, color temperature, visible strokes), color theory (warm highlights/cool shadows).",
+      "learning": "Art fundamentals must be explicitly applied - they don't happen automatically. Techniques from study need conscious implementation: atmospheric perspective for depth, chiaroscuro for contrast, edge lighting for dimension, color temperature for mood."
+    }
+  ],
+  "skills_learned": [
+    "Chord progression music composition (triads, bass, melody, rhythm structure)",
+    "Procedural platform generation with endless spawning",
+    "Time manipulation mechanics (resource-based slow-motion)",
+    "High-contrast character design (luminosity ratio, sfumato)",
+    "Atmospheric perspective (3-layer backgrounds with depth cues)",
+    "Air control physics (horizontal movement during jump)",
+    "Fall-through collision prevention (lastY boundary check)",
+    "Difficulty mode system with unlock progression",
+    "Themed particle effects (event-driven, type-based rendering)",
+    "Iterative gameplay balance (incremental tuning)"
+  ],
+  "tier_status": {
+    "tier": 2,
+    "games_completed": 8,
+    "tier_complete": true,
+    "next_tier": "Tier 3 - Character Control (Unity/Godot evaluation)"
+  },
+  "notes": "Final Tier 2 game demonstrating elevated standards from Platformer external review. Successfully integrated: multi-mode progression system, chord-based musical composition, atmospheric art techniques, time-travel theme consistency. Time-Slice Runner represents culmination of Tier 2 learning: modular architecture (Rule 11), procedural generation, resource management, professional audio/visual polish. Ready for Tier 3 transition and tech stack evaluation (Unity vs Godot)."
+}

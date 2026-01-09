@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0a0a0f;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+#container {
+    position: relative;
+}
+
+#gameCanvas {
+    display: block;
+    border: 2px solid #1a1a2e;
+    box-shadow: 0 0 40px rgba(100, 200, 255, 0.3);
+}
+
+#debug {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #64c8ff;
+    font-size: 11px;
+    opacity: 0.6;
+}
