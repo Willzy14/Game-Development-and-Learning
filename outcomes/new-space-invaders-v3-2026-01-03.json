@@ -1,0 +1,125 @@
+{
+  "project_id": "new-space-invaders-v3-2026-01-03",
+  "date": "2026-01-03",
+  "decisions": {
+    "task_type": "new",
+    "style": "stylized_realistic",
+    "age": 5,
+    "material": "metal",
+    "environment": "space_vacuum",
+    "lighting": "glow_only",
+    "composition": "moderate",
+    "color_palette": "vibrant_neon",
+    "special_requirements": ["60fps_required", "particles", "screen_shake", "modern_aesthetic"]
+  },
+  "loaded_docs": {
+    "core_rules": {
+      "path": "docs/bible/01-CORE_RULES.md",
+      "influence_weight": 1.0
+    },
+    "visual_techniques": {
+      "path": "docs/bible/03-VISUAL_TECHNIQUES.md",
+      "influence_weight": 1.0,
+      "reason": "Learning gradients, glows, particles, shadows"
+    },
+    "audio_mastery": {
+      "path": "docs/bible/02-AUDIO_MASTERY.md",
+      "influence_weight": 0.9,
+      "reason": "Enhanced audio with intensity variations"
+    },
+    "patterns_reference": {
+      "path": "docs/bible/04-PATTERNS_REFERENCE.md",
+      "influence_weight": 1.0,
+      "reason": "Enemy AI patterns, projectile systems, wave management"
+    },
+    "canvas_patterns": {
+      "path": "docs/bible/11-CANVAS_PATTERNS.md",
+      "influence_weight": 0.8,
+      "reason": "Advanced Canvas techniques for visual polish"
+    }
+  },
+  "forbidden_rules": {
+    "feature_cascade": "INCREMENTAL DEVELOPMENT ONLY - learned this the hard way in V2",
+    "skip_backups": "BACKUP BEFORE CHANGES - saved the project in V2"
+  },
+  "conflicts": [],
+  "result_quality": {
+    "gameplay": {
+      "rating": 5,
+      "notes": "Formation movement, wave progression, shield destruction, high scores all perfect"
+    },
+    "visuals": {
+      "rating": 5,
+      "notes": "V3 modern aesthetic - gradients, glows, starfield, particles. Massive upgrade from V1/V2"
+    },
+    "audio": {
+      "rating": 5,
+      "notes": "Intensity-responsive music, varied sound effects. Audio System extracted to shared-library"
+    },
+    "code_quality": {
+      "rating": 5,
+      "notes": "Clean OOP, well-organized. RULE 1 & 2 saved this project from V2 disaster"
+    }
+  },
+  "time_metrics": {
+    "planning_minutes": 30,
+    "implementation_minutes": 240,
+    "debugging_minutes": 90,
+    "polish_minutes": 60,
+    "total_minutes": 420
+  },
+  "patterns_to_keep": [
+    {
+      "pattern": "Incremental development (Rule 1)",
+      "why": "V2 added everything at once = cascade failure. ONE feature at a time saved V3",
+      "games_used": ["space-invaders-v2", "space-invaders-v3"]
+    },
+    {
+      "pattern": "Backup before changes (Rule 2)",
+      "why": "V1 backup saved entire project when V2 broke. Could diff to find issues",
+      "games_used": ["space-invaders-v2"]
+    },
+    {
+      "pattern": "Modern visual effects (gradients + glows + particles)",
+      "why": "Transformed game from retro to modern. Reusable pattern",
+      "games_used": ["space-invaders-v3"]
+    },
+    {
+      "pattern": "Formation enemy AI",
+      "why": "Wave movement pattern works well, easy to extend",
+      "games_used": ["space-invaders-v1", "space-invaders-v2", "space-invaders-v3"]
+    },
+    {
+      "pattern": "localStorage for high scores",
+      "why": "Persistence without backend, perfect for browser games",
+      "games_used": ["space-invaders-v1", "space-invaders-v2", "space-invaders-v3"]
+    },
+    {
+      "pattern": "Shared library extraction (Rule of Three)",
+      "why": "Audio System used in 3 games = ready for extraction. Worked perfectly",
+      "games_used": ["pong", "breakout", "space-invaders"]
+    }
+  ],
+  "patterns_to_avoid": [
+    {
+      "pattern": "Adding multiple features simultaneously",
+      "why": "V2 cascade failure: particles + screen shake + shields + collision changes = impossible to debug",
+      "lesson": "ONE feature at a time. Test after EACH change. Non-negotiable."
+    },
+    {
+      "pattern": "Canvas state pollution",
+      "why": "Shadow/alpha leaked between frames causing visual artifacts",
+      "lesson": "save()/restore() or manually reset shadow/alpha after use"
+    }
+  ],
+  "violations": [
+    {
+      "rule": "Rule 1: Incremental Development",
+      "when": "V2 implementation",
+      "consequence": "Complete cascade failure, 3x debugging time",
+      "fix": "Returned to V1 backup, rebuilt V2 feature-by-feature",
+      "lesson_learned": "This rule is NON-NEGOTIABLE"
+    }
+  ],
+  "notes": "Three versions taught critical lessons. V1 = fundamentals. V2 = learned Rule 1 & 2 the hard way (cascade failure). V3 = modern visual polish with proper incremental workflow. Audio System extraction validated Rule of Three. This game established the Hard Rules."
+}

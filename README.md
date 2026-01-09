@@ -70,14 +70,16 @@ Game-Development-and-Learning/
 ### [Tier 2: Core Mechanics](games/tier-2-core-mechanics)
 **Goal**: Dynamic gameplay  
 **Skills**: Procedural generation, timing-based gameplay, object pooling  
-**Games**: Flappy Bird, Endless Runner, Simple Shooter  
-**Status**: 🔒 Locked
+**Games**: Flappy Bird ✅, Asteroids v2 ✅, Platformer 🚧, Endless Runner, Simple Shooter  
+**Tech Stack**: JavaScript + HTML5 Canvas 2D  
+**Status**: 🚧 In Progress (3/5 games complete)
 
 ### [Tier 3: Character Control](games/tier-3-character-control)
 **Goal**: Complex movement and combat  
 **Skills**: Character controllers, projectiles, enemy AI, state machines  
 **Games**: Top-Down Shooter, 2D Platformer  
-**Status**: 🔒 Locked
+**Tech Stack**: Unity or Godot (to be decided at tier start)  
+**Status**: 🔒 Locked (requires Tier 2 completion)
 
 ### [Tier 4: Systems Integration](games/tier-4-systems-integration)
 **Goal**: Multiple interconnected systems  
@@ -101,12 +103,16 @@ Game-Development-and-Learning/
 
 ## 📊 Current Progress
 
-**Current Tier**: 1 (Complete) → Ready for Tier 2  
-**Current Game**: Tier 1 Complete!  
-**Games Completed**: 4 (Pong, Breakout, Space Invaders, Snake)  
-**V2 Mastery Editions**: 4  
-**Skills Mastered**: 43+ visual techniques, advanced audio, localStorage, mobile controls  
-**Hours Logged**: ~25  
+**Current Tier**: 2 (Core Mechanics) — In Progress  
+**Current Game**: Platformer "Lantern Spirit" (playable, needs polish)  
+**Games Completed**: 7 (Pong, Breakout, Space Invaders, Snake, Flappy Bird, Asteroids v2, Platformer base)  
+**Tech Stack**: JavaScript + HTML5 Canvas 2D (Tier 1-2)  
+**Future Stack**: Unity or Godot evaluation at Tier 3 transition  
+**V2 Mastery Editions**: 4 (all Tier 1 games)  
+**Shared Libraries Extracted**: 2 (Audio System, Collision Utils)  
+**Decision-Graph**: v1.1 operational, v1.2 validated  
+**Skills Mastered**: Game loop, collision, state machines, procedural generation, variable jump physics, modular architecture  
+**Hours Logged**: ~40  
 
 ---
 

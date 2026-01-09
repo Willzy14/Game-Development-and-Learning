@@ -1,0 +1,114 @@
+{
+  "project_id": "new-snake-2026-01-04",
+  "date": "2026-01-04",
+  "decisions": {
+    "task_type": "new",
+    "style": "abstract_geometric",
+    "age": 0,
+    "material": "none",
+    "environment": "abstract",
+    "lighting": "ambient",
+    "composition": "simple",
+    "color_palette": "vibrant",
+    "special_requirements": ["60fps_required", "grid_based", "mobile_controls", "procedural_art"]
+  },
+  "loaded_docs": {
+    "core_rules": {
+      "path": "docs/bible/01-CORE_RULES.md",
+      "influence_weight": 1.0
+    },
+    "visual_techniques": {
+      "path": "docs/bible/03-VISUAL_TECHNIQUES.md",
+      "influence_weight": 0.7,
+      "reason": "Particles for food collection"
+    },
+    "audio_mastery": {
+      "path": "docs/bible/02-AUDIO_MASTERY.md",
+      "influence_weight": 1.0,
+      "reason": "Background music system (Rule 7)"
+    },
+    "ui_controls": {
+      "path": "docs/bible/06-UI_CONTROLS.md",
+      "influence_weight": 1.0,
+      "reason": "Mobile touch controls, settings modal"
+    }
+  },
+  "forbidden_rules": {
+    "be_lazy": "V2 must demonstrate SIGNIFICANT improvement (Rule 8 violation initially caught)"
+  },
+  "conflicts": [],
+  "result_quality": {
+    "gameplay": {
+      "rating": 5,
+      "notes": "Classic Snake mechanics perfect, speed increases with score, mobile controls work well"
+    },
+    "visuals": {
+      "rating": 4,
+      "notes": "V2 added procedural space background (planets, ships), particle effects. Initially lazy (just color change) but corrected"
+    },
+    "audio": {
+      "rating": 5,
+      "notes": "Background music system implemented (Rule 7), intensity responds to game state"
+    },
+    "code_quality": {
+      "rating": 4,
+      "notes": "Clean grid-based logic, settings persistence, mobile support"
+    }
+  },
+  "time_metrics": {
+    "planning_minutes": 20,
+    "implementation_minutes": 150,
+    "debugging_minutes": 45,
+    "polish_minutes": 40,
+    "total_minutes": 255
+  },
+  "patterns_to_keep": [
+    {
+      "pattern": "Background music system (Rule 7)",
+      "why": "Transforms functional to immersive. Snake V1 felt incomplete without it",
+      "games_used": ["snake-v1", "snake-v2"]
+    },
+    {
+      "pattern": "Mobile touch controls",
+      "why": "Swipe gestures work naturally for Snake, increases accessibility",
+      "games_used": ["snake-v2"]
+    },
+    {
+      "pattern": "Settings modal with localStorage",
+      "why": "Music on/off toggle, persists across sessions",
+      "games_used": ["snake-v2"]
+    },
+    {
+      "pattern": "Grid-based movement",
+      "why": "Perfect for Snake, clean state management",
+      "games_used": ["snake-v1", "snake-v2"]
+    }
+  ],
+  "patterns_to_avoid": [
+    {
+      "pattern": "Lazy V2 upgrades (just color changes)",
+      "why": "V2 initial attempt: changed green to cyan, called it 'mastery'. User pushed back",
+      "lesson": "V2+ must be UNRECOGNIZABLE from V1. Demonstrate SIGNIFICANT improvement (Rule 8)"
+    },
+    {
+      "pattern": "Code in conversation ≠ code on disk",
+      "why": "Designed 900+ lines of procedural art in chat but never wrote to disk",
+      "lesson": "ALWAYS use file manipulation tools after designing code (FAILURE_ARCHIVE entry)"
+    },
+    {
+      "pattern": "HTML IDs mismatch",
+      "why": "Multiple null reference errors from mismatched IDs (settingsBtn vs settings-btn)",
+      "lesson": "Write HTML first, copy IDs exactly to JavaScript (Rule 3)"
+    }
+  ],
+  "violations": [
+    {
+      "rule": "Rule 8: NEVER Be Lazy",
+      "when": "Snake V2 initial attempt",
+      "consequence": "User disappointment, no actual learning occurred",
+      "fix": "Complete rewrite with procedural art, particles, mobile controls",
+      "lesson_learned": "This is a LEARNING PROJECT - demonstrate mastery or don't call it V2"
+    }
+  ],
+  "notes": "Established Rule 7 (background music required) and Rule 8 (NEVER be lazy). Initial V2 was just color change - caught and corrected. Final version added space theme with procedural art, particles, mobile support. Code-in-conversation failure caught early."
+}

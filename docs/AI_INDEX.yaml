@@ -1,0 +1,390 @@
+# AI Index - Machine-Readable Repo Map
+# Version: 1.0
+# Last Updated: 2026-01-09
+# Purpose: Structured directory for AI task routing and context loading
+
+version: 1.0
+last_updated: "2026-01-09"
+
+# Single entry point for AI onboarding
+start_here:
+  primary: START_HERE.md
+  game_specific: GAME_SESSION_PROMPT.md
+  description: "Copy START_HERE.md for general context, GAME_SESSION_PROMPT.md when starting new game"
+
+# Current repository state
+current_state:
+  tier: "Tier 2 (Core Mechanics)"
+  tier_status: "In Progress"
+  tech_stack: "JavaScript + HTML5 Canvas 2D"
+  future_stack: "Unity/Godot evaluation at Tier 3"
+  games_completed: 7
+  games_list:
+    - "001-pong (Tier 1)"
+    - "002-breakout (Tier 1)"
+    - "003-space-invaders (Tier 1)"
+    - "004-snake (Tier 1)"
+    - "005-flappy-bird (Tier 2)"
+    - "006-asteroids-v2 (Tier 2)"
+    - "007-platformer (Tier 2 - base complete, polish pending)"
+  active_work: "Platformer 'Lantern Spirit' polish"
+  shared_libraries: 2
+  decision_graph_version: "v1.1 operational, v1.2 validated"
+
+# Core documentation organized by purpose
+high_value_docs:
+  rules:
+    - path: docs/bible/BIBLE_INDEX.md
+      priority: critical
+      when: "Read FIRST before any work"
+      description: "Master index with 13 non-negotiable rules"
+    
+    - path: docs/bible/01-CORE_RULES.md
+      priority: critical
+      when: "Reference for expanded rule details"
+      description: "925 lines of rules + prevention checklists"
+    
+    - path: docs/bible/17-MODULAR_ARCHITECTURE.md
+      priority: critical
+      when: "ANY game development (Rule 11)"
+      description: "Mechanics/presentation separation - prevents reskin disasters"
+
+  pitfalls:
+    - path: docs/FAILURE_ARCHIVE.md
+      priority: critical
+      when: "Before starting ANY task"
+      description: "406 lines of documented mistakes - learn from failures"
+    
+    - path: docs/retrospectives/
+      priority: high
+      when: "Learning from completed games"
+      description: "Per-game deep reflection"
+
+  progress:
+    - path: docs/ACTIVE_WORK.md
+      priority: critical
+      when: "Every session start"
+      description: "Current multi-session projects, next actions"
+    
+    - path: docs/LEARNING_JOURNEY.md
+      priority: high
+      when: "Understanding tier status"
+      description: "High-level progress, 477 lines"
+    
+    - path: docs/SKILLS_TRACKER.md
+      priority: high
+      when: "Checking what's already learned"
+      description: "Skills checklist with confidence ratings"
+
+  philosophy:
+    - path: docs/DEVELOPMENT_PHILOSOPHY.md
+      priority: medium
+      when: "Understanding 'why' behind the system"
+      description: "Project mission and values"
+    
+    - path: README.md
+      priority: medium
+      when: "Human overview of repo"
+      description: "User-friendly repo introduction"
+
+# Decision-Graph system files
+decision_graph:
+  v1_1:
+    status: "operational"
+    interrogation_tool: tools/planning-generator/interrogate.js
+    usage: "node tools/planning-generator/interrogate.js"
+    coverage: "60% (visual-focused)"
+    questions: "Q0-Q9 + Q2.5 conditional"
+    
+  v1_2:
+    status: "specification validated, implementation deferred"
+    spec_file: docs/DECISION_GRAPH_V1.2_SPEC.md
+    coverage: "85% (adds gameplay mechanics Q10-Q18)"
+    when_to_implement: "First racing game OR Tier 3 transition"
+    external_reviews: 2
+    critical_fixes:
+      - "Variable timestep → fixed timestep for racing"
+      - "Environment split: physics (Q4a) + rendering (Q4b)"
+      - "Genre mechanics before visuals (priority 88-89 vs 70-85)"
+      - "Proof-of-fun gate with measurable criteria"
+      - "Platform/engine decision early (Q0.6)"
+  
+  outcome_logs:
+    directory: outcomes/
+    query_tool: outcomes/query.js
+    usage: "node outcomes/query.js task_type=reskin"
+    template: outcomes/template.json
+    examples:
+      - outcomes/reskin-pong-painterly-2026-01-08.json
+    status: "1 log exists, 6 backfill candidates"
+
+# Shared library status (Rule of Three)
+shared_library:
+  location: shared-library/
+  rule: "Extract ONLY after used in 3+ games"
+  
+  extracted:
+    - name: "AudioSystem"
+      path: shared-library/audio/AudioSystem.js
+      origin_games: ["Pong", "Breakout", "Space Invaders"]
+      description: "Web Audio API patterns, procedural synthesis"
+    
+    - name: "CollisionUtils"
+      path: shared-library/collision/CollisionUtils.js
+      origin_games: ["Pong", "Breakout", "Space Invaders"]
+      description: "AABB collision detection helpers"
+  
+  candidates:
+    - name: "Particle Systems"
+      used_in: ["Snake", "Space Invaders", "Flappy Bird", "Asteroids", "Platformer"]
+      games_count: 5
+      status: "READY for extraction (exceeded Rule of Three)"
+    
+    - name: "State Machines"
+      used_in: ["Breakout", "Space Invaders", "Snake", "Flappy Bird"]
+      games_count: 4
+      status: "READY for extraction (exceeded Rule of Three)"
+    
+    - name: "Combo Systems"
+      used_in: ["Asteroids", "Platformer"]
+      games_count: 2
+      status: "Need 1 more use"
+  
+  guidelines: shared-library/README.md
+
+# Templates for new work
+templates:
+  - path: templates/game-project-template.md
+    when: "Starting new game"
+    description: "Project structure and planning"
+  
+  - path: templates/game-retrospective-template.md
+    when: "Game completed"
+    description: "Post-mortem reflection"
+  
+  - path: templates/weekly-log-template.md
+    when: "Session documentation"
+    description: "Weekly progress tracking"
+  
+  - path: templates/game-context-pack-template.md
+    when: "Creating per-game AI context"
+    description: "Game-specific context for AI sessions"
+    status: "NEW - created 2026-01-09"
+
+# Bible documentation structure
+bible_docs:
+  meta:
+    - docs/bible/BIBLE_INDEX.md
+    - docs/bible/CHANGELOG.md
+    - docs/bible/MAINTENANCE.md
+    - docs/bible/DECISION_GRAPH.md
+  
+  foundational:
+    - docs/bible/01-CORE_RULES.md
+    - docs/bible/08-QUICK_REFERENCE.md
+  
+  technical:
+    - docs/bible/02-AUDIO_MASTERY.md
+    - docs/bible/03-VISUAL_TECHNIQUES.md
+    - docs/bible/04-PATTERNS_REFERENCE.md
+    - docs/bible/05-TECHNOLOGIES.md
+    - docs/bible/06-UI_CONTROLS.md
+    - docs/bible/07-DEBUG_QUALITY.md
+    - docs/bible/11-CANVAS_PATTERNS.md
+    - docs/bible/14-CANVAS_IMPLEMENTATION_PATTERNS.md
+    - docs/bible/17-MODULAR_ARCHITECTURE.md
+  
+  art_fundamentals:
+    - docs/bible/10-ART_FUNDAMENTALS.md
+    - docs/bible/12-EDGE_MASTERY.md
+    - docs/bible/13-MATERIAL_LOGIC.md
+    - docs/bible/15-REALISM_VALIDATION.md
+    - docs/bible/16-TECHNIQUE_SELECTION.md
+    - docs/bible/18-COMPOSITION_THEORY.md
+    - docs/bible/19-COLOR_HARMONY.md
+    - docs/bible/20-ART_STYLES.md
+    - docs/bible/21-CLASSICAL_TECHNIQUES.md
+    - docs/bible/22-LANDSCAPE_MASTERS.md
+    - docs/bible/23-ENVIRONMENTAL_STORYTELLING.md
+    - docs/bible/24-REALISM_DEGRADATION.md
+  
+  session_tracking:
+    - docs/bible/09-SESSION_NOTES.md
+
+# Task-specific routing (what to load for each task type)
+task_routing:
+  new_game:
+    entry_point: GAME_SESSION_PROMPT.md
+    must_load:
+      - docs/bible/BIBLE_INDEX.md
+      - docs/bible/01-CORE_RULES.md
+      - docs/bible/17-MODULAR_ARCHITECTURE.md
+      - docs/FAILURE_ARCHIVE.md
+      - docs/ACTIVE_WORK.md
+    workflow:
+      - "Answer Q-0a: new/scaffold/reskin/extend/fix"
+      - "Run interrogation (Q0.6, genre, Q1-Q9)"
+      - "Generate planning doc"
+      - "Check shared-library/ for reusable code"
+      - "Implement with modular architecture"
+      - "Complete outcome log"
+    optional_load:
+      - docs/bible/02-AUDIO_MASTERY.md
+      - docs/bible/03-VISUAL_TECHNIQUES.md
+      - shared-library/audio/AudioSystem.js
+      - shared-library/collision/CollisionUtils.js
+  
+  reskin_game:
+    entry_point: START_HERE.md
+    must_load:
+      - docs/bible/01-CORE_RULES.md (Rule 11)
+      - docs/bible/17-MODULAR_ARCHITECTURE.md
+      - docs/FAILURE_ARCHIVE.md (Inca Breakout warning)
+    workflow:
+      - "Q0 answer MUST be 'B - Reskin'"
+      - "Load Rule 11 - mechanics/presentation separation"
+      - "ONLY modify: theme.js + audio.js"
+      - "NEVER touch: game.js"
+      - "Validate: gameplay identical to original"
+    forbidden:
+      - "Changing any game.js constants or mechanics"
+      - "Modifying collision, physics, scoring systems"
+  
+  art_study:
+    entry_point: START_HERE.md
+    must_load:
+      - docs/bible/10-ART_FUNDAMENTALS.md
+      - docs/bible/12-EDGE_MASTERY.md
+      - docs/bible/13-MATERIAL_LOGIC.md
+      - docs/bible/16-TECHNIQUE_SELECTION.md
+    optional_load:
+      - docs/bible/18-COMPOSITION_THEORY.md
+      - docs/bible/19-COLOR_HARMONY.md
+      - docs/bible/20-ART_STYLES.md
+      - docs/bible/21-CLASSICAL_TECHNIQUES.md
+      - docs/bible/24-REALISM_DEGRADATION.md
+    workflow:
+      - "Determine subject (landscape/portrait/scene)"
+      - "Select techniques problem-first (not all at once)"
+      - "Follow art study workflow from Bible docs"
+  
+  extend_feature:
+    entry_point: START_HERE.md
+    must_load:
+      - docs/bible/01-CORE_RULES.md (Rule 1: incremental)
+      - docs/bible/17-MODULAR_ARCHITECTURE.md
+      - docs/FAILURE_ARCHIVE.md
+    workflow:
+      - "Read existing game code first"
+      - "Identify: mechanics vs visuals"
+      - "Add ONE feature at a time (Rule 1)"
+      - "Test after each change"
+      - "Backup before major modifications (Rule 2)"
+  
+  debug_fix:
+    entry_point: START_HERE.md
+    must_load:
+      - docs/FAILURE_ARCHIVE.md
+      - docs/bible/07-DEBUG_QUALITY.md
+    workflow:
+      - "Search FAILURE_ARCHIVE for similar issues"
+      - "Check prevention strategies"
+      - "Make minimal targeted fix"
+      - "Test thoroughly"
+  
+  extract_to_shared_library:
+    entry_point: shared-library/README.md
+    must_load:
+      - shared-library/README.md (Rule of Three)
+      - docs/bible/01-CORE_RULES.md
+    workflow:
+      - "Verify: Used in 3+ games? If no, STOP"
+      - "Document origin games"
+      - "Extract component"
+      - "Test in original games"
+      - "Update shared-library/README.md"
+      - "Update docs/AI_INDEX.yaml"
+
+# Update triggers (when to modify this file)
+update_triggers:
+  tier_completion:
+    when: "Tier X completed, moving to Tier X+1"
+    update:
+      - current_state.tier
+      - current_state.tier_status
+      - current_state.games_completed
+      - START_HERE.md current state section
+  
+  tech_stack_change:
+    when: "Canvas → Unity/Godot transition"
+    update:
+      - current_state.tech_stack
+      - task_routing entries (new engine workflow)
+      - bible_docs (add Unity-specific docs)
+      - START_HERE.md tech stack section
+  
+  shared_library_extraction:
+    when: "Component passes Rule of Three"
+    update:
+      - shared_library.extracted (add new entry)
+      - shared_library.candidates (remove if promoted)
+      - current_state.shared_libraries (increment count)
+      - START_HERE.md shared libraries count
+  
+  new_bible_doc:
+    when: "New doc added to docs/bible/"
+    update:
+      - bible_docs (add to appropriate category)
+      - task_routing (if relevant to specific tasks)
+  
+  decision_graph_version:
+    when: "v1.2 implemented OR v1.3 created"
+    update:
+      - decision_graph.v1_1.status or add v1_2.status
+      - current_state.decision_graph_version
+      - START_HERE.md decision-graph status
+  
+  major_milestone:
+    when: "10 games, Tier 3 start, production release"
+    update:
+      - Archive previous AI_INDEX.yaml version
+      - Increment version number
+      - Update last_updated timestamp
+
+# Repo structure quick reference
+structure:
+  games: "games/ - All game projects organized by tier"
+  bible: "docs/bible/ - 28 knowledge base documents"
+  failures: "docs/FAILURE_ARCHIVE.md - 406 lines of mistakes"
+  progress: "docs/LEARNING_JOURNEY.md - 477 lines progress log"
+  outcomes: "outcomes/ - Learning pattern memory"
+  shared: "shared-library/ - Rule of Three extracted code"
+  tools: "tools/ - Planning generator (interrogate.js)"
+  templates: "templates/ - Project scaffolding"
+  archive: "archive/ - Old iterations (safe to ignore)"
+
+# Quick reference for AI
+ai_quick_reference:
+  first_session: "Read START_HERE.md completely"
+  every_session: "Check docs/ACTIVE_WORK.md for current projects"
+  new_game: "Copy GAME_SESSION_PROMPT.md, follow interrogation"
+  reskin: "Load Rule 11, modify theme.js + audio.js only"
+  art: "Load Bible docs 10-24"
+  debug: "Check FAILURE_ARCHIVE.md first"
+  extract: "Verify Rule of Three, update AI_INDEX.yaml after"
+
+# Maintenance notes
+maintenance:
+  responsible: "AI assistants working in repo"
+  validation_frequency: "Every tier transition OR major change"
+  validation_checklist:
+    - "START_HERE.md matches ACTIVE_WORK.md"
+    - "Rule count matches BIBLE_INDEX.md"
+    - "Shared library count matches shared-library/README.md"
+    - "Tech stack matches README.md"
+    - "File paths are all valid"
+  
+  self_healing:
+    - "If contradiction found, update START_HERE.md + AI_INDEX.yaml"
+    - "Log sync in docs/weekly-logs/"
+    - "Version archive if major update"

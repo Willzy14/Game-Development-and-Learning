@@ -1,0 +1,106 @@
+{
+  "project_id": "new-flappy-bird-egypt-2026-01-06",
+  "date": "2026-01-06",
+  "decisions": {
+    "task_type": "new",
+    "style": "painterly_impressionist",
+    "age": 3000,
+    "material": "stone",
+    "environment": "desert_outdoor",
+    "lighting": "harsh_sun",
+    "composition": "complex",
+    "color_palette": "warm_desert",
+    "special_requirements": ["parallax_scrolling", "procedural_generation", "theme_swappable"]
+  },
+  "loaded_docs": {
+    "core_rules": {
+      "path": "docs/bible/01-CORE_RULES.md",
+      "influence_weight": 1.0
+    },
+    "visual_techniques": {
+      "path": "docs/bible/03-VISUAL_TECHNIQUES.md",
+      "influence_weight": 1.0,
+      "reason": "Parallax scrolling, painterly rendering"
+    },
+    "art_fundamentals": {
+      "path": "docs/bible/10-ART_FUNDAMENTALS.md",
+      "influence_weight": 0.9,
+      "reason": "Egyptian art study influence"
+    },
+    "edge_mastery": {
+      "path": "docs/bible/12-EDGE_MASTERY.md",
+      "influence_weight": 0.8,
+      "reason": "Soft edges for painterly style"
+    },
+    "color_harmony": {
+      "path": "docs/bible/19-COLOR_HARMONY.md",
+      "influence_weight": 0.9,
+      "reason": "Warm desert palette"
+    },
+    "patterns_reference": {
+      "path": "docs/bible/04-PATTERNS_REFERENCE.md",
+      "influence_weight": 1.0,
+      "reason": "Procedural generation, infinite scrolling"
+    }
+  },
+  "forbidden_rules": {
+    "self_censor_vision": "Plan ALL features, deliver in chunks (Rule 12)"
+  },
+  "conflicts": [],
+  "result_quality": {
+    "gameplay": {
+      "rating": 5,
+      "notes": "Infinite procedural pipes, perfect physics, score tracking, difficulty progression"
+    },
+    "visuals": {
+      "rating": 5,
+      "notes": "Painterly Egyptian theme, 3-layer parallax, art study quality achieved"
+    },
+    "audio": {
+      "rating": 5,
+      "notes": "Procedural flap/score/death sounds match theme"
+    },
+    "code_quality": {
+      "rating": 5,
+      "notes": "Clean procedural generation, parallax system reusable"
+    }
+  },
+  "time_metrics": {
+    "planning_minutes": 25,
+    "implementation_minutes": 180,
+    "debugging_minutes": 35,
+    "polish_minutes": 50,
+    "total_minutes": 290
+  },
+  "patterns_to_keep": [
+    {
+      "pattern": "Parallax scrolling (3+ layers)",
+      "why": "Creates depth, essential for side-scrollers. Background/midground/foreground",
+      "games_used": ["flappy-bird-egypt"]
+    },
+    {
+      "pattern": "Procedural pipe generation",
+      "why": "Infinite gameplay without level design. Gap variance adds challenge",
+      "games_used": ["flappy-bird-egypt"]
+    },
+    {
+      "pattern": "Theme swapping architecture",
+      "why": "V4 swapped Egypt → Jungle by changing theme.js only (no mechanics touched)",
+      "games_used": ["flappy-bird-egypt", "flappy-bird-jungle"]
+    },
+    {
+      "pattern": "Art study quality in games",
+      "why": "Egyptian art studies translated directly to game backgrounds. Rule 12.1 established",
+      "games_used": ["flappy-bird-egypt"]
+    }
+  ],
+  "patterns_to_avoid": [
+    {
+      "pattern": "Chunking = less detail",
+      "why": "Conflated 'breaking into chunks' with 'reducing code'. 600 lines vs V1's 1600 = quality drop",
+      "lesson": "Chunking is ORGANIZATION not REDUCTION. Plan MORE lines than previous (FAILURE_ARCHIVE)"
+    }
+  ],
+  "violations": [],
+  "notes": "First game to demonstrate art study integration (Rule 12.1 - art protocols apply everywhere). Parallax scrolling established. Procedural generation learned. Theme swapping validated for V4 Jungle variant. Established that game backgrounds ARE landscapes."
+}
